@@ -121,8 +121,8 @@ CustomPlaceholder.prototype = {
 	},
 	position: function(){
 		var position = getPositionInDoc(this.input);
-		this.hint.style.left = position.left + 'px';
-		this.hint.style.top = position.top + 'px';
+		this.hint.style.left = position.left + this.option.xOffset + 'px';
+		this.hint.style.top = position.top + this.option.yOffset + 'px';
 	}
 };
 
