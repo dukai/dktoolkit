@@ -1,3 +1,9 @@
 body{background:#eee;}
+header{}
+#logo_area{}
+#logo{font-size:24px;font-weight:bold;}
 
 a{color:#333;text-decoration:none;}
+
+#demos{}
+#demos article h2{font-size:14px;}
