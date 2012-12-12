@@ -1,8 +1,13 @@
-body{background:#eee;}
-header{}
-#logo_area{}
-#logo{font-size:24px;font-weight:bold;}
-
+body{background:#eee;padding:0;margin:0;}
+header{
+	background:#ccc;
+	background-image:-webkit-linear-gradient(#eee, #ccc);
+}
+#logo_area{height:60px;}
+#logo{font-size:24px;font-weight:bold;line-height:60px;padding-left:1em;text-shadow:1px 1px 1px #fff;}
+header nav{background:#4c5562;}
+header nav ul li{display:inline-block;list-style:none;}
+header nav ul li a{color:#fff;font-size:14px;line-height:36px;}
 a{color:#333;text-decoration:none;}
 
 #demos{}
