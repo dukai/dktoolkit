@@ -18,6 +18,30 @@ header nav ul li a:hover{
 }
 a{color:#333;text-decoration:none;}
 .clr{clear:both;}
+.message, .warning, .success, .danger{
+	border-radius:2px;
+	line-height:24px;
+	padding:4px;
+	border-width:1px;
+	border-style:solid;
+	margin-bottom:10px;
+}
+.message{
+	border-color:#ccc;
+	background:#f1f1f1;
+}
+.warning{
+	border-color:#ffc46f;
+	background:#fffae7;
+}
+.success{
+	border-color:#339900;
+	background:#e9ffe2;
+}
+.danger{
+	border-color:#900;
+	background:#ffefef;
+}
 #main{margin:20px;border:1px solid #ccc;box-shadow:0 0 5px #ccc;border-radius:3px 3px 0 0;background:#fff;}
 
 .box_header{height:36px;
@@ -30,6 +54,7 @@ a{color:#333;text-decoration:none;}
 	color:#333;
 	text-indent:1em;
 	box-shadow:0 2px 2px #ccc;
+	font-weight:bold;
 }
 
 #sub{
@@ -39,9 +64,12 @@ a{color:#333;text-decoration:none;}
 	/*padding-top:10px;*/
 	min-height:500px;
 	border-right:1px solid #ccc;
+	padding:4px;
 }
 #sub ul{
-	padding:4px;
+}
+#sub ul.sub li a{text-indent:2em;}{
+	
 }
 #sub ul li a{
 	/*background:#4c5562;
@@ -50,13 +78,19 @@ a{color:#333;text-decoration:none;}
 	text-shadow:1px 1px 1px #000;*/
 }
 #sub ul li a{display:block;line-height:30px;text-indent:.5em;}
-#sub ul li.select a, #sub ul li a:hover{
+#sub ul a.select, #sub ul li a:hover{
 	border-radius:3px;
 	background:#1a659f;
 	background-image:-webkit-linear-gradient(#2076b9, #1a659f);
 	color:#fff;
 }
 
+#sub ul li a:hover{
+	background:#549cd4;
+	background-image:-webkit-linear-gradient(#5da6df, #549cd4);
+	color:#fff;
+}
+#main_content{margin-left:230px;padding:10px;}
 #demos{padding:10px;}
 #demos article h2{font-size:14px;}
 
