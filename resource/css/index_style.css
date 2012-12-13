@@ -1,5 +1,6 @@
-body{background:#f1f1f1;padding:0;margin:0;font-size:14px;}
+body{background:#f1f1f1;padding:0;margin:0;font-size:14px;min-width:960px;}
 ul,li{padding:0;margin:0;list-style:none;}
+h1, h2, h3, h4, h5{margin:0;padding:0;}
 header{
 	background:#ccc;
 	background-image:-webkit-linear-gradient(#eee, #ccc);
@@ -42,6 +43,9 @@ a{color:#333;text-decoration:none;}
 	border-color:#900;
 	background:#ffefef;
 }
+
+.cline{overflow:hidden;margin-bottom:10px;}
+
 #main{margin:20px;border:1px solid #ccc;box-shadow:0 0 5px #ccc;border-radius:3px 3px 0 0;background:#fff;}
 
 .box_header{height:36px;
@@ -91,6 +95,56 @@ a{color:#333;text-decoration:none;}
 	color:#fff;
 }
 #main_content{margin-left:230px;padding:10px;}
+#main_content h1{font-size:20px;line-height:36px;border-bottom:1px solid #ccc;}
+#main_content h2{font-size:16px;line-height:36px;border-bottom:1px solid #ccc;}
+#main_content h3{font-size:14px;line-height:36px;border-bottom:1px solid #ccc;}
+.form_box{
+	
+}
+
+.fields_box{
+	border:1px solid #ccc;
+	background:#f1f1f1;
+	padding:10px;
+	margin-bottom:10px;
+	border-radius:2px;
+}
+.form_box label{
+	display:block;
+	float:left;
+	line-height:30px;
+	width:50px;
+}
+.form_box input{height:24px;line-height:24px;font-size:14px;border-radius:2px;border:1px solid #aaa;}
+button.btn, button.btn_gray{
+	border:none;
+	color:#fff;
+	line-height:30px;
+	padding:0 16px;
+	border-radius:2px;
+	font-size:14px;
+	cursor:pointer;
+}
+button.btn{
+	background:#1a659f;
+	background-image:-webkit-linear-gradient(#2076b9, #1a659f);
+}
+
+button.btn_gray{
+	background:#4c5562;
+	background-image:-webkit-linear-gradient(#5a6472, #4c5562);
+}
+table.common{
+	width:100%;
+	table-layout:fixed;
+	border-spacing:0;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+}
+table.common tr{}
+table.common tr th, table.common tr td{line-height:24px;border-bottom:1px solid #ccc;border-left:none;border-right:none;}
+table.common tr th{background:#f1f1f1;}
+table.common tr td{}
 #demos{padding:10px;}
 #demos article h2{font-size:14px;}
 
