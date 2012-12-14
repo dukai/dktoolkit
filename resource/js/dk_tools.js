@@ -404,64 +404,6 @@ function (win) {
 	
 	dk.removeNode = removeNode;
 	
-    //日志
-
-    function myLogs(id) {
-        id = id || 'defaultDebugLogs';
-        var logsWindow = null;
-        var initWindow = function () {
-            logsWindow = document.createElement('ol');
-            logsWindow.setAttribute('id', id);
-            var winStyle = logsWindow.style;
-            winStyle.position = 'fixed';
-            winStyle.top = '10px';
-            winStyle.right = '10px';
-            winStyle.width = '300px';
-            winStyle.height = '600px';
-            winStyle.overflow = 'auto';
-            winStyle.border = '1px solid #ccc';
-            winStyle.background = '#fff';
-            winStyle.padding = 0;
-            winStyle.margin = 0;
-            document.body.appendChild(logsWindow);
-        };
-        this.writeRow = function (message) {
-            logsWindow || initWindow();
-            var newItem = document.createElement('li');
-            newItem.style.padding = '2px';
-            newItem.style.margin = '0 0 1px 0';
-            newItem.style.background = '#eee';
-            if (typeof(message) == 'undefined') {
-                newItem.innerHTML = '<span style=\"color:#f90;\">Message is undefined</span>';
-            } else {
-                newItem.innerHTML = message;
-            }
-            logsWindow.appendChild(newItem);
-        };
-    }
-
-    myLogs.prototype = {
-        write: function (message) {
-
-            if (typeof(message) == 'string' && message.length == 0) {
-                return this.writeRow('<span style=\"color:#900;\">warning:</span> empty message');
-            }
-            if (typeof(message) != 'string' && typeof(message) != 'undefined') {
-                if (message.toString) return this.writeRow(message.toString());
-                else
-                return this.writeRow(typeof(message));
-            }
-            if (typeof(message) == 'undefined') {
-                return this.writeRow('<span style=\"color:#f90;\">Message is undefined</span>');
-            }
-            message = message.replace(/</g, "&lt;").replace(/</g, "&gt;");
-            return this.writeRow(message);
-        },
-        header: function (message) {
-            return this.writeRow(message);
-        }
-    };
-    dk.logs = new myLogs('log');
     //Dom加载完成事件
 
     var ready = function(loadEvent) {
