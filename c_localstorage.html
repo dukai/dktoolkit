@@ -65,12 +65,93 @@
 	</nav>
 	
 	<div id="main_content">
+		<div class="warning">local storage本地存储必须从服务器打开页面才生效</div>
+		<div class="cline">
+			<h2>增强LocaStorage本地存储演示（支持IE6+）</h2>
+		</div>
+		<div class="form_box">
+			<form>
+			<div class="fields_box">
+				<div class="cline">
+					<label>用户名</label>
+					<input type="text" name="username" id="username" />
+				</div>
+				
+			</div>
+			<div class="cline">
+				<button id="save" class="btn" type="button">保存</button>
+				<button id="get" class="btn" type="button">获取</button>
+				<button id="clear" class="btn_gray" type="button">清除</button>
+			</div>
+			</form>
+		</div>
 		
+		<div class="cline">
+			<h2>示例代码</h2>
+		</div>
+		
+		<div class="cline">
+			<pre>
+window.storage.save('username', dk.$('username').value);
+window.storage.retrieve('username');
+window.storage.remove('username');
+			</pre>
+		</div>
+		
+		<div class="cline">
+			<h2>使用说明</h2>
+		</div>
+		<div class="cline">
+			在window对象上扩展了一个storage对象。直接调用window.storage对的相关方法即可。
+		</div>
+		<div class="cline">
+			<h3>window.storage.retrieve( name )</h3>
+		</div>
+		<div class="cline">
+			按给定的名称返回获取的内容。
+		</div>
+		<div class="cline">
+			<h3>window.storage.save( name, value)</h3>
+		</div>
+		<div class="cline">
+			按照给定名称保存内容，如果已经存在则覆盖。只能存储字符串类型。
+		</div>
+		<div class="cline">
+			<h3>window.storage.remove( name )</h3>
+		</div>
+		<div class="cline">
+			按照给定名称移除内容。
+		</div>
+		<div class="cline">
+			<h3>window.storage.clear()</h3>
+		</div>
+		<div class="cline">
+			清空本地存储内容。
+		</div>
 	</div>
 	<div class="clr"></div>
 </div>
 <footer>
 Copyright &copy; Dukai 2012
 </footer>
+<script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/storage.js"></script>
+<script>
+dk.addEvent('save', 'click', function(e){
+	window.storage.save('username', dk.$('username').value);
+	alert('保存成功！');
+});
+
+dk.addEvent('get', 'click', function(e){
+	dk.$('username').value = window.storage.retrieve('username');
+	alert('获取成功！');
+});
+
+dk.addEvent('clear', 'click', function(e){
+	window.storage.remove('username');
+	dk.$('username').value = '';
+	alert('清除成功！');
+});
+</script>
 </body>
 </html>
