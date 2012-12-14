@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>DK Toolkit Index</title>
+	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<header>
+	<div id="logo_area">
+		<a id="logo">DK Toolkit</a>
+	</div>
+	<nav>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">基础</a></li>
+			<li><a href="#">控件</a></li>
+			<li><a href="#">其他</a></li>
+		</ul>
+	</nav>
+</header>
+<div id="main">
+	<div class="box_header">
+		<span>首页</span>
+	</div>
+	<nav id="sub">
+		<ul>
+			<li><a href="#">基础</a>
+				<ul class="sub">
+					<li><a href="#" class="select">基础工具库</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#">动画</a></li>
+				</ul>
+			</li>
+			<li><a href="#">组件</a>
+				<ul class="sub">
+					<li><a href="#">本地存储增强</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
+					<li><a href="#">表单验证工具</a></li>
+					<li><a href="#">日历</a></li>
+					<li><a href="#">颜色拾取器</a></li>
+					<li><a href="#">拖拽</a></li>
+					<li><a href="#">多种特效幻灯片</a></li>
+					<li><a href="#">弹出窗口</a></li>
+					<li><a href="#">动态表格</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
+					<li><a href="#">简单的文本编辑器</a></li>
+					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#">标签控件</a></li>
+					<li><a href="#">树形菜单</a></li>
+					<li><a href="#">延迟加载</a></li>
+					<li><a href="#">图片浏览器</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#">其他</a>
+				<ul class="sub">
+					<li><a href="#">带角的气泡</a></li>
+					<li><a href="#">会动的眼珠</a></li>
+					<li><a href="#">HTML5时间轴</a></li>
+					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+	<div id="main_content">
+		
+		<div class="cline">
+			<h2>使用说明</h2>
+		</div>
+		<div class="cline">
+			基础库内容，仅包含简单的DOM操作。所有方法均扩展在window.dk对象上。
+		</div>
+		<div class="cline">
+			<h3>dk.$(id)</h3>
+		</div>
+		<div class="cline">
+			document.getElementById方法的替代方法。
+		</div>
+		<div class="cline">
+			<h3>dk.$c(tagName[, id, className])</h3>
+		</div>
+		<div class="cline">
+			根据给定的标签名创建DOM元素。id，className为可选参数。
+		</div>
+		<div class="cline">
+			<h3>dk.supportProperty(nodeType, property)</h3>
+		</div>
+		<div class="cline">
+			判断给定的标签是否支持给定的属性。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getElementsByClassName(className[, tag, parent])</h3>
+		</div>
+		<div class="cline">
+			根据className获取DOM元素。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.addEvent(node, type, listener)</h3>
+		</div>
+		<div class="cline">
+			添加事件的修正。修正ie下event对象的问题。修正perventDefault()方法；修正stopPropagation()；修正target对象；修正currentTarget对象。添加了两个自定义的事件：fover和fout。
+		</div>
+		<div class="cline">
+			<h3>dk.remove(node, type, listener)</h3>
+		</div>
+		<div class="cline">
+			移除事件的修正
+		</div>
+		
+		<div class="cline">
+			<h3>dk.bind(target, fn)</h3>
+		</div>
+		<div class="cline">
+			绑定方法，将fn的执行对象强制改为target对象。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.contains(parentNode, childNode)</h3>
+		</div>
+		<div class="cline">
+			判断一个对象是否包含在另外一个对象中。第一个参数是父对象，第二个参数是要检测是否被子对象。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.checkHover(event, target)</h3>
+		</div>
+		<div class="cline">
+			判断鼠标位置，是否滑出或滑入对象。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getBrowserSize()</h3>
+		</div>
+		<div class="cline">
+			获取浏览器窗口大小。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getPositionInDoc(target[, parent])</h3>
+		</div>
+		<div class="cline">
+			获取目标对象在页面中的位置。如果添加了parent参数测试获取相对parent对象的位置，parent对象的position值不可为static。
+			返回值为json对象{left: left, top: top}
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getMousePositionInDoc(event)</h3>
+		</div>
+		<div class="cline">
+			获取相对于document的鼠标位置。返回值为json对象{x:psitionX, y: positionY}
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getDocSize()</h3>
+		</div>
+		<div class="cline">
+			获取document的尺寸，返回值为json对象{width: width, height: height}
+		</div>
+		
+		<div class="cline">
+			<h3>dk.getScroll()</h3>
+		</div>
+		<div class="cline">
+			获取滚动条的位置，返回值为json对象{left: left, top: top}
+		</div>
+		
+		<div class="cline">
+			<h3>dk.now()</h3>
+		</div>
+		<div class="cline">
+			返回当前的日期。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.rand(m, n)</h3>
+		</div>
+		<div class="cline">
+			返回一个m和n之间的随机数。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.removeNode(target)</h3>
+		</div>
+		<div class="cline">
+			移除目标对象
+		</div>
+		
+		<div class="cline">
+			<h3>dk.ready(fn)</h3>
+		</div>
+		<div class="cline">
+			DOM加载完成执行函数。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.trim(string)</h3>
+		</div>
+		<div class="cline">
+			修正字符串
+		</div>
+		
+		<div class="cline">
+			<h3>dk.cookie(name[, value, options])</h3>
+		</div>
+		<div class="cline">
+			如果只有name参数则获取指定名称的cookie，如果value不为空则为设置cookie。<br />
+			options包括expires，path，domain，secure自定义参数。
+		</div>
+		
+		<div class="cline">
+			<h3>dk.$$(target)</h3>
+		</div>
+		<div class="cline">
+			返回一个包装好的对象。对象有如下方法：<br />
+			css(style[, value]) 获取或设置css样式<br />
+			addClass(value) 添加类<br />
+			removeClass(value) 移除类<br />
+			hasClass(value) 判断是否包含类<br />
+			supportOpacity() 是否支持opacity<br />
+			supportFilter() 判断是否支持滤镜<br />
+			hide() 隐藏<br />
+			show() 显示<br />
+		</div>
+		
+		<div class="cline">
+			<h3>dk.browser</h3>
+		</div>
+		<div class="cline">
+			包含两个属性：浏览器名称和版本
+		</div>
+	</div>
+	<div class="clr"></div>
+</div>
+<footer>
+Copyright &copy; Dukai 2012
+</footer>
+<script src="resource/js/dk_tools.js"></script>
+</body>
+</html>
