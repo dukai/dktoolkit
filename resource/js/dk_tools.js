@@ -104,9 +104,28 @@ function (win) {
 
     var getElementsByClassName = function(className, tag, parent) {
         parent = parent || document;
-        if (!(parent = $(parent))) {
+		if (!(parent = $(parent))) {
             return false;
         }
+		tag = tag || '*';
+		if(document.getElementsByClassName){
+			var nodes = parent.getElementsByClassName(className);
+			var matchingNodes = [];
+			if(tag !== '*'){
+				for(var i = 0, len = nodes.length; i < len; i++){
+					if(nodes[i].tagName == tag.toUpperCase()){
+						matchingNodes.push(nodes[i]);
+					}
+				}
+				
+				return matchingNodes;
+			}
+			
+			return nodes;
+			
+		}
+		
+        
         var allTags = (tag == '*' && parent.all) ? parent.all : parent.getElementsByTagName(tag);
         var matchingElements = new Array();
         className = className.replace(/\-/g, '\\-');
