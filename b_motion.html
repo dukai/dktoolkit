@@ -2,8 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>DK Toolkit Index</title>
+	<title>Motion - DK Toolkit Index</title>
 	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+	<script src="resource/js/dk_tools.js"></script>
+	<script src="resource/js/motion.js"></script>
 </head>
 <body>
 <header>
@@ -28,8 +30,8 @@
 			<li><a href="#">基础</a>
 				<ul class="sub">
 					<li><a href="#">基础工具库</a></li>
-					<li><a href="#" class="select">Ajax</a></li>
-					<li><a href="#">动画</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#" class="select">动画</a></li>
 				</ul>
 			</li>
 			<li><a href="#">组件</a>
@@ -65,72 +67,111 @@
 	</nav>
 	
 	<div id="main_content">
-		
+		<div class="cline">
+			<h2>动画工具演示</h2>
+		</div>
+		<div class="cline">
+			<style>
+			#m_container{position:relative;height:300px;background:#f1f1f1;}
+			#md_1{width:10px;height:10px;background:#06c;position:absolute;left:0;top:0;}
+			</style>
+			<div id="m_container" style="">
+				<div id="md_1"></div>
+			</div>
+		</div>
+		<div class="cline"><button class="btn" id="btn_run">运行动画</button></div>
+		<div class="cline">
+			<h3>示例代码</h3>
+		</div>
+		<div class="cline">
+		<pre>
+var color = 'rgb(' + dk.rand(0,255) + ',' + dk.rand(0,255) + ',' + dk.rand(0, 255) + ')';
+mo('md_1').animate({left: dk.rand(100, 500), top: dk.rand(100, 240), width: dk.rand(20, 50), height: dk.rand(20, 50), backgroundColor: color}, 40);
+		</pre>
+		</div>
 		<div class="cline">
 			<h2>使用说明</h2>
 		</div>
 		<div class="cline">
-			Ajax工具
+			第三版动画工具，使用全局定时器提高动画运行效率。<br />
+			为了方便使用，为window对象扩充了一个mo函数，通过直接调用mo函数可以直接使用动画方法。
 		</div>
 		<div class="cline">
-			<h3>Request(options)</h3>
+			<h3>mo(target)</h3>
 		</div>
 		<div class="cline">
-			Ajax请求构造函数，参数为请求的选项
+			接受一个DOM元素或者ID值，返回一个Motion对象。
 		</div>
 		<div class="cline">
-			<h4>options.url</h3>
+			<h4>mo.setup(options)</h3>
 		</div>
 		<div class="cline">
-			请求的地址
+			设置动画基本参数，options包含两个参数：tween，选用的运动公式；frames，帧速。
 		</div>
 		<div class="cline">
-			<h4>options.success(responseObj, statusText, xhr)</h4>
+			<h3>Motion(node)</h3>
 		</div>
 		<div class="cline">
-			请求成功后的回调函数
-		</div>
-		
-		<div class="cline">
-			<h4>options.error(statusText, xhr)</h4>
-		</div>
-		<div class="cline">
-			请求成功后的回调函数
+			动画对象
 		</div>
 		
 		<div class="cline">
-			<h4>options.method</h4>
+			<h4>Motion.hide([duration, callback])</h4>
 		</div>
 		<div class="cline">
-			发起请求的方式，GET，POST等
-		</div>
-		
-		<div class="cline">
-			<h4>options.dataType</h4>
-		</div>
-		<div class="cline">
-			请求的数据类型，jsonp，json， html，XML
+			隐藏对象
 		</div>
 		
 		<div class="cline">
-			<h4>options.progress(event)</h4>
+			<h4>Motion.show([duration, callback])</h4>
 		</div>
 		<div class="cline">
-			上传的进度处理
-		</div>
-		
-		<div class="cline">
-			<h4>Request.setRequestHeader(label, content)</h4>
-		</div>
-		<div class="cline">
-			设置请求头
+			显示对象
 		</div>
 		
 		<div class="cline">
-			<h4>Request.send([data])</h4>
+			<h4>Motion.slideDown([duration, callback])</h4>
 		</div>
 		<div class="cline">
-			发送请求，可选参数为data，发送的数据
+			向下展开对象
+		</div>
+		
+		<div class="cline">
+			<h4>Motion.slideUp([duration, callback])</h4>
+		</div>
+		<div class="cline">
+			向上闭合对象
+		</div>
+		
+		<div class="cline">
+			<h4>Motion.fadeIn([duration, callback])</h4>
+		</div>
+		<div class="cline">
+			淡入
+		</div>
+		
+		<div class="cline">
+			<h4>Motion.fadeOut([duration, callback])</h4>
+		</div>
+		<div class="cline">
+			淡出
+		</div>
+		
+		<div class="cline">
+			<h4>Motion.color(begincolor, endcolor[, duration, callback])</h4>
+		</div>
+		<div class="cline">
+			颜色动画
+		</div>
+		
+		<div class="cline">
+			<h4>Motion.animate(styles[, duration, callback])</h4>
+		</div>
+		<div class="cline">
+			高级动画效果。<br />
+			第一个参数为json对象，为样式的对应：{backgroundColor: '#fff', width: 300}<br />
+			第二个参数为持续的帧数<br />
+			第三个参数为动画完成后调用的函数。
 		</div>
 		
 	</div>
@@ -139,6 +180,12 @@
 <footer>
 Copyright &copy; Dukai 2012
 </footer>
-<script src="resource/js/dk_tools.js"></script>
+<script>
+function runAnimate(){
+	var color = 'rgb(' + dk.rand(0,255) + ',' + dk.rand(0,255) + ',' + dk.rand(0, 255) + ')';
+	mo('md_1').animate({left: dk.rand(100, 500), top: dk.rand(100, 240), width: dk.rand(20, 50), height: dk.rand(20, 50), backgroundColor: color}, 40);
+}
+dk.addEvent('btn_run', 'click', runAnimate);
+</script>
 </body>
 </html>
