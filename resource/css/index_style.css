@@ -1,3 +1,22 @@
+pre::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+pre::-webkit-scrollbar
+{
+	width: 8px;
+	height: 8px;
+	background-color: #F5F5F5;
+}
+
+pre::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.3);
+	background-color: #666;
+}
 body{background:#f1f1f1;padding:0;margin:0;font-size:14px;min-width:960px;font-family:"Microsoft YaHei";}
 ul,li{padding:0;margin:0;list-style:none;}
 h1, h2, h3, h4, h5,blockquote{margin:0;padding:0;}
@@ -49,7 +68,8 @@ a{color:#333;text-decoration:none;}
 blockquote{border-left:4px solid #eee;padding:3px 8px;color:#666;line-height:30px;}
 pre{
 	padding:10px;background:#f1f1f1;
-	
+	font-family:consolas, "courier new";
+	overflow: auto;
 }
 
 #main{margin:20px;border:1px solid #ccc;box-shadow:0 0 5px #ccc;border-radius:3px 3px 0 0;background:#fff;}
