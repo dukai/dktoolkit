@@ -118,7 +118,7 @@ function Motion(ele){
 		}
 	}
 	this.init = function(styles, duration, callback){
-		_duration = duration;
+		_duration = duration === undefined ? 40: duration;
 		_styles = styles;
 		_callback = callback;
 		this.start();
