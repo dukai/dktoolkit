@@ -1,4 +1,5 @@
 (function(win){
+var $$ = dk.$$;
 var tween = {
 	liner: function(t, begin, end, duration){
 		begin = tween.getNum(begin); 
