@@ -301,12 +301,18 @@ mo.getMotionGuid = function(){
 	return 'mo' + Math.random().toString().slice(2,5) + (new Date()).getTime();
 }
 
-mo.setup = function(t){
-	var tArr = t.split('.');
-	if(tArr.length == 1){
-		Motion.tween = tween[t];
-	}else{
-		Motion.tween = tween[tArr[0]][tArr[1]];
+mo.setup = function(options){
+	if(options.tween){
+		var tArr = options.tween.split('.');
+		if(tArr.length == 1){
+			Motion.tween = tween[options.tween];
+		}else{
+			Motion.tween = tween[tArr[0]][tArr[1]];
+		}
+	}
+	
+	if(options.frames){
+		Motion.frames = options.frames;
 	}
 };
 //获取颜色的值对象结构为{r, g, b}
@@ -346,6 +352,8 @@ Motion.getColorData = function(colorString){
 	}
 	return false;
 };
+
+Motion.frames = 50;
 
 cache.setValue = function(guid, type, value){
 	if(!cache.STYLECACHE[guid]){
@@ -404,8 +412,9 @@ var MotionMgr = {
 			this.start();
 		}
 	},
-	start: function(){  
-		this.timer = setInterval(dk.bind(this, this.execQueue), 20);
+	start: function(){
+		var intervalTime = parseInt(1000 / Motion.frames);
+		this.timer = setInterval(dk.bind(this, this.execQueue), intervalTime);
 	}
 }
 
