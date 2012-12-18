@@ -135,7 +135,9 @@ $.fn.placeholder = function(option){
 		var box = $c('div', 'dk_placeholderfixed_box');
 		for(var i = 0, len = this.length; i < len; i++){
 			var input = this[i];
-			customPlaceholders.push(new CustomPlaceholder(box, input, option));
+			if($(input).is(':visible')){
+				customPlaceholders.push(new CustomPlaceholder(box, input, option));
+			}
 		}
 		
 		document.body.appendChild(box);
