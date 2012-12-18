@@ -1,0 +1,32 @@
+@charset "utf-8";
+/*************************************
+ @author     : DK
+ @createDate : 2010.10.2
+ @editDate   : 2010.10.3
+ @blog       : http://www.dklogs.net
+ @email      : xiaobaov2@gmail.com
+ *************************************/
+.dk_datepicker{width:196px; border:1px solid #ccc; position:absolute; left:100px; top:100px; padding:2px;background:#fff;}
+.dp_nav{ text-align:center; line-height:30px; position:relative; background:#039; color:#fff;-moz-user-select:none; height:30px;}
+.dp_nav .dp_title{cursor:pointer; display:block;}
+.dp_nav .dp_title:hover{background:#2963d7;}
+.dp_nav .dp_title:active{ background:#F90;}
+.dp_nav .next,.dp_nav .pre{position:absolute; cursor:pointer; top:0; padding:0 6px;}
+.dp_nav .next:hover,.dp_nav .pre:hover{background:#2963d7;}
+.dp_nav .next:active,.dp_nav .pre:active{background:#F90;}
+.dp_nav .next{ right:0;}
+.dp_nav .pre{ left:0;}
+.red{color:#C00;}
+.dp_main{padding-top:2px;}
+.dp_weekday li{ display:inline-block; *display:inline; zoom:1;width:28px; text-align:center; height:15px; line-height:15px;}
+.dp_main div a{display:inline-block; zoom:1;text-align:center; cursor:pointer; margin:1px; background:#eee; text-decoration:none; color:#000;}
+.dp_main div a:hover{background:#039; color:#fff;}
+.dp_main div a:active{background:#F90; color:#fff;}
+.dp_main div a.curr{background:#f90; color:#fff;}
+.dp_date a{width:26px; line-height:21px;}
+.dp_date a.next, .dp_date a.pre,.dp_year a.next, .dp_year a.pre,.dp_year_range a.next, .dp_year_range a.pre{color:#ccc;}
+.dp_date a.curr{color:#fff; background:#F90;}
+.dp_month a,.dp_year a{width:47px; height:49px;}
+.dp_year_range a{width:40px; height:40px; padding-top:9px; padding-left:7px;}
+.dp_month a,.dp_year a{line-height:49px;}
+.dp_year_range a{line-height:16px; text-align:left !important;}

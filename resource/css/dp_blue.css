@@ -1,0 +1,42 @@
+@charset "utf-8";
+/*************************************
+ @author     : DK
+ @createDate : 2010.10.2
+ @editDate   : 2010.10.3
+ @blog       : http://www.dklogs.net
+ @email      : xiaobaov2@gmail.com
+ *************************************/
+.dk_datepicker{width:196px; border:1px solid #ccc; position:absolute; left:100px; top:100px; padding:2px;}
+.dp_nav{ text-align:center; line-height:30px; position:relative;  color:#000;-moz-user-select:none;}
+.dp_title{cursor:pointer; display:block;background:url(../../images/dp_theme_win7.png) top; height:30px;}
+.dp_title:hover{ background-position:0 -30px;}
+.dp_title:active{ background-position:0 -60px;}
+.dp_nav .next,.dp_nav .pre{position:absolute; cursor:pointer; top:4px; display:block; width:26px; height:22px; text-indent:-999em;background:url(../../images/dp_theme_win7.png); line-height:0;}
+.dp_nav .next{ right:4px; background-position:-78px -90px;}
+.dp_nav .next:hover{ right:4px; background-position:-104px -90px;}
+.dp_nav .next:active{ right:4px; background-position:-130px -90px;}
+.dp_nav .pre{ left:4px; background-position:0 -90px; }
+.dp_nav .pre:hover{ left:4px; background-position:-26px -90px; }
+.dp_nav .pre:active{ left:4px; background-position:-52px -90px; }
+.red{color:#C00;}
+.dp_main{padding-top:2px;}
+.dp_weekday li{ display:inline-block; *display:inline; zoom:1;width:28px; text-align:center; height:15px; line-height:15px;}
+.dp_main div a{display:inline-block; zoom:1;text-align:center; cursor:pointer; margin:1px; background-image:url(../../images/dp_theme_win7.png); text-decoration:none; color:#000;}
+/*.dp_main div a:hover{background:url(../../images/dp_theme_win7.png);}*/
+
+.dp_date a{width:26px; line-height:21px;background-position:0 -112px;}
+.dp_date a:hover{width:26px; line-height:21px;background-position:-26px -112px ; }
+.dp_date a:active{background-position:-52px -112px ; }
+.dp_date a.next, .dp_date a.pre,.dp_year a.next, .dp_year a.pre,.dp_year_range a.next, .dp_year_range a.pre{color:#aaa;}
+.dp_date a.curr{color:#06c; background-position:-78px -112px;}
+.dp_date a.curr:hover{color:#06c; background-position:-26px -112px ;}
+.dp_date a.curr:active{color:#06c; background-position:-52px -112px;}
+.dp_month a,.dp_year a{width:47px; height:49px; background-position:0 -133px ;}
+.dp_month a:hover,.dp_year a:hover,.dp_year_range a:hover{background-position:-47px -133px ;}
+.dp_month a:active,.dp_year a:active,.dp_year_range a:active{background-position:-94px -133px ;}
+.dp_month a.curr,.dp_year a.curr,.dp_year_range a.curr{color:#06c;background-position:-141px -133px ;}
+.dp_month a.curr:hover,.dp_year a.curr:hover,.dp_year_range a.curr:hover{background-position:-47px -133px;}
+.dp_month a.curr:active,.dp_year a.curr:active,.dp_year_range a.curr:active{background-position:-94px -133px;}
+.dp_year_range a{width:40px; height:40px; padding-top:9px; padding-left:7px;background-position:0 -133px ;}
+.dp_month a,.dp_year a{line-height:49px;}
+.dp_year_range a{line-height:16px; text-align:left !important;}
