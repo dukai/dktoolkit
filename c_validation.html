@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>DK Toolkit Index</title>
+	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+	<link href="resource/css/dp_common.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<header>
+	<div id="logo_area">
+		<a id="logo">DK Toolkit</a>
+	</div>
+	<nav>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">基础</a></li>
+			<li><a href="#">控件</a></li>
+			<li><a href="#">其他</a></li>
+		</ul>
+	</nav>
+</header>
+<div id="main">
+	<div class="box_header">
+		<span>首页</span>
+	</div>
+	<nav id="sub">
+		<ul>
+			<li><a href="#">基础</a>
+				<ul class="sub">
+					<li><a href="#">基础工具库</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#">动画</a></li>
+				</ul>
+			</li>
+			<li><a href="#">组件</a>
+				<ul class="sub">
+					<li><a href="#">本地存储增强</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
+					<li><a href="#" class="select">表单验证工具</a></li>
+					<li><a href="#">日历</a></li>
+					<li><a href="#">颜色拾取器</a></li>
+					<li><a href="#">拖拽</a></li>
+					<li><a href="#">多种特效幻灯片</a></li>
+					<li><a href="#">弹出窗口</a></li>
+					<li><a href="#">动态表格</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
+					<li><a href="#">简单的文本编辑器</a></li>
+					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#">标签控件</a></li>
+					<li><a href="#">树形菜单</a></li>
+					<li><a href="#">延迟加载</a></li>
+					<li><a href="#">图片浏览器</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#">其他</a>
+				<ul class="sub">
+					<li><a href="#">带角的气泡</a></li>
+					<li><a href="#">会动的眼珠</a></li>
+					<li><a href="#">HTML5时间轴</a></li>
+					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+	<div id="main_content">
+		<div class="cline">
+			<h2>表单验证工具</h2>
+		</div>
+		<div class="form_box">
+			<form id="frm">
+			<div class="fields_box">
+				<div class="cline">
+					<label>用户名</label>
+					<input type="text" name="username" id="username" placeholder="用户名" />
+				</div>
+				
+				<div class="cline">
+					<label>密码</label>
+					<input type="password" name="password" id="password" placeholder="密码" />
+				</div>
+				
+				<div class="cline">
+					<label>重复密码</label>
+					<input type="password" name="repassword" id="repassword" placeholder="重复密码" />
+				</div>
+				
+				<div class="cline">
+					<label>电子邮件</label>
+					<input type="text" name="email" id="email" placeholder="电子邮件" />
+				</div>
+				
+				<div class="cline">
+					<label>日期</label>
+					<input type="text" name="date" id="date" placeholder="日期" />
+				</div>
+				
+				<div class="cline">
+					<label>生日</label>
+					<input type="text" name="birthday" id="birthday" placeholder="生日" />
+				</div>
+			</div>
+			<div class="cline">
+				<button class="btn">保存</button>
+			</div>
+			</form>
+		</div>
+		
+		<div class="cline">
+			<h3>示例代码</h3>
+		</div>
+		
+		<div class="cline">
+			<pre>
+validate.init([
+	{id:'username',type:'notEmpty', message: '用户名不能为空', url: 'http://www.buzzopt.com/getuserinfo/detail', offsetX: 250},
+	{id:'password',type:'notEmpty', message: '密码至少为6位，且包含数字和字母', offsetX: 250, length: '{6,}', valid: function(){
+		return /\d+/.test(this.value) && /[A-Za-z]+/.test(this.value);
+	}},
+	{id:'repassword', type: 'notEmpty', message: '两次输入的密码不匹配', valid: function(){
+		return dk.$('password').value == dk.$('repassword').value;
+	}, offsetX: 250},
+	{id:'email',type:'email', message: '电子邮件格式不正确', offsetX: 250, nullable: true},
+	{id: 'date', type: 'date', message: '日期格式不正确', trigger: function(){
+		datepicker.onSelect = this.checkEvent;
+	}, offsetX: 250},
+	{id: 'birthday', type: 'date', message: '生日格式不正确', trigger: function(){
+		datepicker.onSelect = this.checkEvent;
+	}, offsetX: 250, onValid: function(){
+		console.log('日期验证完成');
+	}},
+	{id: 'spec_target', valid: function(){
+		if($.trim(dk.$('spec').value) != ''){
+			return true;
+		}
+		return false;
+	}, message: '不走寻常路', offsetY: 26, customValue: function(){},reset: function(){
+		var that = this;
+		$('#spec').click(function(e){
+			that.resetEvent();
+		});
+	}}
+]);
+			</pre>
+		</div>
+		
+		<div class="cline">
+			<h2>使用说明</h2>
+		</div>
+		<div class="cline">
+			表单验证工具，根据给出的规则判断表单中元素的内容是否匹配规则，并给出相应的提示信息。本控件需要在相关文档的底部或者Dom Ready后调用初始化。务必保证初始化时相关dom已存在。
+		</div>
+		<div class="cline">
+			<h3>validate.init(rules[, config])</h3>
+		</div>
+		<div class="cline">
+			接受两个参数，第一个为数组类型的规则：<br />
+			id - input标签的id<br/>
+			type - 验证的类型：notEmpty，email，cellphone，date，number<br/>
+			regexp - 自定义正则表达式<br/>
+			message - 错误提示信息<br/>
+			url - ajax请求的url<br/>
+			nullable - 是否可为空<br/>
+			customValue - 自定义value值<br/>
+			valid - 自定义验证函数<br/>
+			reset - 自定义重置函数<br/>
+			trigger - 自定义验证触发函数<br/>
+			offsetX - 提示信息x偏移<br/>
+			offsetY - 提示信息y偏移<br/>
+			length - 内容长度限制：+ 为长度大于等于1， {n} 长度为n， {n,m} 长度大于n小于m， {n,} 长度大于n<br/>
+			onReset - reset时触发的事件<br/>
+			onValid - 验证时触发的事件<br/>
+			第二个可选参数为自定义配置信息：<br/>
+			trigger – (String, optional)触发验证事件方式，默认是blur<br/>
+			reset – (String, optional)重置事件方式，默认是focus<br/>
+			parentContainer – (String, optional)父容器，用于包含提示信息，默认是document.body<br/>
+			
+		</div>
+		
+		<div class="cline">
+			<h3>validate.check([callback])</h3>
+		</div>
+		<div class="cline">
+			检查表单是否能够通过验证，如果包含ajax验证则会在通过验证后执行回调函数
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>callback – (Function, optional)如果验证的规则中有ajax验证，会在通过验证后执行本回调函数</li>
+			</ol>
+		</div>
+	</div>
+	<div class="clr"></div>
+</div>
+<footer>
+Copyright &copy; Dukai 2012
+</footer>
+<script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/jquery-1.4.2.js"></script>
+<script src="resource/js/validate.js"></script>
+<script src="resource/js/datepicker.js"></script>
+<script>
+datepicker.setInputs('date', 'birthday');
+validate.init([
+		{id:'username',type:'notEmpty', message: '用户名不能为空', url: 'http://www.buzzopt.com/getuserinfo/detail', offsetX: 250},
+		{id:'password',type:'notEmpty', message: '密码至少为6位，且包含数字和字母', offsetX: 250, length: '{6,}', valid: function(){
+			return /\d+/.test(this.value) && /[A-Za-z]+/.test(this.value);
+		}},
+		{id:'repassword', type: 'notEmpty', message: '两次输入的密码不匹配', valid: function(){
+			return dk.$('password').value == dk.$('repassword').value;
+		}, offsetX: 250},
+		{id:'email',type:'email', message: '电子邮件格式不正确', offsetX: 250, nullable: true},
+		{id: 'date', type: 'date', message: '日期格式不正确', trigger: function(){
+			datepicker.onSelect = this.checkEvent;
+		}, offsetX: 250},
+		{id: 'birthday', type: 'date', message: '生日格式不正确', trigger: function(){
+			datepicker.onSelect = this.checkEvent;
+		}, offsetX: 250, onValid: function(){
+			console.log('日期验证完成');
+		}},
+		{id: 'spec_target', valid: function(){
+			if($.trim(dk.$('spec').value) != ''){
+				return true;
+			}
+			return false;
+		}, message: '不走寻常路', offsetY: 26, customValue: function(){},reset: function(){
+			var that = this;
+			$('#spec').click(function(e){
+				that.resetEvent();
+			});
+		}}
+	]);
+function submitEvent(e){
+	if(!validate.check()){
+		e.preventDefault();
+		return false;
+	}
+}
+dk.addEvent('frm', 'submit', submitEvent);
+</script>
+</body>
+</html>
