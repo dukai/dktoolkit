@@ -71,14 +71,15 @@ DragManager.prototype = {
 };
 
 var DragElement = function(handler, operator, options){
-	this.handler = handler;
-	this.operator = operator;
+	this.handler = dkit.$(handler);
+	this.operator = dkit.$(operator);
 	this.startX = NaN;
 	this.startY = NaN;
 	this.startLeft = NaN;
 	this.startTop = NaN;
 	this.dragStatus = false;
 	this.handler.style['MozUserSelect'] = 'none';
+	this.operator.style.position = 'relative';
 	var ele = document.documentElement;
 	this._isLosecapture = 'onlosecapture' in ele,
 	this._isSetCapture = 'setCapture' in ele;
@@ -102,8 +103,8 @@ DragElement.prototype = {
 	initStartPosition: function(_x, _y){
 		this.startX = _x;
 		this.startY = _y;
-		this.startLeft = parseInt(dkit.$$(this.operator).css('left'));
-		this.startTop = parseInt(dkit.$$(this.operator).css('top'));
+		this.startLeft = parseInt(dkit.$$(this.operator).css('left') == 'auto' ? 0 : dkit.$$(this.operator).css('left'));
+		this.startTop = parseInt(dkit.$$(this.operator).css('top') == 'auto' ? 0 : dkit.$$(this.operator).css('top'));
 	},
 	startDrag: function(){
 		if(this._isLosecapture)
