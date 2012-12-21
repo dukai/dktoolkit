@@ -204,5 +204,8 @@ table.common tr td{text-indent:3px;}
 }
 #demos{padding:10px;}
 #demos article h2{font-size:14px;}
+#main_content ol li{
+	list-style:decimal;
+}
 
 footer{text-align:center;color:#666;text-shadow:1px 1px 0 #fff;line-height:30px;}
