@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>DK Toolkit Index</title>
+	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+	<link href="resource/css/colorpicker.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<header>
+	<div id="logo_area">
+		<a id="logo">DK Toolkit</a>
+	</div>
+	<nav>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">基础</a></li>
+			<li><a href="#">控件</a></li>
+			<li><a href="#">其他</a></li>
+		</ul>
+	</nav>
+</header>
+<div id="main">
+	<div class="box_header">
+		<span>首页</span>
+	</div>
+	<nav id="sub">
+		<ul>
+			<li><a href="#">基础</a>
+				<ul class="sub">
+					<li><a href="#">基础工具库</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#">动画</a></li>
+				</ul>
+			</li>
+			<li><a href="#">组件</a>
+				<ul class="sub">
+					<li><a href="#">本地存储增强</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
+					<li><a href="#">表单验证工具</a></li>
+					<li><a href="#">日历</a></li>
+					<li><a href="#" class="select">颜色拾取器</a></li>
+					<li><a href="#">拖拽</a></li>
+					<li><a href="#">多种特效幻灯片</a></li>
+					<li><a href="#">弹出窗口</a></li>
+					<li><a href="#">动态表格</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
+					<li><a href="#">简单的文本编辑器</a></li>
+					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#">标签控件</a></li>
+					<li><a href="#">树形菜单</a></li>
+					<li><a href="#">延迟加载</a></li>
+					<li><a href="#">图片浏览器</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#">其他</a>
+				<ul class="sub">
+					<li><a href="#">带角的气泡</a></li>
+					<li><a href="#">会动的眼珠</a></li>
+					<li><a href="#">HTML5时间轴</a></li>
+					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+	<div id="main_content">
+		<div class="cline">
+			<h2>颜色选择控件</h2>
+		</div>
+		<div class="form_box">
+			<form>
+			<div class="fields_box">
+				<div class="cline">
+					<label>颜色1</label>
+					<input type="text" name="color1" id="color1" />
+				</div>
+				
+				<div class="cline">
+					<label>颜色2</label>
+					<input type="text" name="color2" id="color2" />
+				</div>
+			</div>
+			</form>
+		</div>
+		
+		<div class="cline">
+			<h2>示例代码</h2>
+		</div>
+		
+		<div class="cline">
+			<pre>
+colorPicker.setInputs(['color1','color2']);
+			</pre>
+		</div>
+		
+		<div class="cline">
+			<h2>使用说明</h2>
+		</div>
+		<div class="cline">
+			通过全局对象colorpicker设置需要调用控件的input对象上。
+		</div>
+		<div class="cline">
+			<h3>datepicker.setInputs(ids)</h3>
+		</div>
+		<div class="cline">
+			接受一个数组，数组的内容为id的列表。
+		</div>
+	</div>
+	<div class="clr"></div>
+</div>
+<footer>
+Copyright &copy; Dukai 2012
+</footer>
+<script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/colorpicker.js"></script>
+<script>
+colorPicker.setInputs(['color1','color2']);
+</script>
+</body>
+</html>

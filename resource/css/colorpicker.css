@@ -1,0 +1,23 @@
+/*color picker style*/
+#dk_color_picker{ width:300px; border:1px solid #ccc; overflow:hidden; padding:10px; background:#f6f6f6; position:absolute;}
+#dk_color_picker h2.c_p_header{ line-height:24px; font-size:14px;}
+#dk_color_picker .c_p_c{ width:300px;}
+#dk_color_picker .c_p_sv{width:255px;height:255px; background:url(http://www.dklogs.net/lib/images/c_p_hover.png); background-color:#f00; position:relative; float:left; overflow:hidden;
+/*hack for IE6*/
+_background:none;_background-color:#f00;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.dklogs.net/lib/images/c_p_hover.png', sizingMethod='scale');}
+#dk_color_picker .c_p_pointer{ display:block; width:16px; height:16px; background:url(http://www.dklogs.net/lib/images/c_p_pointer.png); position:absolute; left:-8px; top:-8px;
+/*hack for IE6*/
+_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.dklogs.net/lib/images/c_p_pointer.png', sizingMethod='scale');
+}
+#dk_color_picker .c_p_h{width:35px; height:255px; background:url(http://www.dklogs.net/lib/images/c_p_h.png) center center no-repeat; float:right; position:relative;}
+#dk_color_picker .c_p_h_pointer{width:35px; height:8px; background:url(http://www.dklogs.net/lib/images/c_p_h_pointer.png); display:block; position:absolute; top:-4px; line-height:1px; font-size:0;
+/*hack for IE6*/
+_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.dklogs.net/lib/images/c_p_h_pointer.png', sizingMethod='scale');
+}
+#dk_color_picker .c_p_status{ margin-top:4px;}
+#dk_color_picker .c_p_status span{ display:inline-block; width:60px; line-height:24px;}
+#dk_color_picker .c_p_status input{ margin-left:4px;}
+/*page style*/
+fieldset{ margin:10px 40px; border:1px solid #ccc; padding:10px;}
+fieldset p label{ display:block; line-height:24px;}
+.f{-moz-background:#f00;}
