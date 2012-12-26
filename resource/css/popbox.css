@@ -1,0 +1,24 @@
+.dkit-popbox{background-color:#eee;-moz-border-radius:3px;border-radius:3px; overflow:hidden;-moz-box-shadow:0 0 5px #333;box-shadow:0 0 5px #333;position:fixed;_position:absolute;width:800px;font-size:14px;top:50%;left:50%;}
+.dkit-popbox-header{background:url(../images/popwin-bg.png) top repeat-x;height:30px;line-height:30px;padding:0 8px;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;text-shadow:1px 1px 0 #fff;cursor:move;-moz-user-select: none;user-select:none;}
+.dkit-popbox-ctrlbtns{position:absolute; right:6px;top:6px;height:16px;overflow:hidden;}
+.dkit-popbox-ctrlbtns a{display:inline-block;width:16px;height:16px; background-image:url(../images/popwin-bg.png); text-indent:-999em; float:left; cursor:pointer;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-min{background-position:0 -198px;margin-right:6px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-min:hover{background-position:0 -214px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-min:active{background-position:0 -230px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-close{background-position:-16px -198px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-close:hover{background-position:-16px -214px;}
+.dkit-popbox-ctrlbtns a.dkit-popbox-ctrlbtns-close:active{background-position:-16px -230px;}
+.dkit-popbox-content{padding:10px;text-shadow:1px 1px 0 #fff;color:#333;min-height:100px;}
+.dkit-popbox-btnbox{text-align:right;padding:0 10px 10px 10px;}
+.dkit-popbox-btnbox a{background-image:url(../images/popwin-bg.png);background-repeat:repeat-x; display:inline-block;height:28px; -moz-border-radius:3px;border-radius:3px; line-height:27px;color:#fff;padding:0 24px;text-decoration:none;text-shadow:1px 1px 0 #333;margin-left:8px;cursor:pointer;}
+.dkit-popbox-btnbox a:hover{-moz-box-shadow:0 0 3px #fff;box-shadow:0 0 3px #fff;}
+.dkit-popbox-btn-confirm, .dkit-popbox-btn-custom, .dkit-btn-positive{background-position:0 -30px;}
+.dkit-popbox-btn-confirm:hover, .dkit-popbox-btn-custom:hover, .dkit-btn-positive:hover{background-position:0 -58px;}
+.dkit-popbox-btn-confirm:active, .dkit-popbox-btn-custom:active, .dkit-btn-positive:active{background-position:0 -86px;}
+.dkit-popbox-btn-cancel, .dkit-btn-negative{background-position:0 -114px;}
+.dkit-popbox-btn-cancel:hover, .dkit-btn-negative:hover{background-position:0 -142px;}
+.dkit-popbox-btn-cancel:active, .dkit-btn-negative:active{background-position:0 -170px;}
+
+.dkit-common-btn{background-image:url(../images/popwin-bg.png);background-repeat:repeat-x; background-position:0 -30px;display:inline-block;height:28px; -moz-border-radius:3px;border-radius:3px; line-height:27px;color:#fff;padding:0 24px;text-decoration:none;text-shadow:1px 1px 0 #333;cursor:pointer;border:0;}
+.dkit-common-btn:hover{-moz-box-shadow:0 0 3px #fff;box-shadow:0 0 3px #fff;background-position:0 -58px;}
+.dkit-common-btn:active{background-position:0 -86px;}
