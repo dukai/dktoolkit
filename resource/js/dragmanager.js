@@ -79,7 +79,9 @@ var DragElement = function(handler, operator, options){
 	this.startTop = NaN;
 	this.dragStatus = false;
 	this.handler.style['MozUserSelect'] = 'none';
-	this.operator.style.position = 'relative';
+	if(dk.$$(this.operator).css('position') == 'static'){
+		this.operator.style.position = 'relative';
+	}
 	var ele = document.documentElement;
 	this._isLosecapture = 'onlosecapture' in ele,
 	this._isSetCapture = 'setCapture' in ele;
