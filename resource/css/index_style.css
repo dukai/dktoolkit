@@ -18,7 +18,8 @@ pre::-webkit-scrollbar-thumb
 	background-color: #666;
 }
 body{background:#f1f1f1;padding:0;margin:0;font-size:14px;min-width:960px;font-family:"Microsoft YaHei";}
-ul,li{padding:0;margin:0;list-style:none;}
+ul,li,ol{padding:0;margin:0;list-style:none;}
+p{padding:0;margin:0;}
 h1, h2, h3, h4, h5,blockquote{margin:0;padding:0;}
 header{
 	background:#ccc;
@@ -204,7 +205,8 @@ table.common tr td{text-indent:3px;}
 }
 #demos{padding:10px;}
 #demos article h2{font-size:14px;}
-#main_content ol li{
+#main_content ol{padding:0 20px;}
+#main_content ol, #main_content ol li{
 	list-style:decimal;
 }
 
