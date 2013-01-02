@@ -37,6 +37,11 @@ header nav ul li a:hover{
 	background:#1a659f;
 	background-image:-webkit-linear-gradient(#2076b9, #1a659f);
 }
+
+header nav ul li a:active{
+	background:#1a659f;
+	background-image:-webkit-linear-gradient(#1a659f, #2076b9);
+}
 a{color:#333;text-decoration:none;}
 .clr{clear:both;}
 .message, .warning, .success, .danger{
@@ -124,7 +129,7 @@ pre{
 #main_content{
 	margin-left:230px;padding:10px;
 	border-left:1px solid #ccc;
-	min-height:800px;
+	min-height:1000px;
 }
 #main_content h1, #main_content h2, #main_content h3, #main_content h4{
 	line-height:36px;border-bottom:1px solid #ccc;
@@ -176,6 +181,10 @@ button.btn:hover{
 	background:#549cd4;
 	background-image:-webkit-linear-gradient(#5da6df, #549cd4);
 }
+button.btn:active{
+	background:#1a659f;
+	background-image:-webkit-linear-gradient(#1a659f, #2076b9);
+}
 button.btn_gray{
 	background:#4c5562;
 	background-image:-webkit-linear-gradient(#5a6472, #4c5562);
@@ -183,6 +192,10 @@ button.btn_gray{
 button.btn_gray:hover{
 	background:#616c7b;
 	background-image:-webkit-linear-gradient(#6b7686, #616c7b);
+}
+button.btn_gray:active{
+	background:#4c5562;
+	background-image:-webkit-linear-gradient(#4c5562, #5a6472);
 }
 table.common{
 	width:100%;
@@ -205,9 +218,10 @@ table.common tr td{text-indent:3px;}
 }
 #demos{padding:10px;}
 #demos article h2{font-size:14px;}
-#main_content ol{padding:0 20px;}
+#main_content ol{padding:0 20px;margin:0 10px;}
 #main_content ol, #main_content ol li{
 	list-style:decimal;
+	color:#666;
 }
 
 footer{text-align:center;color:#666;text-shadow:1px 1px 0 #fff;line-height:30px;}
