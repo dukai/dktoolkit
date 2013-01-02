@@ -1,0 +1,374 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>DK Toolkit Index</title>
+	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+	<link href="resource/css/popbox.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<header>
+	<div id="logo_area">
+		<a id="logo">DK Toolkit</a>
+	</div>
+	<nav>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">基础</a></li>
+			<li><a href="#">控件</a></li>
+			<li><a href="#">其他</a></li>
+		</ul>
+	</nav>
+</header>
+<div id="main">
+	<div class="box_header">
+		<span>首页</span>
+	</div>
+	<nav id="sub">
+		<ul>
+			<li><a href="#">基础</a>
+				<ul class="sub">
+					<li><a href="#">基础工具库</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#">动画</a></li>
+				</ul>
+			</li>
+			<li><a href="#">组件</a>
+				<ul class="sub">
+					<li><a href="#">本地存储增强</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
+					<li><a href="#">表单验证工具</a></li>
+					<li><a href="#">日历</a></li>
+					<li><a href="#">颜色拾取器</a></li>
+					<li><a href="#">拖拽</a></li>
+					<li><a href="#">多种特效幻灯片</a></li>
+					<li><a href="#" class="select">弹出窗口</a></li>
+					<li><a href="#">动态表格</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
+					<li><a href="#">简单的文本编辑器</a></li>
+					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#">标签控件</a></li>
+					<li><a href="#">树形菜单</a></li>
+					<li><a href="#">延迟加载</a></li>
+					<li><a href="#">图片浏览器</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#">其他</a>
+				<ul class="sub">
+					<li><a href="#">带角的气泡</a></li>
+					<li><a href="#">会动的眼珠</a></li>
+					<li><a href="#">HTML5时间轴</a></li>
+					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+	<div id="main_content">
+		<div class="cline">
+			<h2>弹出窗口控件</h2>
+		</div>
+		
+		<div class="cline">
+			<button class="btn" id="pre">Prev</button>
+			<button class="btn" id="next">Next</button>
+		</div>
+		
+		<div class="cline">
+			<h3>BasePopBox</h3>
+		</div>
+		
+		<div class="cline">
+			<p>弹出窗口抽象类，不能实例化</p>
+			<pre>BasePopBox(options);</pre>
+		</div>
+		
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>options - (object)可配置参数</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h3>Dialog PopBox</h3>
+		</div>
+		<div class="cline">
+			<pre>DialogBox(content[, options]);</pre>
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>content - (string)HTML DOM id，或者HTML字符串，或者HTML DOM对象</li>
+				<li>options - (object, optional)可配置参数</li>
+			</ol>
+			
+		</div>
+		<div class="cline">
+			<h4>示例</h4>
+		</div>
+		<div class="cline">
+			<p>content参数为HTML DOM id。这里传入的是一个简单的创建用户的表单示例。</p>
+			<pre>var dialogBox = new DialogBox('t-window', {custombtns: [
+	{
+		name: '创建用户',
+		func: function(){
+			//this is a custom button event 
+			var username = dkit.$('username').value;
+			var passwd = dkit.$('passwd').value;
+			var repasswd = dkit.$('repasswd').value;
+			
+			new AlertBox('用户名：' + username + ' 密码：' + passwd + ' 重复密码：' + repasswd).show();
+			
+			this.close();
+		},
+		style: 'dkit-btn-positive'
+	},
+	{
+		name: '取消',
+		func: function(){
+			this.close();
+		},
+		style: 'dkit-btn-negative'
+	}
+], title: '创建用户'});</pre>
+		</div>
+		<div class="cline">
+			<button class="btn" id="dialog">测试</button>
+		</div>
+		<div class="cline">
+			<p>content参数为HTML字符串</p>
+			<pre>var dialogBox1 = new DialogBox('&lt;div id="test" style="width:100px;height:100px;background:#f90;color:#fff;"&gt;Hello&lt;/div&gt;', {
+	title: 'HTML字符串参数',
+	width: 500,
+	height: 400
+});</pre>
+		
+		</div>
+		<div class="cline">
+			<button class="btn" id="dialog1">测试</button>
+		</div>
+		<div class="cline">
+			<h3>Alert PopBox</h3>
+		</div>
+		<div class="cline">
+			警告框，默认只有确定按钮
+		</div>
+		<div class="cline">
+			<pre>AlertBox(message[, options]);</pre>
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>message - (string)提示框中显示的提示信息</li>
+				<li>options - (object, optional)可配置参数</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>方法：show</h4>
+		</div>
+		<div class="cline">
+			<pre>show([message])</pre>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>message - (string, optional)提示框中显示的提示信息，可选参数，当为空时显示构造参数中的message</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>示例</h4>
+		</div>
+		<div>
+			<pre>new AlertBox('这是一个Alert Popbox实例').show();</pre>
+		</div>
+		<div class="cline">
+			<button class="btn" id="alert">测试</button>
+		</div>
+		
+		<div class="cline">
+			<h3>Confirm PopBox</h3>
+		</div>
+		<div class="cline">
+			确认提示框，包括确定和取消按钮，会根据用户的点击触发不同的事件
+		</div>
+		<div class="cline">
+			<pre>ConfirmBox(message[, options]);</pre>
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>message - (string)提示框中显示的提示信息</li>
+				<li>options - (object, optional)可配置参数</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>方法：show</h4>
+		</div>
+		<div class="cline">
+			<pre>show(positiveEvent, negativeEvent)</pre>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>positiveEvent - (Function, optional)当用户点击确定时触发的事件</li>
+				<li>negativeEvent - (Function, optional)当用户点击取消时触发的事件</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>示例</h4>
+		</div>
+		<div>
+			<pre>var confirmBox = new ConfirmBox('想要你就说嘛，你不说我怎么知道你想要？');
+confirmBox.show(function(){
+	alertBox.show('想要？你说了我才知道你想要嘛&lt;br /&gt;你点击了确定按钮');
+}, function(){
+	alertBox.show('不想要？你说了我才知道你不想要嘛&lt;br /&gt;你点击了取消按钮');
+});</pre>
+		</div>
+		<div class="cline">
+			<button class="btn" id="btn_confirm">测试</button>
+		</div>
+		
+		<div class="cline">
+			<h3>Toast PopBox</h3>
+		</div>
+		<div class="cline">
+			会自动消失的提示框，默认持续时间3秒钟。默认不显示半透明覆盖层，不显示标题
+		</div>
+		<div class="cline">
+			<pre>ToastBox(message[, duration[, options]]);</pre>
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>message - (string)提示框中显示的提示信息</li>
+				<li>duration - (int, optional)持续时间</li>
+				<li>options - (object, optional)可配置参数</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>示例</h4>
+		</div>
+		<div>
+			<pre>new ToastBox('这是一个Toast Popbox实例，本窗口会持续3秒', 3000).show();</pre>
+		</div>
+		<div class="cline">
+			<button class="btn" id="btn_toast">测试</button>
+		</div>
+		
+		<div class="cline">
+			<h3>Frame PopBox</h3>
+		</div>
+		<div class="cline">
+			会在弹出的窗口中显示一个iframe
+		</div>
+		<div class="cline">
+			<pre>FrameBox(url[, options]);</pre>
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>message - (string)提示框中显示的提示信息</li>
+				<li>options - (object, optional)可配置参数</li>
+			</ol>
+		</div>
+		<div class="cline">
+			<h4>示例</h4>
+		</div>
+		<div>
+			<pre>new FrameBox('http://www.dklogs.net').show();</pre>
+		</div>
+		<div class="cline">
+			<button class="btn" id="btn_frame">测试</button>
+		</div>
+	</div>
+	<div class="clr"></div>
+</div>
+<footer>
+Copyright &copy; Dukai 2012
+</footer>
+<div id="t-window" boxtitle="Hello world" style="display:none">
+	<div class="add_usr_frm">
+		<p>
+			<label>用户名：</label><input type="text" id="username" name="username" />
+		</p>
+		<p>
+			<label>密码：</label><input type="password" id="passwd" name="passwd" />
+		</p>
+		<p>
+			<label>重复密码：</label><input type="password" id="repasswd" name="repasswd" />
+		</p>
+	</div>
+</div>
+<script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/dragmanager.js"></script>
+<script src="resource/js/popbox.js"></script>
+<script>
+var dialogBox = new DialogBox('t-window', {custombtns: [
+		{
+			name: '创建用户',
+			func: function(){
+				//this is a custom button event 
+				var username = dk.$('username').value;
+				var passwd = dk.$('passwd').value;
+				var repasswd = dk.$('repasswd').value;
+				
+				new AlertBox('用户名：' + username + ' 密码：' + passwd + ' 重复密码：' + repasswd).show();
+				
+				this.close();
+			},
+			style: 'dkit-btn-positive'
+		},
+		{
+			name: '取消',
+			func: function(){
+				this.close();
+			},
+			style: 'dkit-btn-negative'
+		}
+	], title: '创建用户'});
+	
+var dialogBox1 = new DialogBox('<div id="test" style="width:100px;height:100px;background:#f90;color:#fff;">Hello</div>', {
+		title: 'HTML字符串参数',
+		width: 500,
+		height: 400
+	});
+dk.addEvent('dialog', 'click', function(e){
+	dialogBox.show();
+});
+dk.addEvent('dialog1', 'click', function(e){
+	dialogBox1.show();
+});
+dk.addEvent('alert', 'click', function(e){
+	new AlertBox('这是一个Alert Popbox实例').show();
+});
+dk.addEvent('btn_confirm', 'click', function(e){
+	var alertBox = new AlertBox('这是一个Alert Popbox实例', {title: '提示信息'});
+	var confirmBox = new ConfirmBox('想要你就说嘛，你不说我怎么知道你想要？');
+	confirmBox.show(function(){
+		alertBox.show('想要？你说了我才知道你想要嘛<br />你点击了确定按钮');
+	}, function(){
+		alertBox.show('不想要？你说了我才知道你不想要嘛<br />你点击了取消按钮');
+	});
+});
+dk.addEvent('btn_toast', 'click', function(e){
+	new ToastBox('这是一个Toast Popbox实例，本窗口会持续3秒', 3000).show();
+});
+
+dk.addEvent('btn_frame', 'click', function(e){
+	new FrameBox('http://www.dklogs.net').show();
+});
+</script>
+</body>
+</html>
