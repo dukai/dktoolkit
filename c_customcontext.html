@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>DK Toolkit Index</title>
+	<link href="resource/css/index_style.css" rel="stylesheet" type="text/css" />
+	<link href="resource/css/dp_common.css" rel="stylesheet" type="text/css" />
+	<style>
+	#activeArea{width:300px;height:200px; background:#06C; color:#fff;}
+	#cstCM{ width:120px; background:#eee; border:1px solid #ccc; position:absolute; }
+	#cstCM ul{margin:0; padding:0;}
+	#cstCM ul li{ list-style:none;padding:0 10px; cursor:default;line-height:24px;}
+	#cstCM ul li:hover{ background:#009; color:#fff;}
+	.splitTop{ border-bottom:1px solid #ccc;}
+	.splitBottom{border-top:1px solid #fff;}
+
+	</style>
+	<script>
+	function customContextMenu(event){
+		event.preventDefault ? event.preventDefault():(event.returnValue = false);
+		var cstCM = document.getElementById('cstCM');
+		cstCM.style.left = event.clientX + 'px';
+		cstCM.style.top = event.clientY + 'px';
+		cstCM.style.display = 'block';
+		document.onmousedown = clearCustomCM;
+	}
+	function clearCustomCM(){
+		document.getElementById('cstCM').style.display = 'none';
+		document.onmousedown = null;
+	}
+	</script>
+
+</head>
+<body>
+<header>
+	<div id="logo_area">
+		<a id="logo">DK Toolkit</a>
+	</div>
+	<nav>
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">基础</a></li>
+			<li><a href="#">控件</a></li>
+			<li><a href="#">其他</a></li>
+		</ul>
+	</nav>
+</header>
+<div id="main">
+	<div class="box_header">
+		<span>首页</span>
+	</div>
+	<nav id="sub">
+		<ul>
+			<li><a href="#">基础</a>
+				<ul class="sub">
+					<li><a href="#">基础工具库</a></li>
+					<li><a href="#">Ajax</a></li>
+					<li><a href="#">动画</a></li>
+				</ul>
+			</li>
+			<li><a href="#">组件</a>
+				<ul class="sub">
+					<li><a href="#">本地存储增强</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
+					<li><a href="#">表单验证工具</a></li>
+					<li><a href="#">日历</a></li>
+					<li><a href="#">颜色拾取器</a></li>
+					<li><a href="#" class="select">拖拽</a></li>
+					<li><a href="#">多种特效幻灯片</a></li>
+					<li><a href="#">弹出窗口</a></li>
+					<li><a href="#">动态表格</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
+					<li><a href="#">简单的文本编辑器</a></li>
+					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#">标签控件</a></li>
+					<li><a href="#">树形菜单</a></li>
+					<li><a href="#">延迟加载</a></li>
+					<li><a href="#">图片浏览器</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="#">其他</a>
+				<ul class="sub">
+					<li><a href="#">带角的气泡</a></li>
+					<li><a href="#">会动的眼珠</a></li>
+					<li><a href="#">HTML5时间轴</a></li>
+					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+	<div id="main_content">
+		<div class="cline">
+			<h2>自定义右键菜单</h2>
+		</div>
+		<div class="form_box" oncontextmenu = "customContextMenu(event)">
+			<div class="fields_box" style="height:100px">
+			自定义右键菜单
+			<div id="cstCM" style="display:none;">
+				<ul>
+					<li>View</li>
+					<li>Sort By</li>
+					<li class="splitTop">Refresh</li>
+					<li class="splitBottom">Paste</li>
+					<li class="splitTop">Paste Shortcut</li>
+					<li class="splitBottom">Property</li>
+				</ul>
+			</div>
+
+			</div>
+		</div>
+		
+		<div class="cline">
+			<h3>示例代码</h3>
+		</div>
+		
+		<div class="cline">
+			<pre>
+window.getDragManager().regist('handler', 'handler');
+window.getDragManager().regist('handler2', 'operator');
+			</pre>
+		</div>
+		
+		<div class="cline">
+			<h2>使用说明</h2>
+		</div>
+		<div class="cline">
+			通过全局方法getDragManager()方法获取DragManager，通过regist()方法注册需要拖动的内容。
+		</div>
+		<div class="cline">
+			<h3>window.getDragManager()</h3>
+		</div>
+		<div class="cline">
+			获取DragManager对象。
+		</div>
+		<div class="cline">
+			<h3>dragmanager.regist(handler, operator, options)</h3>
+		</div>
+		<div class="cline">
+			<p>注册拖动事件</p>
+			
+		</div>
+		<div class="cline">
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>handler - (Mix) 鼠标拖动的对象或ID</li>
+				<li>operator - (Mix) 移动的对象或ID</li>
+				<li>options - (json, optional) 选项
+					<ol>
+						<li>onstart(event) - (function, optional) 开始拖动事件，event包含xPos位置和yPos位置</li>
+						<li>onmove(event) - (function, optional) 移动事件，event包含xPos位置和yPos位置</li>
+						<li>onend(event) - (function, optional) 拖拽结束事件，event包含xPos位置和yPos位置</li>
+						<li>lockX - (bool, optional) 锁定X移动</li>
+						<li>lockY - (bool, optional) 锁定y移动</li>
+						<li>xRange - (json, optional) 包含两个值，min和max，x移动范围</li>
+						<li>yRange - (json, optional) 包含两个属性，min和max，y移动范围</li>
+					</ol>
+				</li>
+			</ol>
+		</div>
+	</div>
+	<div class="clr"></div>
+</div>
+<footer>
+Copyright &copy; Dukai 2012
+</footer>
+<script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/dragmanager.js"></script>
+<script>
+window.getDragManager().regist('handler', 'handler');
+window.getDragManager().regist('handler2', 'operator');
+</script>
+</body>
+</html>
