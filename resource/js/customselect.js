@@ -33,7 +33,7 @@ var DSelect = function(referSelect){
 		}
 		
 		var extra = dk.$c('div', null, 'extra');
-		extra.innerHTML = '<input id="album_title" type="text" class="common_text" /> <input id="btn_create" type="button" class="btn_white" value="´´½¨" />';
+		extra.innerHTML = '<input id="album_title" type="text" class="common_text" /> <input id="btn_create" type="button" class="btn_white" value="åˆ›å»º" />';
 		list.appendChild(itemList);
 		list.appendChild(extra);
 		mainBox.appendChild(caption);
