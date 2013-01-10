@@ -68,6 +68,10 @@ var DSelect = function(referSelect){
 				self.close();
 			}
 		});
+		
+		dk.addEvent(window.document, 'keyup', function(e){
+			return false;
+		});
 	};
 	
 	self.init = function(){

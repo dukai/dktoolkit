@@ -36,7 +36,7 @@
 			<li><a href="#">组件</a>
 				<ul class="sub">
 					<li><a href="#">本地存储增强</a></li>
-					<li><a href="#" class="select">Placeholder-jQuery插件</a></li>
+					<li><a href="#">Placeholder-jQuery插件</a></li>
 					<li><a href="#">表单验证工具</a></li>
 					<li><a href="#">日历</a></li>
 					<li><a href="#">颜色拾取器</a></li>
@@ -46,7 +46,7 @@
 					<li><a href="#">动态表格</a></li>
 					<li><a href="#">模拟右键菜单</a></li>
 					<li><a href="#">简单的文本编辑器</a></li>
-					<li><a href="#">自定义下拉框</a></li>
+					<li><a href="#" class="select">自定义下拉框</a></li>
 					<li><a href="#">标签控件</a></li>
 					<li><a href="#">树形菜单</a></li>
 					<li><a href="#">延迟加载</a></li>
@@ -108,21 +108,20 @@
 		
 		<div class="cline">
 			<pre>
-$('input').placeholder({xOffset: 5, yOffset: 5});
-			</pre>
+new DSelect('address');</pre>
 		</div>
 		
 		<div class="cline">
 			<h2>使用说明</h2>
 		</div>
 		<div class="cline">
-			jQuery插件，对不支持placeholder的浏览器做修正。使其能够支持placeholder。
+			新建DSelect对象，即可完成初始化。
 		</div>
 		<div class="cline">
-			<h3>$(selector).placeholder(options)</h3>
+			<h3>new DSelect(id)</h3>
 		</div>
 		<div class="cline">
-			传入的options支持两个参数：xOffset, yOffset。分别是相对于input对象左上角位置的x偏移和y偏移。
+			传入要初始化的select控件的ID
 		</div>
 	</div>
 	<div class="clr"></div>
