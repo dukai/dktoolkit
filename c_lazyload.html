@@ -72,7 +72,7 @@
 		</div>
 		<div class="form_box" oncontextmenu = "customContextMenu(event)">
 			<div class="fields_box" style="height:100px">
-			自定义右键菜单
+			<img src="resource/images/loader.gif" id="loadgif" />
 			<div id="cstCM" style="display:none;">
 				<ul>
 					<li>View</li>
@@ -93,8 +93,6 @@
 		
 		<div class="cline">
 			<pre>
-window.getDragManager().regist('handler', 'handler');
-window.getDragManager().regist('handler2', 'operator');
 			</pre>
 		</div>
 		
@@ -144,10 +142,10 @@ window.getDragManager().regist('handler2', 'operator');
 Copyright &copy; Dukai 2012
 </footer>
 <script src="resource/js/dk_tools.js"></script>
-<script src="resource/js/dragmanager.js"></script>
+<script src="resource/js/jquery-1.4.2.js"></script>
 <script>
-window.getDragManager().regist('handler', 'handler');
-window.getDragManager().regist('handler2', 'operator');
+console.log($('#loadgif').is(':not(:hidden)'));
+
 </script>
 </body>
 </html>
