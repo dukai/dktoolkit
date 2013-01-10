@@ -69,7 +69,8 @@ a{color:#333;text-decoration:none;}
 	background:#ffefef;
 }
 
-.cline{overflow:hidden;margin-bottom:10px;}
+.cline{margin-bottom:10px;}
+.cline:after{/*content:"."; display:block; height:0; clear:both; visibility:hidden;*/}
 
 blockquote{border-left:4px solid #eee;padding:3px 8px;color:#666;line-height:30px;}
 pre{

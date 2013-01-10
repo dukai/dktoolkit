@@ -1,8 +1,11 @@
+(function(dk){
+
+var $$ = dk.$$;
 var DSelect = function(referSelect){
 	var self = this;
 	self.dom = {};
 	self._guid = 1;
-	self.referSelect = referSelect;
+	self.referSelect = dk.$(referSelect);
 	self.mainId = "d_select_" + self._guid++;
 	self._status = false;
 	self.selectedIndex = self.referSelect.selectedIndex;
@@ -33,9 +36,9 @@ var DSelect = function(referSelect){
 		}
 		
 		var extra = dk.$c('div', null, 'extra');
-		extra.innerHTML = '<input id="album_title" type="text" class="common_text" /> <input id="btn_create" type="button" class="btn_white" value="创建" />';
+		//extra.innerHTML = '<input id="album_title" type="text" class="common_text" /> <input id="btn_create" type="button" class="btn_white" value="创建" />';
 		list.appendChild(itemList);
-		list.appendChild(extra);
+		//list.appendChild(extra);
 		mainBox.appendChild(caption);
 		mainBox.appendChild(list);
 		self.referSelect.parentNode.insertBefore(mainBox, self.referSelect);
@@ -57,6 +60,12 @@ var DSelect = function(referSelect){
 				self.dom.caption.innerHTML = target.innerHTML;
 				self.close();
 				self.select(target.index);
+			}
+		});
+		
+		dk.addEvent(window.document, 'click', function(e){
+			if(!dk.contains(self.dom.mainBox, e.target) && e.target !== self.dom.mainBox){
+				self.close();
 			}
 		});
 	};
@@ -106,3 +115,5 @@ var DSelect = function(referSelect){
 		$$(self.dom.items[index]).addClass('select');
 	};
 };
+window.DSelect = DSelect;
+})(dk);
