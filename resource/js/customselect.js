@@ -44,7 +44,7 @@ var DSelect = function(referSelect){
 		mainBox.appendChild(list);
 		self.referSelect.parentNode.insertBefore(mainBox, self.referSelect);
 		//self.referSelect.style.display = "none";
-		self.referSelect.style.cssText += '/*position:absolute;left:-9999em;*/';
+		self.referSelect.style.cssText += 'position:absolute;left:-9999em;';
 	};
 	
 	self.initEvents = function(){
@@ -90,10 +90,14 @@ var DSelect = function(referSelect){
 				if(self.selectedIndex < self.total - 1){
 					self.select(self.selectedIndex + 1);
 					console.log(self.dom.itemList.scrollTop);
-					if(self.selectedIndex * 32 > self.dom.itemList.scrollTop - dk.$$(self.dom.itemList).height()){
+					if((self.selectedIndex + 1) * 32 > self.dom.itemList.scrollTop + dk.$$(self.dom.itemList).height()){
 						self.dom.itemList.scrollTop += 32;
 					}
 				}
+			}
+			
+			if(e.which == 13){
+				self.close();
 			}
 			return false;
 		});

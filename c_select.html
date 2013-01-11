@@ -98,6 +98,16 @@
 					</select>
 						
 				</div>
+				
+				<div class="cline" style="overflow:visible">
+					<label>性别</label>
+					<select type="gender" name="gender" id="gender" placeholder="性别">
+						<option>未知</option>
+						<option>男</option>
+						<option>女</option>
+					</select>
+						
+				</div>
 			</div>
 			</form>
 		</div>
@@ -133,10 +143,7 @@ Copyright &copy; Dukai 2012
 <script src="resource/js/customselect.js"></script>
 <script>
 new DSelect('address');
-
-function test(e){
-	console.log(e);
-}
+new DSelect('gender');
 </script>
 </body>
 </html>
