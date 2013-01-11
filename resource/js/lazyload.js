@@ -5,7 +5,8 @@ var LazyLoad = {
 		replaceImg: 'http://img.scimg.cn/images/common/lzimg.gif',
 		laodingBg: 'http://img.scimg.cn/images/common/loader.gif',
 		container: window,
-		loadQueue: []
+		loadQueue: [],
+		isStatic: true
 	},
 	pageDom: function(target){
 		if(typeof target == 'string'){
@@ -38,24 +39,29 @@ var LazyLoad = {
 	},
 	isResizing : false,
 	init: function(option){
+		for(var key in option){
+			this.options[key] = option[key];
+		}
 		var elements = LazyLoad.options.elements;
-		var visiableHeight = $(window).height() + this.options.range;
+		var visiableHeight = jQuery(window).height() + this.options.range;
 		for(var i = 0, len = elements.length; i < len; i++){
 			var img = elements[i];
 			var pagedom = LazyLoad.pageDom(img);
 			if(!img.getAttribute('realsrc'))
 				continue;
-			if(pagedom.top > visiableHeight || !$(img).is(':visible')){
+			if(pagedom.top > visiableHeight || !jQuery(img).is(':visible')){
 				img.ly = pagedom.top;
-				if(pagedom.top > visiableHeight)
+				//if(pagedom.top > visiableHeight)
 					this.options.loadQueue.push(img);
 			}else{
 				img.src = img.getAttribute('realsrc');
 				img.removeAttribute('realsrc');
 			}
 		}
-		$(this.options.container).bind('scroll', this.doload);
-		$(this.options.container).bind('resize', this.resizeEvent);
+		var self =  this;
+		setTimeout(function(){self.doload();}, 10);
+		jQuery(this.options.container).bind('scroll', function(e){self.doload(e)});
+		jQuery(this.options.container).bind('resize', function(e){self.resizeEvent(e)});
 	},
 	resizeEvent: function(){
 		if(!LazyLoad.isResizing){
@@ -69,14 +75,18 @@ var LazyLoad = {
 		var picCount = images.length;
 		if(picCount > 0){
 			var scrollY = LazyLoad.getScroll().top;
-			var visibleHeight = scrollY + $(window).height() + LazyLoad.options.range;
+			var visibleHeight = scrollY + jQuery(window).height() + LazyLoad.options.range;
 			for(var i = 0; i < picCount; i++){
 				var img = images[i];
 				if(!img) {
 					continue;
 				}
 				var picCount = images.length;
-				if(img.ly < visibleHeight && $(img).is(':visible')){
+				if(!this.options.isStatic){
+					var pagedom = this.pageDom(img);
+					img.ly = pagedom.top;
+				}
+				if(img.ly < visibleHeight && jQuery(img).is(':visible')){
 					if(img.getAttribute('realsrc')){
 						img.src = img.getAttribute('realsrc');
 						img.removeAttribute('realsrc');
@@ -86,8 +96,8 @@ var LazyLoad = {
 				}
 			}
 		}else{
-			$(LazyLoad.options.container).unbind('scroll', this.doload);
-			$(LazyLoad.options.container).unbind('resize', this.resizeEvent);
+			jQuery(LazyLoad.options.container).unbind('scroll', this.doload);
+			jQuery(LazyLoad.options.container).unbind('resize', this.resizeEvent);
 		}
 	},
 	loadImages: function(images){
