@@ -9,6 +9,7 @@ var DSelect = function(referSelect){
 	self.mainId = "d_select_" + self._guid++;
 	self._status = false;
 	self.selectedIndex = self.referSelect.selectedIndex;
+	self.total = self.referSelect.options.length;
 	self.length = self.referSelect.length;
 	self.initUI = function(){
 		var mainBox = self.dom.mainBox = dk.$c('div', self.mainId, 'd_select');
@@ -42,7 +43,8 @@ var DSelect = function(referSelect){
 		mainBox.appendChild(caption);
 		mainBox.appendChild(list);
 		self.referSelect.parentNode.insertBefore(mainBox, self.referSelect);
-		self.referSelect.style.display = "none";
+		//self.referSelect.style.display = "none";
+		self.referSelect.style.cssText += '/*position:absolute;left:-9999em;*/';
 	};
 	
 	self.initEvents = function(){
@@ -66,11 +68,42 @@ var DSelect = function(referSelect){
 		dk.addEvent(window.document, 'click', function(e){
 			if(!dk.contains(self.dom.mainBox, e.target) && e.target !== self.dom.mainBox){
 				self.close();
+				if(e.target !== self.referSelect){
+					self.blur();
+				}
 			}
 		});
 		
-		dk.addEvent(window.document, 'keyup', function(e){
+		dk.addEvent(self.referSelect, 'keyup', function(e){
+			console.log(e.which);
+			if(e.which == 38){
+				if(self.selectedIndex > 0){
+					self.select(self.selectedIndex - 1);
+					
+					if(self.selectedIndex * 32 < self.dom.itemList.scrollTop){
+						self.dom.itemList.scrollTop -= 32;
+					}
+				}
+			}
+			
+			if(e.which == 40){
+				if(self.selectedIndex < self.total - 1){
+					self.select(self.selectedIndex + 1);
+					console.log(self.dom.itemList.scrollTop);
+					if(self.selectedIndex * 32 > self.dom.itemList.scrollTop){
+						self.dom.itemList.scrollTop += 32;
+					}
+				}
+			}
 			return false;
+		});
+		
+		dk.addEvent(self.referSelect, 'focus', function(e){
+			self.focus();
+		});
+		
+		dk.addEvent(self.referSelect, 'blur', function(e){
+			self.blur();
 		});
 	};
 	
@@ -84,6 +117,8 @@ var DSelect = function(referSelect){
 		$$(self.dom.caption).addClass('active');
 		self._status = true;
 		self.dom.mainBox.style.zIndex = '9999';
+		self.referSelect.focus();
+		self.focus();
 	};
 	
 	self.close = function(){
@@ -92,6 +127,14 @@ var DSelect = function(referSelect){
 		self._status = false;
 		self.dom.mainBox.style.zIndex = '1';
 	};
+	
+	self.focus = function(){
+		dk.$$(self.dom.mainBox).addClass('ds_focus');
+	}
+	
+	self.blur = function(){
+		dk.$$(self.dom.mainBox).removeClass('ds_focus');
+	}
 	
 	self.init();
 	
@@ -113,6 +156,7 @@ var DSelect = function(referSelect){
 	};
 	
 	self.select = function(index){
+		$$(self.dom.items[self.selectedIndex]).removeClass('select');
 		$$(self.dom.items[self.selectedIndex]).removeClass('select');
 		self.selectedIndex = self.referSelect.selectedIndex = index;
 		self.dom.caption.innerHTML = self.dom.items[index].innerHTML;

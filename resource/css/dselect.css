@@ -1,4 +1,5 @@
 .d_select{width:300px;line-height:24px;font-size:14px;position:relative;display:inline-block;}
+.ds_focus .caption{border-color:#6699cc;}
 .d_list{border-radius:0 0 5px 5px;overflow:hidden;display:none;width:300px;position:absolute;background:#fff;}
 /*#selector:hover .select-item-list{display:block !important;-moz-border-radius:0 0 5px 5px !important;border-radius:0 0 5px 5px !important;}*/
 .active{-moz-border-radius: 5px 5px 0 0 !important;border-radius: 5px 5px 0 0 !important;}
