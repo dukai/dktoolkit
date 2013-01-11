@@ -90,7 +90,7 @@ var DSelect = function(referSelect){
 				if(self.selectedIndex < self.total - 1){
 					self.select(self.selectedIndex + 1);
 					console.log(self.dom.itemList.scrollTop);
-					if(self.selectedIndex * 32 > self.dom.itemList.scrollTop){
+					if(self.selectedIndex * 32 > self.dom.itemList.scrollTop - dk.$$(self.dom.itemList).height()){
 						self.dom.itemList.scrollTop += 32;
 					}
 				}
