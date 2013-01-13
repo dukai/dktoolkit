@@ -43,10 +43,10 @@
 					<li><a href="#">拖拽</a></li>
 					<li><a href="#">多种特效幻灯片</a></li>
 					<li><a href="#">弹出窗口</a></li>
-					<li><a href="#">动态表格</a></li>
+					<li><a href="#" class="select">动态表格</a></li>
 					<li><a href="#">模拟右键菜单</a></li>
 					<li><a href="#">简单的文本编辑器</a></li>
-					<li><a href="#" class="select">自定义下拉框</a></li>
+					<li><a href="#">自定义下拉框</a></li>
 					<li><a href="#">标签控件</a></li>
 					<li><a href="#">树形菜单</a></li>
 					<li><a href="#">延迟加载</a></li>
@@ -243,20 +243,30 @@ var contextArticleView = {
 	}
 }; 
 var contextMenuItems = ['context_new','context_edit','context_split', 'context_delete', contextArticleView];
-var d = new dkGrid('dtable',toolBar,contextMenuItems);</pre>
+var d = new dkGrid('dtable', toolBar, contextMenuItems, attrId);</pre>
 		</div>
 		
 		<div class="cline">
 			<h2>使用说明</h2>
 		</div>
 		<div class="cline">
-			新建DSelect对象，即可完成初始化。
+			新建dkGrid对象即可完成对table对象的功能扩展。
 		</div>
 		<div class="cline">
-			<h3>new DSelect(id)</h3>
+			<h3>dkGrid</h3>
 		</div>
 		<div class="cline">
-			传入要初始化的select控件的ID
+			<pre>new dkGrid(tableId, toolBar, contextMenuItems, attrId)</pre>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>
+					tableId - (string) 表格Id
+				</li>
+				<li>toolBar - (array) 工具按钮数组，也可以为系统提供的按钮，也可以为自定义按钮</li>
+				<li>contextMenuItems - (array) 右键菜单按钮，可以为系统提供的按钮，也可以为自定义按钮</li>
+				<li>attrId - (array) 系统提供的主键值Id</li>
+			</ol>
 		</div>
 	</div>
 	<div class="clr"></div>
