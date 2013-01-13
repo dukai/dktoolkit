@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*Main Content*/
-#main_content{padding:6px; line-height:20px;}
-#main_content h2{font-size:14px; font-weight:bold; line-height:24px;}
+/*#main_content{padding:6px; line-height:20px;}
+#main_content h2{font-size:14px; font-weight:bold; line-height:24px;}*/
 #uitl_menu{height:26px; padding:8px; background:url(../images/util_menu_bg.png) repeat-x; border-bottom:1px solid #999; position:relative; overflow:hidden;}
 #uitl_menu li{height:26px; background:url(../images/util_btn_left.png) 0 0 no-repeat;float:left;margin-right:8px;display:inline-block; _displsy:inline;_zoom:1;}
 #uitl_menu li a{height:26px; display:inline-block; background:url(../images/util_btn_right.png) right 0 no-repeat;line-height:26px; padding:0 10px; _padding:3px 10px;_height:16px; cursor:pointer;}
