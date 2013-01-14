@@ -103,10 +103,38 @@
 								<button class="bold" type="button"></button>
 								<button class="italic" type="button"></button>
 								<button class="underline" type="button"></button>
+								<button class="del" type="button"></button>
 							</div>
+							<div class="bar_group">
+								<div class="splitbtn">
+									<button class="font_color" type="button"></button>
+									<div class="arrowdown"></div>
+								</div>
+								<div class="splitbtn">
+									<button class="bg_color" type="button"></button>
+									<div class="arrowdown"></div>
+								</div>
+							</div>
+							
+							<div class="bar_group">
+								<button class="aleft" type="button"></button>
+								<button class="acenter" type="button"></button>
+								<button class="aright" type="button"></button>
+							</div>
+							
+							<div class="bar_group">
+								<button class="link" type="button" title="link"></button>
+								<button class="unlink" type="button" title="unlink"></button>
+								<button class="image" type="button"></button>
+							</div>
+							
+							<div class="bar_group">
+								<button class="source" type="button"></button>
+							</div>
+							<div class="clear"></div>
 						</div>
 						<div class="editor_box">
-							<iframe class="editor_frame" frameborder="0" designMode="on"></iframe>
+							<iframe id="editor_frame" class="editor_frame" frameborder="0" designMode="on"></iframe>
 						</div>
 						
 						<div class="statusbar"><a>body</a></div>
@@ -123,6 +151,10 @@
 Copyright &copy; Dukai 2012
 </footer>
 <script src="resource/js/dk_tools.js"></script>
+<script src="resource/js/editor.js"></script>
+<script>
+new Editor('editor_content');
+</script>
 <script>
 </script>
 </body>

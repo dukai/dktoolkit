@@ -4,18 +4,107 @@
 }
 .toolbar{
 	background:#f1f1f1;
+	background-image:linear-gradient(#fff, #f1f1f1);
 	background-image:-webkit-linear-gradient(#fff, #f1f1f1);
+	background-image:-moz-linear-gradient(#fff, #f1f1f1);
+	background-image:-ms-linear-gradient(#fff, #f1f1f1);
 	border-bottom:1px solid #ccc;
 }
 
 .bar_group{
 	border-right:1px dotted #ccc;
-	padding:0 3px;
+	padding:2px 3px;
 	display:inline-block;
+	float:left;
 }
 
-.bar_group button{border:none;width:26px;height:26px;padding:0;margin:0;background:url(../images/editor_btns.png);}
-button.bold{}
-button.italic{background-position:-26px 0;}
+.bar_group select{
+	float:left;
+}
+
+.bar_group button{
+	border:1px solid transparent;
+	width:26px;
+	height:26px;
+	padding:0;
+	margin:0;
+	background:url(../images/editor_btns.png);
+	float:left;
+}
+.splitbtn{
+	border:1px solid 	transparent;
+	height:24px;
+	display:inline-block;
+	float:left;
+}
+
+.splitbtn:hover{
+	border:1px solid #6497cc;
+	background-color:#dde8f4;
+	cursor:pointer;
+}
+
+.splitbtn:hover button:hover{
+	border:1px solid transparent;
+	background-color:#dde8f4;
+	cursor:pointer;
+}
+.splitbtn button:hover{
+	height:24px;
+}
+.splitbtn .arrowdown{
+	width:10px;
+	height:24px;
+	display:inline-block;
+	background:url(../images/editor_btns.png) -8px -26px;
+	border-left:1px solid transparent;
+}
+.splitbtn .arrowdown:hover{
+	border-left:1px solid #6497cc;
+}
+
+button:hover{
+	border:1px solid #6497cc;
+	background-color:#dde8f4;
+	cursor:pointer;
+}
+
+button:active{
+	border:1px solid #6497cc;
+	background-color:#81abd5;
+	cursor:pointer;
+}
+
+button.bold{background-position:-2px 0;}
+button.italic{background-position:-28px 0;}
 button.underline{background-position:-52px 0;}
-.statusbar{border-top:1px solid #ccc;}
+button.del{background-position:-78px 0;}
+
+button.font_color{background-position:-104px -2px;}
+button.bg_color{background-position:-130px -2px;}
+
+button.aleft{background-position:-156px 0;}
+button.acenter{background-position:-182px 0;}
+button.aright{background-position:-208px 0;}
+
+button.link{background-position:-234px 0;}
+button.unlink{background-position:-260px 0;}
+button.image{background-position:-286px 0;}
+
+button.source{
+	background-position:-105px -26px;
+}
+
+.editor_frame{width:100%;}
+.statusbar{
+	padding:0 4px;
+	/*border-top:1px solid #ccc;*/
+	background:#f1f1f1;
+	font-size:10px;
+	background-image:linear-gradient(#fff, #f1f1f1);
+	background-image:-webkit-linear-gradient(#fff, #f1f1f1);
+	background-image:-moz-linear-gradient(#fff, #f1f1f1);
+	background-image:-ms-linear-gradient(#fff, #f1f1f1);
+}
+
+.clear{clear:both;}
