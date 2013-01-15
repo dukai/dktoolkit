@@ -491,8 +491,9 @@ function (win) {
 	dk.cookie = cookie;
 	
 	var extend = function(subClass, baseClass){
-		subClass.parentConstructor = baseClass;
-		subClass.parent = {};
+		subClass.parent = {
+			'__constructor': baseClass
+		};
 
 		baseClass.call(subClass.parent);
 
