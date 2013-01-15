@@ -1,13 +1,8 @@
-Array.prototype.inArray = function(item){
-	for(var i in this){
-		if(item === this[i]){
-			return true;
-		}
-	}
-	
-	return false;
-};
-
+/**
+ *@Author Dukai
+ *@Email dukai86@gmail.com
+ *@CreateTime 2013/1/15
+ */
 var Editor = function(textareaId, options){
 	var self = this;
 	self.dom = {};
@@ -19,7 +14,8 @@ var Editor = function(textareaId, options){
 			['bold', 'italic', 'underline', 'del'], 
 			['font_color', 'bg_color'], 
 			['aleft', 'acenter', 'aright'],
-			['link', 'unlink', 'image']
+			['link', 'unlink', 'image'],
+			['source']
 		]
 	};
 	
@@ -45,28 +41,37 @@ var Editor = function(textareaId, options){
 		//初始化工具条容器
 		self.dom.toolbar = dk.$c('div', null, 'toolbar');
 		self.dom.barGroups = [];
+		var inArray = Editor.tools.inArray;
 		for(var i in toolbarOpt){
 			var groupOpt = toolbarOpt[i];
 			var groupDom = dk.$c('div', null, 'bar_group');
 			self.dom.barGroups.push(groupDom);
 			for(var j in groupOpt){
 				var btn = groupOpt[j];
-				if(['font_family', 'font_size'].inArray(btn)){
-					var btnDom = dk.$c('button', null, btn);
+				var btnDom;
+				/*
+				if(inArray(['font_family', 'font_size'], btn)){
+					btnDom = dk.$c('button', null, btn);
 					btnDom.setAttribute('type', 'button');
-				}else if(['font_color', 'bg_color'].inArray(btn)){
-					var btnDom = dk.$c('button', null, btn);
+				}else if(inArray(['font_color', 'bg_color'], btn)){
+					btnDom = dk.$c('button', null, btn);
 					btnDom.setAttribute('type', 'button');
 				}else{
-					var btnDom = dk.$c('button', null, btn);
+					btnDom = dk.$c('button', null, btn);
 					btnDom.setAttribute('type', 'button');
 				}
+				*/
 				
-				groupDom.appendChild(btnDom);
+				var tp = pm.get(btn);
+				
+				
+				groupDom.appendChild(tp.dom.main);
 			}
 			
 			self.dom.toolbar.appendChild(groupDom);
 		}
+		
+		self.dom.toolbar.appendChild(dk.$c('div', null, 'clear'));
 		
 		
 		//初始化编辑框容器
@@ -99,3 +104,183 @@ var Editor = function(textareaId, options){
 	
 	self.init();
 }
+
+Editor.tools = {
+	inArray : function(array, item){
+		for(var i in array){
+			if(item === array[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
+var PluginManager = function(){
+	var self = this;
+	var hashTable = {};
+	var pluginName = [];
+	self.regist = function(name, obj){
+		hashTable[name] = obj;
+		pluginName.push(name);
+		return true;
+	}
+	
+	self.get = function(name){
+		return hashTable[name];
+	}
+	
+	self.getNames = function(){
+		return pluginName;
+	}
+}
+
+var pm = new PluginManager();
+
+
+var Plugin = function(options){
+	var self = this;
+	
+	self.dom = {
+		main: null
+	};
+	
+	self.options = {
+		list: []
+	};
+	//初始化Dom
+	self.initUI = function(){};
+	
+	self.initOptions = function(){
+		for(var key in options){
+			self.options[key] = options[key];
+		}
+	}
+	
+	self.init = function(){
+		self.initOptions();
+		self.initUI();
+	}
+};
+
+var ListPlugin = function(options){
+	var self = this;
+	
+	this.parent.__constructor(this, arguments);
+	
+	self.initUI = function(){
+		var list = self.options.list;
+		self.dom.main = dk.$c('select');
+		for(var i = 0, len = list.length; i < len; i++){
+			var option = dk.$c('option');
+			option.setAttribute('value', list[i].value);
+			option.text = list[i].text;
+			self.dom.main.add(option, null);
+		}
+	}
+	
+	self.init();
+}
+
+dk.extend(ListPlugin, Plugin);
+
+var ButtonPlugin = function(options){
+	this.parent.__constructor(this, arguments);
+	var self = this;
+	
+	self.initUI = function(){
+		self.dom.main = dk.$c('button', null, self.options.className);
+		self.dom.main.setAttribute('type', 'button');
+	}
+	
+	self.init();
+}
+
+dk.extend(ButtonPlugin, Plugin);
+
+var SplitButtonPlugin = function(){
+	this.parent.__constructor(this, arguments);
+	var self = this;
+	
+	self.initUI = function(){
+		self.dom.main = dk.$c('div', null, 'splitbtn');
+		self.dom.button = dk.$c('button', null, self.options.className);
+		self.dom.button.setAttribute('type', 'button');
+		self.dom.arrow = dk.$c('div', null, 'arrowdown');
+		
+		self.dom.main.appendChild(self.dom.button);
+		self.dom.main.appendChild(self.dom.arrow);
+	}
+	
+	self.init();
+}
+
+dk.extend(SplitButtonPlugin, Plugin);
+
+
+pm.regist('font_family', new ListPlugin({
+	list: [
+		{value: '1', text: '微软雅黑'},
+		{value: '2', text: '宋体'}
+	]
+	
+}));
+
+pm.regist('font_size', new ListPlugin({
+	list: [
+		{value: '12px', text: '12px'},
+		{value: '14px', text: '14px'}
+	]
+}));
+
+pm.regist('font_color', new SplitButtonPlugin({
+	className: 'font_color'
+}));
+
+pm.regist('bg_color', new SplitButtonPlugin({
+	className: 'bg_color'
+}));
+
+pm.regist('bold', new ButtonPlugin({
+	className: 'bold'
+}));
+
+pm.regist('italic', new ButtonPlugin({
+	className: 'italic'
+}));
+
+pm.regist('underline', new ButtonPlugin({
+	className: 'underline'
+}));
+
+pm.regist('del', new ButtonPlugin({
+	className: 'del'
+}));
+
+pm.regist('aleft', new ButtonPlugin({
+	className: 'aleft'
+}));
+
+pm.regist('acenter', new ButtonPlugin({
+	className: 'acenter'
+}));
+
+pm.regist('aright', new ButtonPlugin({
+	className: 'aright'
+}));
+
+pm.regist('link', new ButtonPlugin({
+	className: 'link'
+}));
+
+pm.regist('unlink', new ButtonPlugin({
+	className: 'unlink'
+}));
+
+pm.regist('image', new ButtonPlugin({
+	className: 'image'
+}));
+
+pm.regist('source', new ButtonPlugin({
+	className: 'source'
+}));
