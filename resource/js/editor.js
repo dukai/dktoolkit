@@ -7,6 +7,7 @@ var Editor = function(textareaId, options){
 	var self = this;
 	self.dom = {};
 	self.textarea = dk.$(textareaId);
+	self.designMode = true;
 	
 	self.options = {
 		toolbar: [
@@ -22,8 +23,8 @@ var Editor = function(textareaId, options){
 	self.init =function(){
 		self.initOptions();
 		self.initUI();
-		
 		self.initIframe();
+		self.initEvents();
 	};
 	
 	self.initOptions = function(){
@@ -63,6 +64,7 @@ var Editor = function(textareaId, options){
 				*/
 				
 				var tp = pm.get(btn);
+				tp.setEditor(self);
 				
 				
 				groupDom.appendChild(tp.dom.main);
@@ -72,7 +74,7 @@ var Editor = function(textareaId, options){
 		}
 		
 		self.dom.toolbar.appendChild(dk.$c('div', null, 'clear'));
-		
+		self.dom.toolbar.unselectable = 'on';
 		
 		//初始化编辑框容器
 		self.dom.editorBox = dk.$c('div', null, 'editor_box');
@@ -100,6 +102,21 @@ var Editor = function(textareaId, options){
 		doc.open();
 		doc.write('');
 		doc.close();
+		
+		self.win = win;
+		self.doc = doc;
+	}
+	
+	self.initEvents = function(){
+		if(self.designMode){
+			setInterval(function(){
+				self.textarea.value = self.doc.body.innerHTML;
+			}, 100);
+		}else{
+			setInterval(function(){
+				self.doc.body.innerHTML = self.textarea.value;
+			}, 100);
+		}
 	}
 	
 	self.init();
@@ -140,7 +157,7 @@ var pm = new PluginManager();
 
 var Plugin = function(options){
 	var self = this;
-	
+	self.eidtor = null;
 	self.dom = {
 		main: null
 	};
@@ -150,7 +167,7 @@ var Plugin = function(options){
 	};
 	//初始化Dom
 	self.initUI = function(){};
-	
+	self.initEvents = function(){};
 	self.initOptions = function(){
 		for(var key in options){
 			self.options[key] = options[key];
@@ -160,7 +177,12 @@ var Plugin = function(options){
 	self.init = function(){
 		self.initOptions();
 		self.initUI();
+		self.initEvents();
 	}
+	
+	self.setEditor = function(editor){
+		self.editor = editor;
+	};
 };
 
 var ListPlugin = function(options){
@@ -192,6 +214,12 @@ var ButtonPlugin = function(options){
 		self.dom.main = dk.$c('button', null, self.options.className);
 		self.dom.main.setAttribute('type', 'button');
 	}
+	
+	self.initEvents = function(){
+		dk.addEvent(this.dom.main, 'click', function(e){
+			self.options.onclick(self.editor);
+		});
+	};
 	
 	self.init();
 }
@@ -242,39 +270,81 @@ pm.regist('bg_color', new SplitButtonPlugin({
 }));
 
 pm.regist('bold', new ButtonPlugin({
-	className: 'bold'
+	className: 'bold',
+	onclick: function(editor){
+		editor.doc.execCommand('bold', false, null);
+	}
 }));
 
 pm.regist('italic', new ButtonPlugin({
-	className: 'italic'
+	className: 'italic',
+	onclick: function(editor){
+		editor.doc.execCommand('italic', false, null);
+	}
 }));
 
 pm.regist('underline', new ButtonPlugin({
-	className: 'underline'
+	className: 'underline',
+	onclick: function(editor){
+		editor.doc.execCommand('underline', false, null);
+	}
 }));
 
 pm.regist('del', new ButtonPlugin({
-	className: 'del'
+	className: 'del',
+	onclick: function(editor){
+		editor.doc.execCommand('strikethrough', false, null);
+	}
 }));
 
 pm.regist('aleft', new ButtonPlugin({
-	className: 'aleft'
+	className: 'aleft',
+	onclick: function(editor){
+		editor.doc.execCommand('justifyleft', false, null);
+	}
 }));
 
 pm.regist('acenter', new ButtonPlugin({
-	className: 'acenter'
+	className: 'acenter',
+	onclick: function(editor){
+		editor.doc.execCommand('justifycenter', false, null);
+	}
 }));
 
 pm.regist('aright', new ButtonPlugin({
-	className: 'aright'
+	className: 'aright',
+	onclick: function(editor){
+		editor.doc.execCommand('justifyright', false, null);
+	}
 }));
 
 pm.regist('link', new ButtonPlugin({
-	className: 'link'
+	className: 'link',
+	onclick: function(eidtor){
+		var dialog = new DialogBox('<div class="fields_box"><div class="cline"><label>链接地址</label><input type="text" /></div></div>', {
+			title: '插入链接',
+			width: 500,
+			height: 200,
+			custombtns: [
+				{
+					name: '创建',
+					func: function(){
+						editor.doc.execCommand('CreateLink', false, '#aaaa');
+						this.close();
+					},
+					style: 'dkit-btn-positive'
+				}
+			]
+		});
+		dialog.show();
+	}
 }));
 
 pm.regist('unlink', new ButtonPlugin({
-	className: 'unlink'
+	className: 'unlink',
+	onclick: function(eidtor){
+		editor.doc.execCommand('Unlink', false);
+	}
 }));
 
 pm.regist('image', new ButtonPlugin({
