@@ -40,7 +40,8 @@ function (win) {
 	var $c = function(tagName, id, className){
 		var ele = null;
 		if(!eles[tagName]){
-			ele = eles[tagName] = document.createElement(tagName);
+			eles[tagName] = document.createElement(tagName);
+			ele = eles[tagName].cloneNode(true);
 		}else{
 			ele = eles[tagName].cloneNode(true);
 		}
