@@ -491,15 +491,17 @@ function (win) {
 	dk.cookie = cookie;
 	
 	var extend = function(subClass, baseClass){
-		subClass.parent = {
-			'__constructor': baseClass
+		var parent = subClass.prototype.parent = {
+			'__constructor': function(obj, args){
+				baseClass.apply(obj, args);
+			}
 		};
-
-		baseClass.call(subClass.parent);
+		
+		baseClass.call(parent);
 
 
 		for(var method in baseClass.prototype){
-			subClass.prototype[method] = subClass.parent[method] = baseClass.prototype[method];
+			subClass.prototype[method] = parent[method] = baseClass.prototype[method];
 		}
 	};
 	
