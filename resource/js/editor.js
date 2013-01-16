@@ -20,11 +20,27 @@ var Editor = function(textareaId, options){
 		]
 	};
 	
+	self.setDesignMode = function(modeStat){
+		self.designMode = modeStat;
+	}
+	
+	self.syncContent = function(){
+		setInterval(function(){
+			if(self.designMode){
+				self.textarea.value = self.doc.body.innerHTML;
+			}else{
+				self.doc.body.innerHTML = self.textarea.value;
+			}
+			
+		}, 100);
+	}
+	
 	self.init =function(){
 		self.initOptions();
 		self.initUI();
 		self.initIframe();
 		self.initEvents();
+		self.syncContent();
 	};
 	
 	self.initOptions = function(){
@@ -50,19 +66,6 @@ var Editor = function(textareaId, options){
 			for(var j in groupOpt){
 				var btn = groupOpt[j];
 				var btnDom;
-				/*
-				if(inArray(['font_family', 'font_size'], btn)){
-					btnDom = dk.$c('button', null, btn);
-					btnDom.setAttribute('type', 'button');
-				}else if(inArray(['font_color', 'bg_color'], btn)){
-					btnDom = dk.$c('button', null, btn);
-					btnDom.setAttribute('type', 'button');
-				}else{
-					btnDom = dk.$c('button', null, btn);
-					btnDom.setAttribute('type', 'button');
-				}
-				*/
-				
 				var tp = pm.get(btn);
 				tp.setEditor(self);
 				
@@ -108,15 +111,7 @@ var Editor = function(textareaId, options){
 	}
 	
 	self.initEvents = function(){
-		if(self.designMode){
-			setInterval(function(){
-				self.textarea.value = self.doc.body.innerHTML;
-			}, 100);
-		}else{
-			setInterval(function(){
-				self.doc.body.innerHTML = self.textarea.value;
-			}, 100);
-		}
+		
 	}
 	
 	self.init();
@@ -201,6 +196,15 @@ var ListPlugin = function(options){
 		}
 	}
 	
+	self.initEvents = function(){
+		dk.addEvent(self.dom.main, 'change', function(e){
+			var text = this.options[this.selectedIndex].text;
+			var value = this.options[this.selectedIndex].value;
+			self.options.onchange.call(self, {editor: self.editor, value: value, text: text});
+		});
+		
+	}
+	
 	self.init();
 }
 
@@ -210,6 +214,26 @@ var ButtonPlugin = function(options){
 	this.parent.__constructor(this, arguments);
 	var self = this;
 	
+	self.isSelected = false;
+	
+	self.select = function(){
+		dk.$$(self.dom.main).addClass('select');
+	}
+	
+	self.unSelect = function(){
+		dk.$$(self.dom.main).removeClass('select');
+	}
+	
+	self.updateStat = function(){
+		if(self.isSelected){
+			self.unSelect();
+		}else{
+			self.select();
+		}
+		
+		self.isSelected = !self.isSelected;
+	}
+	
 	self.initUI = function(){
 		self.dom.main = dk.$c('button', null, self.options.className);
 		self.dom.main.setAttribute('type', 'button');
@@ -217,7 +241,7 @@ var ButtonPlugin = function(options){
 	
 	self.initEvents = function(){
 		dk.addEvent(this.dom.main, 'click', function(e){
-			self.options.onclick(self.editor);
+			self.options.onclick.call(self, self.editor);
 		});
 	};
 	
@@ -250,7 +274,10 @@ pm.regist('font_family', new ListPlugin({
 	list: [
 		{value: '1', text: '微软雅黑'},
 		{value: '2', text: '宋体'}
-	]
+	],
+	onchange: function(e){
+		
+	}
 	
 }));
 
@@ -258,7 +285,10 @@ pm.regist('font_size', new ListPlugin({
 	list: [
 		{value: '12px', text: '12px'},
 		{value: '14px', text: '14px'}
-	]
+	],
+	onchange: function(e){
+		
+	}
 }));
 
 pm.regist('font_color', new SplitButtonPlugin({
@@ -321,7 +351,7 @@ pm.regist('aright', new ButtonPlugin({
 pm.regist('link', new ButtonPlugin({
 	className: 'link',
 	onclick: function(eidtor){
-		var dialog = new DialogBox('<div class="fields_box"><div class="cline"><label>链接地址</label><input type="text" /></div></div>', {
+		var dialog = new DialogBox('<div class="fields_box"><div class="cline"><label>链接地址</label><input type="text" class="link_url" /></div></div>', {
 			title: '插入链接',
 			width: 500,
 			height: 200,
@@ -329,7 +359,8 @@ pm.regist('link', new ButtonPlugin({
 				{
 					name: '创建',
 					func: function(){
-						editor.doc.execCommand('CreateLink', false, '#aaaa');
+						var linkUrl = dk.getElementsByClassName('link_url', 'input', this.getPanel())[0];
+						editor.doc.execCommand('CreateLink', false, linkUrl.value);
 						this.close();
 					},
 					style: 'dkit-btn-positive'
@@ -352,5 +383,14 @@ pm.regist('image', new ButtonPlugin({
 }));
 
 pm.regist('source', new ButtonPlugin({
-	className: 'source'
+	className: 'source',
+	onclick: function(editor){
+		if(this.isSelected){
+			editor.setDesignMode(true);
+		}else{
+			editor.setDesignMode(false);
+		}
+		
+		this.updateStat();
+	}
 }));

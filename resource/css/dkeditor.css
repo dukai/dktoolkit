@@ -30,6 +30,7 @@
 	margin:0;
 	background:url(../images/editor_btns.png);
 	float:left;
+	cursor:pointer;
 }
 .splitbtn{
 	border:1px solid 	transparent;
@@ -40,13 +41,13 @@
 
 .splitbtn:hover{
 	border:1px solid #6497cc;
-	background-color:#dde8f4;
+	background-color:#f2f8ff;
 	cursor:pointer;
 }
 
 .splitbtn:hover button:hover{
 	border:1px solid transparent;
-	background-color:#dde8f4;
+	background-color:#f2f8ff;
 	cursor:pointer;
 }
 .splitbtn button:hover{
@@ -62,17 +63,18 @@
 .splitbtn .arrowdown:hover{
 	border-left:1px solid #6497cc;
 }
-
-button:hover{
+button:hover, button.select:hover{
+	border:1px solid #93c8ff;
+	background-color:#f2f8ff;
+}
+button.select{
 	border:1px solid #6497cc;
 	background-color:#dde8f4;
-	cursor:pointer;
 }
 
-button:active{
+button:active,button.select:active{
 	border:1px solid #6497cc;
 	background-color:#81abd5;
-	cursor:pointer;
 }
 
 button.bold{background-position:-2px 0;}
