@@ -160,17 +160,20 @@ var BasePopBox = function(options){
 	self.dragStart = function(){};
 	self.dragMove = function(){};
 	self.dragEnd = function(){};
-	
+	self.getPanel = function(){
+		return self.content_dom;
+	}
+	//执行自定义按钮事件
 	self.execCustomBtnsEvent = function(btnId){
 		var customBtns = self.options.custombtns;
 		btnId = parseInt(btnId);
 		customBtns[btnId]['func'].call(self);
 	};
-	
+	//设置主体容器内容，如message
 	self.setContent = function(message){
 		self.content_dom.innerHTML = message;
 	};
-	
+	//设置标题
 	self.setTitle = function(title){
 		self.title_dom.innerHTML = title;
 	}
