@@ -99,6 +99,22 @@ var Editor = function(textareaId, options){
 		self.dom.mainBox.appendChild(self.dom.statusbar);
 		self.textarea.parentNode.insertBefore(self.dom.mainBox, self.textarea);
 	}
+	//设置状态栏内容
+	self.setStatusBar = function(tagList){
+		var pathString = '';
+		for(var i = tagList.length - 1; i >= 0; i--){
+			if(i != tagList.length - 1){
+				pathString += ' ';
+			}
+			pathString += '<a>' + tagList[i] + '</a> '; 
+			
+			if(i > 0){
+				pathString += '&gt;';
+			}
+		}
+		
+		self.dom.statusbar.innerHTML = pathString;
+	};
 	
 	self.initIframe =function(){
 		var iframe = self.dom.iframe;
@@ -122,7 +138,23 @@ var Editor = function(textareaId, options){
 		});
 		//add editor click events
 		dk.addEvent(self.doc, 'click', function(e){
-			
+			//get start node and node path
+			var startNode = null;
+			if(self.doc.selection){
+				startNode = self.doc.selection.createRange().parentElement()
+			}else{
+				startNode = self.doc.getSelection().focusNode;
+				if(startNode.nodeType == 3){
+					startNode = startNode.parentElement;
+				}
+			}
+			var tagList = [];
+			while(startNode.tagName != 'BODY'){
+				tagList.push(startNode.tagName.toLowerCase());
+				startNode = startNode.parentNode;
+			}
+			tagList.push('body');
+			self.setStatusBar(tagList);
 		});
 	}
 	
