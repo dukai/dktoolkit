@@ -77,7 +77,12 @@ var Editor = function(textareaId, options){
 		}
 		
 		self.dom.toolbar.appendChild(dk.$c('div', null, 'clear'));
+		//设置按钮无法获取焦点
 		self.dom.toolbar.unselectable = 'on';
+		self.dom.toolbar.onselectstart = function(){
+			return false;
+		}
+		self.dom.toolbar.style.cssText = '-moz-user-select: none;';
 		
 		//初始化编辑框容器
 		self.dom.editorBox = dk.$c('div', null, 'editor_box');
@@ -111,7 +116,14 @@ var Editor = function(textareaId, options){
 	}
 	
 	self.initEvents = function(){
-		
+		//add editor keyboard events
+		dk.addEvent(self.doc, 'keypress', function(e){
+			
+		});
+		//add editor click events
+		dk.addEvent(self.doc, 'click', function(e){
+			
+		});
 	}
 	
 	self.init();
@@ -163,6 +175,9 @@ var Plugin = function(options){
 	//初始化Dom
 	self.initUI = function(){};
 	self.initEvents = function(){};
+	self.afterEvent = function(){
+		self.editor.win.focus();
+	};
 	self.initOptions = function(){
 		for(var key in options){
 			self.options[key] = options[key];
@@ -201,6 +216,8 @@ var ListPlugin = function(options){
 			var text = this.options[this.selectedIndex].text;
 			var value = this.options[this.selectedIndex].value;
 			self.options.onchange.call(self, {editor: self.editor, value: value, text: text});
+			
+			self.afterEvent();
 		});
 		
 	}
@@ -242,6 +259,7 @@ var ButtonPlugin = function(options){
 	self.initEvents = function(){
 		dk.addEvent(this.dom.main, 'click', function(e){
 			self.options.onclick.call(self, self.editor);
+			self.afterEvent();
 		});
 	};
 	
@@ -276,7 +294,7 @@ pm.regist('font_family', new ListPlugin({
 		{value: '2', text: '宋体'}
 	],
 	onchange: function(e){
-		
+		editor.doc.execCommand('fontname', false, e.text);
 	}
 	
 }));
@@ -287,7 +305,7 @@ pm.regist('font_size', new ListPlugin({
 		{value: '14px', text: '14px'}
 	],
 	onchange: function(e){
-		
+		editor.doc.execCommand('fontsize', false, e.text);
 	}
 }));
 
