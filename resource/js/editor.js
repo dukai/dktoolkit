@@ -134,7 +134,9 @@ var Editor = function(textareaId, options){
 	self.initEvents = function(){
 		//add editor keyboard events
 		dk.addEvent(self.doc, 'keypress', function(e){
-			
+			if(e.which == 13){
+				self.doc.execCommand('formatblock', false, '<p>');
+			}
 		});
 		//add editor click events
 		dk.addEvent(self.doc, 'click', function(e){
