@@ -86,9 +86,13 @@ var Editor = function(textareaId, options){
 		
 		//初始化编辑框容器
 		self.dom.editorBox = dk.$c('div', null, 'editor_box');
+		self.dom.editorBox.style.cssText = 'overflow:hidden;height:300px;position:relative;padding-left:4px;'
 		self.dom.iframe = dk.$c('iframe', null, 'editor_frame');
 		self.dom.iframe.setAttribute('frameborder', 0);
 		self.dom.iframe.setAttribute('designMode','on');
+		self.dom.iframe.setAttribute('scroll', 'no');
+		self.dom.iframe.setAttribute('width', '100%');
+		self.dom.iframe.setAttribute('height', '100%');
 		self.dom.editorBox.appendChild(self.dom.iframe);
 		//初始化状态栏容器
 		self.dom.statusbar = dk.$c('div', null, 'statusbar');
@@ -124,22 +128,22 @@ var Editor = function(textareaId, options){
 		doc.contentEditable = true;
 		doc.charset = "utf-8";
 		doc.open();
-		doc.write('');
+		doc.write('<!DOCTYPE html><html class="view"><style>.view{padding:0;word-wrap:break-word;cursor:text;width:100%;height:100%;overflow:hidden;}.viewbody{margin:0;padding:0;width:100%;height:100%;overflow:auto;}p{margin:10px 0;}</style><body class="viewbody"></body></html>')
+		doc.write(self.textarea.value);
 		doc.close();
-		
 		self.win = win;
 		self.doc = doc;
 	}
 	
 	self.initEvents = function(){
 		//add editor keyboard events
-		dk.addEvent(self.doc, 'keypress', function(e){
+		dk.addEvent(self.doc.body, 'keypress', function(e){
 			if(e.which == 13){
 				self.doc.execCommand('formatblock', false, '<p>');
 			}
 		});
 		//add editor click events
-		dk.addEvent(self.doc, 'click', function(e){
+		dk.addEvent(self.doc.body, 'click', function(e){
 			//get start node and node path
 			var startNode = null;
 			if(self.doc.selection){
@@ -157,6 +161,17 @@ var Editor = function(textareaId, options){
 			}
 			tagList.push('body');
 			self.setStatusBar(tagList);
+		});
+		
+		dk.addEvent(self.win, 'beforedeactivate', function(e){
+			console.log('before deactivate');
+			self.rangeBackup = self.doc.selection.createRange().duplicate();
+			console.log(self.rangeBackup.text);
+		});
+		dk.addEvent(self.win, 'activate', function(e){
+			console.log(self.rangeBackup.text);
+			console.log('activate');
+			
 		});
 	}
 	
@@ -412,6 +427,7 @@ pm.regist('link', new ButtonPlugin({
 					name: '创建',
 					func: function(){
 						var linkUrl = dk.getElementsByClassName('link_url', 'input', this.getPanel())[0];
+						editor.win.focus();
 						editor.doc.execCommand('CreateLink', false, linkUrl.value);
 						this.close();
 					},
@@ -431,7 +447,10 @@ pm.regist('unlink', new ButtonPlugin({
 }));
 
 pm.regist('image', new ButtonPlugin({
-	className: 'image'
+	className: 'image',
+	onclick: function(editor){
+		
+	}
 }));
 
 pm.regist('source', new ButtonPlugin({
