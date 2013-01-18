@@ -169,16 +169,14 @@ function (win) {
 				}
             } else if (node.attachEvent) {
                 var tempFunc;
-				var event = win.event;
-				
 				if(customEvents[type]){
 					tempFunc = function () {
-						handleEventFix.call(node, event);
+						handleEventFix.call(node, win.event);
 					};
 					type = customEvents[type];
 				}else{
 					tempFunc = function () {
-						handleEvent.call(node, event);
+						handleEvent.call(node, win.event);
 					};
 					
 				}
