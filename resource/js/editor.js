@@ -128,7 +128,7 @@ var Editor = function(textareaId, options){
 		doc.contentEditable = true;
 		doc.charset = "utf-8";
 		doc.open();
-		doc.write('<!DOCTYPE html><html class="view"><style>.view{padding:0;word-wrap:break-word;cursor:text;width:100%;height:100%;overflow:hidden;}.viewbody{margin:0;padding:0;width:100%;height:100%;overflow:auto;}p{margin:10px 0;}</style><body class="viewbody"></body></html>')
+		doc.write('<!DOCTYPE html><html class="view"><head><meta charset="utf-8" /><style>.view{padding:0;word-wrap:break-word;cursor:text;width:100%;height:100%;overflow:hidden;}.viewbody{margin:0;padding:0;width:100%;height:100%;overflow:auto;}p{margin:10px 0;}</style></head><body class="viewbody"></body></html>')
 		doc.write(self.textarea.value);
 		doc.close();
 		self.win = win;
