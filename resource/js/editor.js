@@ -164,14 +164,15 @@ var Editor = function(textareaId, options){
 		});
 		
 		dk.addEvent(self.win, 'beforedeactivate', function(e){
-			console.log('before deactivate');
+			//console.log('before deactivate');
 			self.rangeBackup = self.doc.selection.createRange().duplicate();
-			console.log(self.rangeBackup.text);
+			//console.log(self.rangeBackup.text);
 		});
 		dk.addEvent(self.win, 'activate', function(e){
-			console.log(self.rangeBackup.text);
-			console.log('activate');
-			
+			//console.log('activate');
+			if(self.rangeBackup){
+				self.rangeBackup.select();
+			}
 		});
 	}
 	
@@ -418,7 +419,8 @@ pm.regist('aright', new ButtonPlugin({
 pm.regist('link', new ButtonPlugin({
 	className: 'link',
 	onclick: function(eidtor){
-		var dialog = new DialogBox('<div class="fields_box"><div class="cline"><label>链接地址</label><input type="text" class="link_url" /></div></div>', {
+		
+		var dialog = new DialogBox('<div class="fields_box"><div class="cline"><label>链接地址: </label><input type="text" class="link_url" /></div></div>', {
 			title: '插入链接',
 			width: 500,
 			height: 200,
@@ -428,7 +430,13 @@ pm.regist('link', new ButtonPlugin({
 					func: function(){
 						var linkUrl = dk.getElementsByClassName('link_url', 'input', this.getPanel())[0];
 						editor.win.focus();
-						editor.doc.execCommand('CreateLink', false, linkUrl.value);
+						
+						if(editor.rangeBackup && !editor.rangeBackup.text){
+							editor.rangeBackup.pasteHTML('<a href="' + linkUrl.value + '">' + linkUrl.value + '</a>');
+							console.log(editor.rangeBackup.htmlText);
+						}else{
+							editor.doc.execCommand('CreateLink', false, linkUrl.value);
+						}
 						this.close();
 					},
 					style: 'dkit-btn-positive'
