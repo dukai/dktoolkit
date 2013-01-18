@@ -169,14 +169,16 @@ function (win) {
 				}
             } else if (node.attachEvent) {
                 var tempFunc;
+				var event = win.event;
+				
 				if(customEvents[type]){
 					tempFunc = function () {
-						handleEventFix.call(node, window.event);
+						handleEventFix.call(node, event);
 					};
 					type = customEvents[type];
 				}else{
 					tempFunc = function () {
-						handleEvent.call(node, window.event);
+						handleEvent.call(node, event);
 					};
 					
 				}
@@ -197,7 +199,10 @@ function (win) {
 
     var handleEvent = function(event) {
         var returnValue = true;
-        event = event || window.event;
+		if(!event){
+			var doc = this.nodeName == '#document' ? this : this.document;
+			event = doc.parentWindow.event;
+		}
         event = fixEvent(event, this);
         var handlers = this.events[event.type];
         for (var i in handlers) {
@@ -211,7 +216,10 @@ function (win) {
 	
 	var handleEventFix = function(event) {
         var returnValue = true;
-        event = event || window.event;
+        if(!event){
+			var doc = this.nodeName == '#document' ? this : this.document;
+			event = doc.parentWindow.event;
+		}
         event = fixEvent(event, this);
 		var type = event.type.replace('mouse', 'f');
         var handlers = this.events[type];
