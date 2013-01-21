@@ -6,7 +6,8 @@ var LazyLoad = {
 		laodingBg: 'http://img.scimg.cn/images/common/loader.gif',
 		container: window,
 		loadQueue: [],
-		isStatic: true
+		isStatic: true,
+		onImageLoad: function(){}
 	},
 	pageDom: function(target){
 		if(typeof target == 'string'){
@@ -39,6 +40,7 @@ var LazyLoad = {
 	},
 	isResizing : false,
 	init: function(option){
+		var self =  this;
 		for(var key in option){
 			this.options[key] = option[key];
 		}
@@ -49,6 +51,9 @@ var LazyLoad = {
 			var pagedom = LazyLoad.pageDom(img);
 			if(!img.getAttribute('realsrc'))
 				continue;
+			jQuery(img).load(function(e){
+				self.options.onImageLoad({img: this});
+			});
 			if(pagedom.top > visiableHeight || !jQuery(img).is(':visible')){
 				img.ly = pagedom.top;
 				//if(pagedom.top > visiableHeight)
@@ -58,7 +63,7 @@ var LazyLoad = {
 				img.removeAttribute('realsrc');
 			}
 		}
-		var self =  this;
+		
 		setTimeout(function(){self.doload();}, 10);
 		jQuery(this.options.container).bind('scroll', function(e){self.doload(e)});
 		jQuery(this.options.container).bind('resize', function(e){self.resizeEvent(e)});
