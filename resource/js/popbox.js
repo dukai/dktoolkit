@@ -238,13 +238,19 @@ BasePopBox.Model = {
 var DialogBox = function(id, options){ //extends BasePopBox
 	BasePopBox.call(this, options);
 	this.model = BasePopBox.Model.dialog;
-
-	var type = /<[^>]+?>/.test(id);
-	if(!type){
-		var node = dk.$(id);
-		node.style.display = '';
-		this.title = node.getAttribute('boxtitle');
+	var node;
+	if(typeof id == 'string'){
+		var type = /<[^>]+?>/.test(id);
+		if(!type){
+			node = dk.$(id);
+			node.style.display = '';
+			this.title = node.getAttribute('boxtitle');
+		}
+	}else{
+		type = false;
+		node = id;
 	}
+	
 	this.renderBtns = function(){
 		if(this.options && this.options.custombtns.length > 0){
 			this.funcbtns_dom.style.display = 'block';
