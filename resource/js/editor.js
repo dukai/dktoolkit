@@ -351,8 +351,13 @@ pm.regist('font_family', new ListPlugin({
 
 pm.regist('font_size', new ListPlugin({
 	list: [
-		{value: '12px', text: '12px'},
-		{value: '14px', text: '14px'}
+		{value: '1', text: '1'},
+		{value: '2', text: '2'},
+		{value: '3', text: '3'},
+		{value: '4', text: '4'},
+		{value: '5', text: '5'},
+		{value: '6', text: '6'},
+		{value: '7', text: '7'},
 	],
 	onchange: function(e){
 		editor.doc.execCommand('fontsize', false, e.text);
