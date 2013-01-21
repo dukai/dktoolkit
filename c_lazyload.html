@@ -45,13 +45,15 @@
 					<li><a href="#">多种特效幻灯片</a></li>
 					<li><a href="#">弹出窗口</a></li>
 					<li><a href="#">动态表格</a></li>
-					<li><a href="#" class="select">模拟右键菜单</a></li>
+					<li><a href="#">模拟右键菜单</a></li>
 					<li><a href="#">简单的文本编辑器</a></li>
 					<li><a href="#">自定义下拉框</a></li>
 					<li><a href="#">标签控件</a></li>
 					<li><a href="#">树形菜单</a></li>
-					<li><a href="#">延迟加载</a></li>
+					<li><a href="#" class="select">延迟加载</a></li>
 					<li><a href="#">图片浏览器</a></li>
+					<li><a href="#">无刷新多图片上传</a></li>
+					<li><a href="#">图片横向滚动</a></li>
 				</ul>
 			</li>
 			
@@ -61,6 +63,10 @@
 					<li><a href="#">会动的眼珠</a></li>
 					<li><a href="#">HTML5时间轴</a></li>
 					<li><a href="#">一个简单的HTML5汽车游戏</a></li>
+					<li><a href="#">Nodejs的MVC框架</a></li>
+					<li><a href="#">A star自动寻路</a></li>
+					<li><a href="#">随着页面滚动的特效-视差特效</a></li>
+					<li><a href="#">瀑布流</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -71,19 +77,12 @@
 			<h2>延迟加载</h2>
 		</div>
 		<div class="form_box" oncontextmenu = "customContextMenu(event)">
-			<div class="fields_box" style="height:100px">
-			<img src="resource/images/loader.gif" id="loadgif" />
-			<div id="cstCM" style="display:none;">
-				<ul>
-					<li>View</li>
-					<li>Sort By</li>
-					<li class="splitTop">Refresh</li>
-					<li class="splitBottom">Paste</li>
-					<li class="splitTop">Paste Shortcut</li>
-					<li class="splitBottom">Property</li>
-				</ul>
-			</div>
-
+			<div class="fields_box">
+			<ul>
+				<li style="padding:200px 0"><a href="#1"><img src="resource/images/loader.gif" realsrc="http://www.dklogs.net/wp-content/uploads/2010/09/dkGrid_Banner.png" /></a></li>
+				<li style="padding:200px 0"><a href="#2"><img src="resource/images/loader.gif" realsrc="http://www.dklogs.net/wp-content/uploads/2010/09/mo.png" /></a></li>
+				<li style="padding:200px 0"><a href="#3"><img src="resource/images/loader.gif" realsrc="http://www.dklogs.net/wp-content/uploads/2010/09/banner_datepicker.png" /></a></li>
+			</ul>
 			</div>
 		</div>
 		
@@ -92,45 +91,39 @@
 		</div>
 		
 		<div class="cline">
-			<pre>
-			</pre>
+			<pre>LazyLoad.init();	</pre>
 		</div>
 		
 		<div class="cline">
 			<h2>使用说明</h2>
 		</div>
 		<div class="cline">
-			通过全局方法getDragManager()方法获取DragManager，通过regist()方法注册需要拖动的内容。
+			调用LazyLoad.init()方法来索引所有需要延迟加载的图片。需要延迟加载的图片需要有一个realsrc属性。
 		</div>
 		<div class="cline">
-			<h3>window.getDragManager()</h3>
+			<h3>LazyLoad.init(options)</h3>
 		</div>
 		<div class="cline">
-			获取DragManager对象。
+			初始化延迟加载
 		</div>
 		<div class="cline">
-			<h3>dragmanager.regist(handler, operator, options)</h3>
-		</div>
-		<div class="cline">
-			<p>注册拖动事件</p>
-			
+			<pre>LazyLoad.init(options)</pre>
 		</div>
 		<div class="cline">
 			<h4>参数</h4>
 		</div>
 		<div class="cline">
 			<ol>
-				<li>handler - (Mix) 鼠标拖动的对象或ID</li>
-				<li>operator - (Mix) 移动的对象或ID</li>
 				<li>options - (json, optional) 选项
 					<ol>
-						<li>onstart(event) - (function, optional) 开始拖动事件，event包含xPos位置和yPos位置</li>
-						<li>onmove(event) - (function, optional) 移动事件，event包含xPos位置和yPos位置</li>
-						<li>onend(event) - (function, optional) 拖拽结束事件，event包含xPos位置和yPos位置</li>
-						<li>lockX - (bool, optional) 锁定X移动</li>
-						<li>lockY - (bool, optional) 锁定y移动</li>
-						<li>xRange - (json, optional) 包含两个值，min和max，x移动范围</li>
-						<li>yRange - (json, optional) 包含两个属性，min和max，y移动范围</li>
+						<li>range - (int, optional) 预加载的范围</li>
+						<li>elements- (node, optional) 预加载的项</li>
+						<li>replaceImg - (string, optional) 替换的图片</li>
+						<li>laodingBg - (string, optional) 背景</li>
+						<li>container - (Dom, optional) 容器</li>
+						<li>loadQueue - (array, optional) 加载的队列</li>
+						<li>isStatic - (bool, optional) 是否为静态</li>
+						<li>onImageLoad - (function, optional) 图片加载完成调用的函数</li>
 					</ol>
 				</li>
 			</ol>
@@ -143,9 +136,9 @@ Copyright &copy; Dukai 2012
 </footer>
 <script src="resource/js/dk_tools.js"></script>
 <script src="resource/js/jquery-1.4.2.js"></script>
+<script src="resource/js/lazyload.js"></script>
 <script>
-console.log($('#loadgif').is(':not(:hidden)'));
-
+LazyLoad.init();
 </script>
 </body>
 </html>
