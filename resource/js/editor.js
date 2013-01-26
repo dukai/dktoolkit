@@ -104,7 +104,8 @@ var Editor = function(textareaId, options){
 		self.textarea.parentNode.insertBefore(self.dom.mainBox, self.textarea);
 	}
 	//设置状态栏内容
-	self.setStatusBar = function(tagList){
+	self.setStatusBar = function(){
+		var tagList = self.findPath();
 		var pathString = '';
 		for(var i = tagList.length - 1; i >= 0; i--){
 			if(i != tagList.length - 1){
@@ -144,23 +145,7 @@ var Editor = function(textareaId, options){
 		});
 		//add editor click events
 		dk.addEvent(self.doc.body, 'click', function(e){
-			//get start node and node path
-			var startNode = null;
-			if(self.doc.selection){
-				startNode = self.doc.selection.createRange().parentElement()
-			}else{
-				startNode = self.doc.getSelection().focusNode;
-				if(startNode.nodeType == 3){
-					startNode = startNode.parentElement;
-				}
-			}
-			var tagList = [];
-			while(startNode.tagName != 'BODY'){
-				tagList.push(startNode.tagName.toLowerCase());
-				startNode = startNode.parentNode;
-			}
-			tagList.push('body');
-			self.setStatusBar(tagList);
+			self.setStatusBar();
 		});
 		
 		dk.addEvent(self.win, 'beforedeactivate', function(e){
@@ -174,6 +159,27 @@ var Editor = function(textareaId, options){
 				self.rangeBackup.select();
 			}
 		});
+	}
+	
+	self.findPath = function(){
+		//get start node and node path
+		var startNode = null;
+		if(self.doc.selection){
+			startNode = self.doc.selection.createRange().parentElement()
+		}else{
+			startNode = self.doc.getSelection().focusNode;
+			if(startNode.nodeType == 3){
+				startNode = startNode.parentElement;
+			}
+		}
+		var tagList = [];
+		while(startNode.tagName.toUpperCase() != 'BODY' && startNode.tagName.toUpperCase() != 'HTML'){
+			tagList.push(startNode.tagName.toLowerCase());
+			startNode = startNode.parentNode;
+		}
+		tagList.push('body');
+		
+		return tagList;
 	}
 	
 	self.init();
@@ -220,11 +226,16 @@ var Plugin = function(options){
 	};
 	
 	self.options = {
-		list: []
+		list: [],
+		onclick: function(){},
+		onpulldown: function(){},
+		onpullup: function(){}
 	};
 	//初始化Dom
 	self.initUI = function(){};
-	self.initEvents = function(){};
+	self.initEvents = function(){
+		
+	};
 	self.afterEvent = function(){
 		self.editor.win.focus();
 	};
@@ -317,10 +328,17 @@ var ButtonPlugin = function(options){
 }
 
 dk.extend(ButtonPlugin, Plugin);
-
-var SplitButtonPlugin = function(){
+/**
+options = {
+	className: string,
+	onclick: function,
+	onpulldown: function
+}
+*/
+var SplitButtonPlugin = function(options){
 	this.parent.__constructor(this, arguments);
 	var self = this;
+	self.isOpen = false;
 	
 	self.initUI = function(){
 		self.dom.main = dk.$c('div', null, 'splitbtn');
@@ -331,8 +349,45 @@ var SplitButtonPlugin = function(){
 		self.dom.main.appendChild(self.dom.button);
 		self.dom.main.appendChild(self.dom.arrow);
 	}
+	self.initEvents = function(){
+		dk.addEvent(this.dom.button, 'click', function(e){
+			self.options.onclick.call(self, {
+				editor: self.editor, 
+				currentTarget: this
+			});
+		});
+		
+		dk.addEvent(this.dom.arrow, 'click', function(e){
+			
+			if(!self.isOpen){
+				dk.$$(self.dom.main).addClass('open');
+				
+				self.options.onpulldown.call(self, {
+					editor: self.editor,
+					currentTarget: this,
+					isOpen: self.isOpen
+				});
+			}else{
+				dk.$$(self.dom.main).removeClass('open');
+				
+				self.options.onpullup.call(self, {
+					editor: self.editor,
+					currentTarget: this,
+					isOpen: self.isOpen
+				});
+			}
+			self.isOpen = !self.isOpen;
+		});
+		
+	};
+	
+	self.close = function(){
+		self.isOpen = false;
+		dk.$$(self.dom.main).removeClass('open');
+	};
 	
 	self.init();
+	
 }
 
 dk.extend(SplitButtonPlugin, Plugin);
@@ -344,7 +399,7 @@ pm.regist('font_family', new ListPlugin({
 		{value: '2', text: '宋体'}
 	],
 	onchange: function(e){
-		editor.doc.execCommand('fontname', false, e.text);
+		e.editor.doc.execCommand('fontname', false, e.text);
 	}
 	
 }));
@@ -360,16 +415,46 @@ pm.regist('font_size', new ListPlugin({
 		{value: '7', text: '7'},
 	],
 	onchange: function(e){
-		editor.doc.execCommand('fontsize', false, e.text);
+		e.editor.doc.execCommand('fontsize', false, e.text);
 	}
 }));
 
 pm.regist('font_color', new SplitButtonPlugin({
-	className: 'font_color'
+	className: 'font_color',
+	onclick: function(e){
+		
+	},
+	onpulldown: function(e){
+		var self = this;
+		var position = dk.pageDom(e.currentTarget);
+		colorPicker.render(position.left - 27,position.top + 26);
+		colorPicker.callBackFuncs.push(function(){
+			e.editor.doc.execCommand('ForeColor', false, colorPicker.colorCode);
+			self.close();
+		});
+	},
+	onpullup: function(e){
+		colorPicker.dispose();
+	}
 }));
 
 pm.regist('bg_color', new SplitButtonPlugin({
-	className: 'bg_color'
+	className: 'bg_color',
+	onclick: function(e){
+		
+	},
+	onpulldown: function(e){
+		var self = this;
+		var position = dk.pageDom(e.currentTarget);
+		colorPicker.render(position.left - 27,position.top + 26);
+		colorPicker.callBackFuncs.push(function(){
+			e.editor.doc.execCommand('BackColor', false, colorPicker.colorCode);
+			self.close();
+		});
+	},
+	onpullup: function(e){
+		colorPicker.dispose();
+	}
 }));
 
 pm.regist('bold', new ButtonPlugin({
@@ -454,7 +539,7 @@ pm.regist('link', new ButtonPlugin({
 
 pm.regist('unlink', new ButtonPlugin({
 	className: 'unlink',
-	onclick: function(eidtor){
+	onclick: function(editor){
 		editor.doc.execCommand('Unlink', false);
 	}
 }));
