@@ -44,7 +44,11 @@
 	background-color:#f2f8ff;
 	cursor:pointer;
 }
-
+.splitbtn.open{
+	border:1px solid #6497cc;
+	background-color:#f2f8ff;
+	cursor:pointer;
+}
 .splitbtn:hover button:hover{
 	border:1px solid transparent;
 	background-color:#f2f8ff;
@@ -52,6 +56,13 @@
 }
 .splitbtn button:hover{
 	height:24px;
+}
+.splitbtn.open .arrowdown{
+	width:10px;
+	height:24px;
+	display:inline-block;
+	background:url(../images/editor_btns.png) -34px -26px;
+	border-left:1px solid transparent;
 }
 .splitbtn .arrowdown{
 	width:10px;
