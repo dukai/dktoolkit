@@ -55,7 +55,11 @@ function (win) {
 	};
 
     dk.$c = $c;
-	
+	/**
+	 * supportProperty('placeholder');
+	 * supportProperty('input', 'placeholder');
+	 * supportProperty('div', 'style.opacity');
+	 */
 	var supportProperty = function(nodeType, property){
 		switch(arguments.length){
 			case 0:
