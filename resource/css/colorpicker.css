@@ -15,7 +15,7 @@ _background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=
 _background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.dklogs.net/lib/images/c_p_h_pointer.png', sizingMethod='scale');
 }
 #dk_color_picker .c_p_status{ margin-top:4px;}
-#dk_color_picker .c_p_status span{ display:inline-block; width:60px; line-height:24px;}
+#dk_color_picker .c_p_status span{ display:inline-block; width:60px; line-height:24px;font-size:12px;}
 #dk_color_picker .c_p_status input{ margin-left:4px;}
 /*page style*/
 fieldset{ margin:10px 40px; border:1px solid #ccc; padding:10px;}
