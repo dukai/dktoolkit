@@ -52,12 +52,12 @@ var ColorPicker = function(){
 		self.dom.statusBox.appendChild(self.dom.fontColor);
 		
 		self.dom.btnBox = dk.$c('div');
-		self.dom.btnConfirm = dk.$c('input');
+		self.dom.btnConfirm = dk.$c('button', null, 'btn');
 		self.dom.btnConfirm.setAttribute('type', 'button');
-		self.dom.btnConfirm.setAttribute('value', '确定');
-		self.dom.btnCancel = dk.$c('input');
+		self.dom.btnConfirm.innerHTML = '确定';
+		self.dom.btnCancel = dk.$c('button', null, 'btn_gray');
 		self.dom.btnCancel.setAttribute('type', 'button');
-		self.dom.btnCancel.setAttribute('value', '取消');
+		self.dom.btnCancel.innerHTML = '取消';
 		
 		self.dom.btnBox.appendChild(self.dom.btnConfirm);
 		self.dom.btnBox.appendChild(self.dom.btnCancel);
