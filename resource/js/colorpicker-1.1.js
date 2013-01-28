@@ -77,6 +77,14 @@ var ColorPicker = function(){
 		dk.addEvent(self.dom.cpH, 'click', function(e){
 			self.setHPointer(e);
 		});
+		
+		dk.addEvent(self.dom.btnConfirm, 'click', function(e){
+			
+		});
+		
+		dk.addEvent(self.dom.btnCancel, 'click', function(e){
+			
+		});
 	};
 	
 	self.render = function(left, top){
