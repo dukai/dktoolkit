@@ -7,7 +7,7 @@
 
 (function(window){
 	
-var ColorPicker = function(){
+var ColorPicker = function(options){
 	var self = this;
 	self.currentTarget = null;
 	self.colorCode = null;
@@ -15,11 +15,27 @@ var ColorPicker = function(){
 	self.rgb = {r: 255, g: 255, b: 255};
 	self.dom = {};
 	
+	self.options = {
+		onshow: function(){},
+		onclose: function(){},
+		onconfirm: function(){},
+		oncancel: function(){},
+		onnocolor: function(){}
+	};
+	
+	
 	self.init = function(){
+		self.initOptions(options);
 		self.currentTarget = null;
 		self.colorCode = null;
 		self.initUI();
 		self.initEvents();
+	};
+	
+	self.initOptions = function(options){
+		for(var key in options){
+			self.options[key] = options[key];
+		}
 	};
 	
 	self.initUI = function(){
@@ -52,6 +68,10 @@ var ColorPicker = function(){
 		self.dom.statusBox.appendChild(self.dom.fontColor);
 		
 		self.dom.btnBox = dk.$c('div');
+		self.dom.btnNoColor = dk.$c('button', null, 'btn');
+		self.dom.btnNoColor.setAttribute('type', 'button');
+		self.dom.btnNoColor.innerHTML = '无颜色';
+		
 		self.dom.btnConfirm = dk.$c('button', null, 'btn');
 		self.dom.btnConfirm.setAttribute('type', 'button');
 		self.dom.btnConfirm.innerHTML = '确定';
@@ -59,6 +79,7 @@ var ColorPicker = function(){
 		self.dom.btnCancel.setAttribute('type', 'button');
 		self.dom.btnCancel.innerHTML = '取消';
 		
+		self.dom.btnBox.appendChild(self.dom.btnNoColor);
 		self.dom.btnBox.appendChild(self.dom.btnConfirm);
 		self.dom.btnBox.appendChild(self.dom.btnCancel);
 		
@@ -78,17 +99,27 @@ var ColorPicker = function(){
 			self.setHPointer(e);
 		});
 		
+		dk.addEvent(self.dom.btnNoColor, 'click', function(e){
+			self.options.onnocolor();
+		});
+		
 		dk.addEvent(self.dom.btnConfirm, 'click', function(e){
-			
+			self.options.onconfirm();
 		});
 		
 		dk.addEvent(self.dom.btnCancel, 'click', function(e){
-			
+			self.options.oncancel();
 		});
 	};
 	
-	self.render = function(left, top){
+	self.show = function(left, top){
+		self.options.onshow();
 		dk.$$(self.dom.main).css({left:left+'px',top: top + 'px',display:'block'});
+	};
+	
+	self.close = function(){
+		self.options.onclose();
+		self.dom.main.style.display = 'none';
 	};
 	
 	self.getColorCode = function(hsv){
