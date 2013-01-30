@@ -23,7 +23,6 @@ var ColorPicker = function(options){
 		onnocolor: function(){}
 	};
 	
-	
 	self.init = function(){
 		self.initOptions(options);
 		self.currentTarget = null;
@@ -101,14 +100,17 @@ var ColorPicker = function(options){
 		
 		dk.addEvent(self.dom.btnNoColor, 'click', function(e){
 			self.options.onnocolor();
+			self.close();
 		});
 		
 		dk.addEvent(self.dom.btnConfirm, 'click', function(e){
 			self.options.onconfirm();
+			self.close();
 		});
 		
 		dk.addEvent(self.dom.btnCancel, 'click', function(e){
 			self.options.oncancel();
+			self.close();
 		});
 	};
 	
@@ -232,5 +234,15 @@ var utils = ColorPicker.utils = {
 };
 
 window.ColorPicker = ColorPicker;
+!dk && dk = {};
+var cp = null;
+dk.colorpicker = function(input, options){
+	if(cp == null){
+		cp = new ColorPicker(options);
+	}else{
+		cp.initOptions(options);
+	}
 	
+	dk.addEvent(input, 'click', function(e){});
+};
 })(window);
