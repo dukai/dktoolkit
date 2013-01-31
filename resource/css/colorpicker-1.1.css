@@ -17,6 +17,7 @@ _background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=
 .dk_color_picker .c_p_status{ margin-top:4px;}
 .dk_color_picker .c_p_status span{ display:inline-block; width:60px; line-height:24px;font-size:12px;text-align:center;}
 .dk_color_picker .c_p_status input{ margin-left:4px;}
+.dk_color_picker .cp_btn_box{text-align:right;}
 /*page style*/
 fieldset{ margin:10px 40px; border:1px solid #ccc; padding:10px;}
 fieldset p label{ display:block; line-height:24px;}

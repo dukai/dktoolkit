@@ -6,7 +6,11 @@
  *************************************/
 
 (function(window){
-	
+	/**
+	 * ColorPicker Constructor
+	 * @param options
+	 * @constructor
+	 */
 var ColorPicker = function(options){
 	var self = this;
 	self.currentTarget = null;
@@ -14,15 +18,18 @@ var ColorPicker = function(options){
 	self.hsv = {h: 0, s: 0, v: 1};
 	self.rgb = {r: 255, g: 255, b: 255};
 	self.dom = {};
-	
+
 	self.options = {
+		showNoColor: false,
 		onshow: function(){},
 		onclose: function(){},
 		onconfirm: function(){},
 		oncancel: function(){},
 		onnocolor: function(){}
 	};
-	
+	self.setTarget = function(target){
+		self.currentTarget = target;
+	}
 	self.init = function(){
 		self.initOptions(options);
 		self.currentTarget = null;
@@ -30,13 +37,13 @@ var ColorPicker = function(options){
 		self.initUI();
 		self.initEvents();
 	};
-	
+
 	self.initOptions = function(options){
 		for(var key in options){
 			self.options[key] = options[key];
 		}
 	};
-	
+
 	self.initUI = function(){
 		//main box
 		self.dom.main = dk.$c('div', null, 'dk_color_picker');
@@ -49,105 +56,117 @@ var ColorPicker = function(options){
 		self.dom.cpSVPointer = dk.$c('span', null, 'c_p_pointer');
 		self.dom.cpH = dk.$c('div', null, 'c_p_h');
 		self.dom.cpHPointer = dk.$c('span', null, 'c_p_h_pointer');
-		
+
 		self.dom.cpSV.appendChild(self.dom.cpSVPointer);
 		self.dom.cpH.appendChild(self.dom.cpHPointer);
 		self.dom.cpBox.appendChild(self.dom.cpSV);
 		self.dom.cpBox.appendChild(self.dom.cpH);
-		
+
 		self.dom.statusBox = dk.$c('div', null, 'c_p_status');
 		self.dom.colorCode = dk.$c('span');
 		self.dom.bgColor = dk.$c('span');
 		self.dom.bgColor.innerHTML = '&nbsp;';
 		self.dom.fontColor = dk.$c('span');
 		self.dom.fontColor.innerHTML = '文字';
-		
+
 		self.dom.statusBox.appendChild(self.dom.colorCode);
 		self.dom.statusBox.appendChild(self.dom.bgColor);
 		self.dom.statusBox.appendChild(self.dom.fontColor);
-		
-		self.dom.btnBox = dk.$c('div');
+
+		self.dom.btnBox = dk.$c('div', null, 'cp_btn_box');
 		self.dom.btnNoColor = dk.$c('button', null, 'btn');
 		self.dom.btnNoColor.setAttribute('type', 'button');
 		self.dom.btnNoColor.innerHTML = '无颜色';
-		
+
 		self.dom.btnConfirm = dk.$c('button', null, 'btn');
 		self.dom.btnConfirm.setAttribute('type', 'button');
 		self.dom.btnConfirm.innerHTML = '确定';
 		self.dom.btnCancel = dk.$c('button', null, 'btn_gray');
 		self.dom.btnCancel.setAttribute('type', 'button');
 		self.dom.btnCancel.innerHTML = '取消';
-		
-		self.dom.btnBox.appendChild(self.dom.btnNoColor);
+
+		self.options.showNoColor && self.dom.btnBox.appendChild(self.dom.btnNoColor);
 		self.dom.btnBox.appendChild(self.dom.btnConfirm);
 		self.dom.btnBox.appendChild(self.dom.btnCancel);
-		
+
 		self.dom.main.appendChild(self.dom.header);
 		self.dom.main.appendChild(self.dom.cpBox);
 		self.dom.main.appendChild(self.dom.statusBox);
 		self.dom.main.appendChild(self.dom.btnBox);
 		window.document.body.appendChild(self.dom.main);
 	};
-	
+
 	self.initEvents = function(){
 		dk.addEvent(self.dom.cpSV, 'click', function(e){
 			self.setSVPointer(e);
 		});
-		
+
 		dk.addEvent(self.dom.cpH, 'click', function(e){
 			self.setHPointer(e);
 		});
-		
+
 		dk.addEvent(self.dom.btnNoColor, 'click', function(e){
 			self.options.onnocolor();
+			if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
+				self.currentTarget.value = '';
+			}
 			self.close();
 		});
-		
+
 		dk.addEvent(self.dom.btnConfirm, 'click', function(e){
 			self.options.onconfirm();
+			if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
+				self.currentTarget.value = self.getColorCode(self.hsv);
+			}
 			self.close();
 		});
-		
+
 		dk.addEvent(self.dom.btnCancel, 'click', function(e){
 			self.options.oncancel();
 			self.close();
 		});
+
+		dk.addEvent(window.document, 'click', function(e){
+			if(e.target != self.dom.main && !dk.contains(self.dom.main, e.target) && e.target != self.currentTarget){
+				self.close();
+			}
+		});
 	};
-	
+
 	self.show = function(left, top){
 		self.options.onshow();
 		dk.$$(self.dom.main).css({left:left+'px',top: top + 'px',display:'block'});
 	};
-	
+
 	self.close = function(){
 		self.options.onclose();
 		self.dom.main.style.display = 'none';
 	};
-	
+
 	self.getColorCode = function(hsv){
 		var rgb = utils.hsv2rgb(hsv.h, hsv.s, hsv.v);
 		return '#' + utils.convert2Hexa(rgb.r) + utils.convert2Hexa(rgb.g) + utils.convert2Hexa(rgb.b);
 	};
-	
+
 	self.setStatus = function(colorCode){
 		self.dom.colorCode.innerHTML = colorCode;
 		self.dom.bgColor.style.backgroundColor = colorCode;
 		self.dom.fontColor.style.color = colorCode;
 	};
-	
+
 	self.setSVPointer = function(e){
 		var relativeX = dk.pageMouse(e).x - dk.pageDom(self.dom.cpSV).left;
 		var relativeY = dk.pageMouse(e).y - dk.pageDom(self.dom.cpSV).top;
 		self.hsv.s = relativeX / 255;
 		self.hsv.v = (255 - relativeY) / 255;
 		var colorCode = self.getColorCode(self.hsv);
-		
+
 		self.dom.cpSVPointer.style.left = (relativeX - 8) + 'px';
 		self.dom.cpSVPointer.style.top = (relativeY - 8) + 'px';
-		
+
 		self.setStatus(colorCode);
 	};
-	
+
 	self.setHPointer = function(e){
 		var relativeX = dk.pageMouse(e).x - dk.pageDom(self.dom.cpH).left;
 		var relativeY = dk.pageMouse(e).y - dk.pageDom(self.dom.cpH).top;
@@ -156,8 +175,8 @@ var ColorPicker = function(options){
 		self.dom.cpSV.style.backgroundColor = self.getColorCode({h:self.hsv.h, s:1, v:1});
 		var colorCode = self.getColorCode(self.hsv);
 		self.setStatus(colorCode);
-	},
-	
+	};
+
 	self.init();
 };
 
@@ -234,15 +253,28 @@ var utils = ColorPicker.utils = {
 };
 
 window.ColorPicker = ColorPicker;
-!dk && dk = {};
+!dk && (dk = {});
 var cp = null;
+var inputOptions = {};
 dk.colorpicker = function(input, options){
+	var guid = dk.$$(input).getGuid();
+	inputOptions[guid] = options;
+
+
+	dk.addEvent(input, 'click', function(e){
+		var options = inputOptions[dk.$$(this).getGuid()];
+		dk.getColorPicker(options).setTarget(this);
+		var position = dk.pageDom(this);
+		cp.show(position.left, position.top + dk.$$(this).height());
+	});
+};
+dk.getColorPicker = function(options){
 	if(cp == null){
 		cp = new ColorPicker(options);
 	}else{
 		cp.initOptions(options);
 	}
-	
-	dk.addEvent(input, 'click', function(e){});
+
+	return cp;
 };
 })(window);
