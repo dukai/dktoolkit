@@ -22,3 +22,10 @@ _background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=
 fieldset{ margin:10px 40px; border:1px solid #ccc; padding:10px;}
 fieldset p label{ display:block; line-height:24px;}
 .f{-moz-background:#f00;}
+
+.simple_color_picker{}
+.simple_color_picker .cp_header{}
+.simple_color_picker .cp_box{overflow:hidden;}
+.simple_color_picker .cp_box ul{float:left;}
+.simple_color_picker .cp_box li{width:18px;height:18px;background:#000;border:1px solid #ccc;margin:0 2px 2px 0;}
+.simple_color_picker .cp_footer{}

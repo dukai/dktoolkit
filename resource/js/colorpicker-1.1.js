@@ -252,6 +252,10 @@ var utils = ColorPicker.utils = {
 	}
 };
 
+var SimpleColorPicker = function(options){
+	
+};
+
 window.ColorPicker = ColorPicker;
 !dk && (dk = {});
 var cp = null;
