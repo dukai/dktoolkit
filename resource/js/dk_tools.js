@@ -524,6 +524,7 @@ function (win) {
 		}
 		this.node = node;
 	};
+	_$.guid = 1;
 	_$.prototype = {
 		fixover: function (func) {
 			dk.addEvent(this.node, 'mouseover', function (e) {
@@ -662,6 +663,14 @@ function (win) {
 				this.css('display', 'block');
 			}
 			return this;
+		},
+		getGuid: function(){
+			var guid = this.node.getAttribute('guid');
+			if(!guid){
+				guid = 'dk' + _$.guid++;
+				this.node.setAttribute('guid', guid);
+			}
+			return guid;
 		}
 	};
 	var $$ = function (node) {
