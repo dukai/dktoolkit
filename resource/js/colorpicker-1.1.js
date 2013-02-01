@@ -6,6 +6,69 @@
  *************************************/
 
 (function(window){
+
+
+
+
+var AbstractColorPikcer = function(options){
+	var self = this;
+	self.currentTarget = null;
+	self.colorCode = null;
+	self.dom = {};
+
+	self.options = {
+		showNoColor: false,
+		onshow: function(){},
+		onclose: function(){},
+		onconfirm: function(){},
+		oncancel: function(){},
+		onnocolor: function(){}
+	};
+	/**
+	 * set color picker current target
+	 * @param target
+	 */
+	self.setTarget = function(target){
+		self.currentTarget = target;
+	}
+	/**
+	 * initialize color picker
+	 */
+	self.init = function(){
+		self.initOptions(options);
+		self.currentTarget = null;
+		self.colorCode = null;
+		self.initUI();
+		self.initEvents();
+	};
+	self.initOptions = function(options){
+		self.options.showNoColor = false;
+		self.options.onshow = function(){};
+		self.options.onclose = function(){};
+		self.options.onconfirm = function(){};
+		self.options.oncancel = function(){};
+		self.options.onnocolor = function(){};
+
+		for(var key in options){
+			self.options[key] = options[key];
+		}
+	};
+	/**
+	 * abstract method for UI init
+	 */
+	self.initUI = function(){
+	};
+
+	self.initEvents = function(){};
+
+	self.show = function(){
+		self.options.onshow();
+	};
+
+	self.close = function(){
+		self.options.onclose();
+	};
+};
 	/**
 	 * ColorPicker Constructor
 	 * @param options
@@ -39,6 +102,14 @@ var ColorPicker = function(options){
 	};
 
 	self.initOptions = function(options){
+		self.options = {
+			showNoColor: false,
+			onshow: function(){},
+			onclose: function(){},
+			onconfirm: function(){},
+			oncancel: function(){},
+			onnocolor: function(){}
+		};
 		for(var key in options){
 			self.options[key] = options[key];
 		}
@@ -85,7 +156,7 @@ var ColorPicker = function(options){
 		self.dom.btnCancel.setAttribute('type', 'button');
 		self.dom.btnCancel.innerHTML = '取消';
 
-		self.options.showNoColor && self.dom.btnBox.appendChild(self.dom.btnNoColor);
+		self.dom.btnBox.appendChild(self.dom.btnNoColor);
 		self.dom.btnBox.appendChild(self.dom.btnConfirm);
 		self.dom.btnBox.appendChild(self.dom.btnCancel);
 
@@ -135,6 +206,11 @@ var ColorPicker = function(options){
 
 	self.show = function(left, top){
 		self.options.onshow();
+		if(self.options.showNoColor){
+			self.dom.btnNoColor.style.display = 'inline-block';
+		}else{
+			self.dom.btnNoColor.style.display = 'none';
+		}
 		dk.$$(self.dom.main).css({left:left+'px',top: top + 'px',display:'block'});
 	};
 
@@ -253,10 +329,74 @@ var utils = ColorPicker.utils = {
 };
 
 var SimpleColorPicker = function(options){
-	
+	var self = this;
+	self.parent.__constructor(this, options);
+
+	self.options.colors = [
+		['#fff', '#eee', '#ddd', '#ccc', '#bbb', '#aaa'],
+		['#000', '#666', '#444', '#333', '#222', '#111'],
+		['#fcc', '#f99', '#f66', '#f33', '#f00', '#c00'],
+		['#f90', '#fc9', '#f96', '#f93', '#c60', '#930'],
+		['#ff0', '#ffc', '#ff9', '#ff6', '#ff3', '#cc0'],
+		['#0f0', '#cfc', '#9f9', '#6f6', '#0c0', '#090'],
+		['#00f', '#cff', '#9cf', '#39f', '#06f', '#06c'],
+		['#60f', '#ccf', '#c9f', '#96f', '#93f', '#60c'],
+		['#f0f', '#fcf', '#f9f', '#f6f', '#f3f', '#c0c']
+	];
+
+	self.initUI = function(){
+		self.dom.main = dk.$c('div', null, 'simple_color_picker');
+		self.dom.main.style.display = 'none';
+		self.dom.header = dk.$c('div', null, 'cp_header');
+		self.dom.header.innerHTML = '选择颜色';
+		self.dom.box = dk.$c('div', null, 'cp_box');
+		for(var i = 0, iLen = self.options.colors.length; i < iLen; i++){
+			var ul = dk.$c('ul');
+			for(var j = 0, jLen = self.options.colors[i].length; j < jLen; j++){
+				var li = dk.$c('li');
+				li.style.backgroundColor = self.options.colors[i][j];
+				ul.appendChild(li);
+			}
+			self.dom.box.appendChild(ul);
+		}
+
+		self.dom.footer = dk.$c('div', null, 'cp_footer');
+		self.dom.btnNoColor = dk.$c('button', null, 'btn');
+		self.dom.btnNoColor.setAttribute('type', 'button');
+		self.dom.btnNoColor.innerHTML = '无颜色';
+		self.dom.footer.appendChild(self.dom.btnNoColor);
+
+		self.dom.main.appendChild(self.dom.header);
+		self.dom.main.appendChild(self.dom.box);
+		self.dom.main.appendChild(self.dom.footer);
+		window.document.body.appendChild(self.dom.main);
+	};
+
+	self.initEvents = function(){};
+
+	self.show = function(left, top){
+		self.parent.show();
+		if(self.options.showNoColor){
+			self.dom.btnNoColor.style.display = 'inline-block';
+		}else{
+			self.dom.btnNoColor.style.display = 'none';
+		}
+		dk.$$(self.dom.main).css({left:left+'px',top: top + 'px',display:'block'});
+	};
+
+	self.close = function(){
+		self.parent.close();
+		self.dom.main.style.display = 'none';
+	};
+
+	self.init();
+	self.options.showNoColor = true;
 };
 
+dk.extend(SimpleColorPicker, AbstractColorPikcer);
+
 window.ColorPicker = ColorPicker;
+window.SimpleColorPicker = SimpleColorPicker;
 !dk && (dk = {});
 var cp = null;
 var inputOptions = {};

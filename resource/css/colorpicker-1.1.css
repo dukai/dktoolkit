@@ -23,9 +23,10 @@ fieldset{ margin:10px 40px; border:1px solid #ccc; padding:10px;}
 fieldset p label{ display:block; line-height:24px;}
 .f{-moz-background:#f00;}
 
-.simple_color_picker{}
-.simple_color_picker .cp_header{}
+.simple_color_picker{border: 1px solid #ccc;display: inline-block;padding: 3px;background: #f1f1f1;position:absolute;}
+.simple_color_picker .cp_header{line-height: 30px;}
 .simple_color_picker .cp_box{overflow:hidden;}
 .simple_color_picker .cp_box ul{float:left;}
-.simple_color_picker .cp_box li{width:18px;height:18px;background:#000;border:1px solid #ccc;margin:0 2px 2px 0;}
-.simple_color_picker .cp_footer{}
+.simple_color_picker .cp_box li{width:18px;height:18px;background:#000;border:1px solid #ccc;margin:0 2px 2px 0;cursor: pointer;}
+.simple_color_picker .cp_box li:hover{border-color:#666;}
+.simple_color_picker .cp_footer{text-align: right;}

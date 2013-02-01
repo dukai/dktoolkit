@@ -500,7 +500,11 @@ function (win) {
 	};
 	
 	dk.cookie = cookie;
-	
+	/**
+	 * extend method for js class
+	 * @param subClass
+	 * @param baseClass
+	 */
 	var extend = function(subClass, baseClass){
 		var parent = subClass.prototype.parent = {
 			'__constructor': function(obj, args){
