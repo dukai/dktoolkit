@@ -22,7 +22,8 @@ var AbstractColorPikcer = function(options){
 		onclose: function(){},
 		onconfirm: function(){},
 		oncancel: function(){},
-		onnocolor: function(){}
+		onnocolor: function(){},
+		oncolorselect: function(){}
 	};
 	/**
 	 * set color picker current target
@@ -60,6 +61,14 @@ var AbstractColorPikcer = function(options){
 	};
 
 	self.initEvents = function(){};
+	
+	self.initGlobalHideEvent = function(){
+		dk.addEvent(window.document, 'click', function(e){
+			if(e.target != self.dom.main && !dk.contains(self.dom.main, e.target) && e.target != self.currentTarget){
+				self.close();
+			}
+		});
+	};
 
 	self.show = function(){
 		self.options.onshow();
@@ -330,7 +339,7 @@ var utils = ColorPicker.utils = {
 
 var SimpleColorPicker = function(options){
 	var self = this;
-	self.parent.__constructor(this, options);
+	self.parent.__constructor(this, [options]);
 
 	self.options.colors = [
 		['#fff', '#eee', '#ddd', '#ccc', '#bbb', '#aaa'],
@@ -354,7 +363,7 @@ var SimpleColorPicker = function(options){
 			var ul = dk.$c('ul');
 			for(var j = 0, jLen = self.options.colors[i].length; j < jLen; j++){
 				var li = dk.$c('li');
-				li.style.backgroundColor = self.options.colors[i][j];
+				li.style.backgroundColor = li.cp_color = self.options.colors[i][j];
 				ul.appendChild(li);
 			}
 			self.dom.box.appendChild(ul);
@@ -372,7 +381,32 @@ var SimpleColorPicker = function(options){
 		window.document.body.appendChild(self.dom.main);
 	};
 
-	self.initEvents = function(){};
+	self.initEvents = function(){
+		dk.addEvent(self.dom.box, 'click', function(e){
+		
+			if(e.target.tagName.toLowerCase() == 'li'){
+				self.options.oncolorselect();
+				var color = self.colorCode = e.target.cp_color;
+				
+				if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
+					self.currentTarget.value = color;
+				}
+				
+			}
+			
+			self.close();
+		});
+		
+		dk.addEvent(self.dom.btnNoColor, 'click', function(e){
+			self.options.onnocolor();
+			if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
+				self.currentTarget.value = '';
+			}
+			self.close();
+		});
+		
+		self.initGlobalHideEvent();
+	};
 
 	self.show = function(left, top){
 		self.parent.show();
@@ -398,7 +432,7 @@ dk.extend(SimpleColorPicker, AbstractColorPikcer);
 window.ColorPicker = ColorPicker;
 window.SimpleColorPicker = SimpleColorPicker;
 !dk && (dk = {});
-var cp = null;
+var cp = null, scp = null;
 var inputOptions = {};
 dk.colorpicker = function(input, options){
 	var guid = dk.$$(input).getGuid();
@@ -407,18 +441,30 @@ dk.colorpicker = function(input, options){
 
 	dk.addEvent(input, 'click', function(e){
 		var options = inputOptions[dk.$$(this).getGuid()];
-		dk.getColorPicker(options).setTarget(this);
+		var tcp = dk.getColorPicker(options);
+		tcp.setTarget(this);
 		var position = dk.pageDom(this);
-		cp.show(position.left, position.top + dk.$$(this).height());
+		tcp.show(position.left, position.top + dk.$$(this).height());
 	});
 };
 dk.getColorPicker = function(options){
 	if(cp == null){
-		cp = new ColorPicker(options);
+		if(options.simple){
+			scp = new SimpleColorPicker(options);
+		}else{
+			cp = new ColorPicker(options);
+		}
 	}else{
-		cp.initOptions(options);
+		if(options.simple){
+			scp.initOptions(options);
+		}else{
+			cp.initOptions(options);
+		}
 	}
-
-	return cp;
+	if(options.simple){
+		return scp;
+	}else{
+		return cp;
+	}
 };
 })(window);
