@@ -422,9 +422,12 @@ var SimpleColorPicker = function(options){
 		self.parent.close();
 		self.dom.main.style.display = 'none';
 	};
-
+	self.initOptions = function(options){
+		self.parent.initOptions();
+		self.options.showNoColor = true;
+	};
 	self.init();
-	self.options.showNoColor = true;
+	
 };
 
 dk.extend(SimpleColorPicker, AbstractColorPikcer);
@@ -448,23 +451,24 @@ dk.colorpicker = function(input, options){
 	});
 };
 dk.getColorPicker = function(options){
-	if(cp == null){
-		if(options.simple){
+	var currentCp = null;
+	if(options.simple){
+		if(scp == null){
 			scp = new SimpleColorPicker(options);
 		}else{
-			cp = new ColorPicker(options);
-		}
-	}else{
-		if(options.simple){
 			scp.initOptions(options);
+		}
+		
+		currentCp = scp;
+	}else{
+		if(cp == null){
+			cp = new ColorPicker(options);
 		}else{
 			cp.initOptions(options);
 		}
+		currentCp = cp;
 	}
-	if(options.simple){
-		return scp;
-	}else{
-		return cp;
-	}
+	
+	return currentCp;
 };
 })(window);

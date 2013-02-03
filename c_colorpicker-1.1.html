@@ -171,21 +171,37 @@
 		
 		<div class="cline">
 			<pre>
-colorPicker.setInputs(['color1','color2']);
-			</pre>
+dk.colorpicker('color1', {});
+dk.colorpicker('color2', {simple: true});</pre>
 		</div>
 		
 		<div class="cline">
 			<h2>使用说明</h2>
 		</div>
 		<div class="cline">
-			通过全局对象colorpicker设置需要调用控件的input对象上。
+			通过全局对象dk.colorpicker设置需要调用控件的input对象上，并传入options参数。
 		</div>
 		<div class="cline">
-			<h3>datepicker.setInputs(ids)</h3>
+			<h3>dk.datepicker(id[, options])</h3>
 		</div>
 		<div class="cline">
-			接受一个数组，数组的内容为id的列表。
+			<h4>参数</h4>
+		</div>
+		<div class="cline">
+			<ol>
+				<li>id - (string) 目标input的id</li>
+				<li>options - (json, optional) 配置参数
+					<ol>
+						<li>showNoColor - (bool, optional) 是否显示无颜色按钮</li>
+						<li>onshow - (function, optional) 显示的时候调用的事件</li>
+						<li>onclose - (function, optional) 关闭时调用的事件</li>
+						<li>onconfirm - (function, optional) 确定时调用的事件</li>
+						<li>oncancel - (function, optional) 取消时调用的事件</li>
+						<li>onnocolor - (function, optional) 无颜色按钮选中时触发的事件</li>
+						<li>oncolorselect - (function, optional) 颜色选中时触发的事件</li>
+					</ol>
+				</li>
+			</ol>
 		</div>
 	</div>
 	<div class="clr"></div>
