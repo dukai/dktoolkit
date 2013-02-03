@@ -194,7 +194,7 @@ var ColorPicker = function(options){
 		});
 
 		dk.addEvent(self.dom.btnConfirm, 'click', function(e){
-			self.options.onconfirm();
+			self.options.onconfirm({color: self.getColorCode(self.hsv)});
 			if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
 				self.currentTarget.value = self.getColorCode(self.hsv);
 			}
@@ -385,9 +385,8 @@ var SimpleColorPicker = function(options){
 		dk.addEvent(self.dom.box, 'click', function(e){
 		
 			if(e.target.tagName.toLowerCase() == 'li'){
-				self.options.oncolorselect();
 				var color = self.colorCode = e.target.cp_color;
-				
+				self.options.oncolorselect({color: color});
 				if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
 					self.currentTarget.value = color;
 				}
@@ -423,7 +422,7 @@ var SimpleColorPicker = function(options){
 		self.dom.main.style.display = 'none';
 	};
 	self.initOptions = function(options){
-		self.parent.initOptions();
+		self.parent.initOptions(options);
 		self.options.showNoColor = true;
 	};
 	self.init();
