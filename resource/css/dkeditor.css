@@ -74,37 +74,37 @@
 .splitbtn .arrowdown:hover{
 	border-left:1px solid #6497cc;
 }
-button:hover, button.select:hover{
+.toolbar button:hover, .toolbar button.select:hover{
 	border:1px solid #93c8ff;
 	background-color:#f2f8ff;
 }
-button.select{
+.toolbar button.select{
 	border:1px solid #6497cc;
 	background-color:#dde8f4;
 }
 
-button:active,button.select:active{
+.toolbar button:active,.toolbar button.select:active{
 	border:1px solid #6497cc;
 	background-color:#81abd5;
 }
 
-button.bold{background-position:-2px 0;}
-button.italic{background-position:-28px 0;}
-button.underline{background-position:-52px 0;}
-button.del{background-position:-78px 0;}
+.toolbar button.bold{background-position:-2px 0;}
+.toolbar button.italic{background-position:-28px 0;}
+.toolbar button.underline{background-position:-52px 0;}
+.toolbar button.del{background-position:-78px 0;}
 
-button.font_color{background-position:-104px -2px;}
-button.bg_color{background-position:-130px -2px;}
+.toolbar button.font_color{background-position:-104px -2px;}
+.toolbar button.bg_color{background-position:-130px -2px;}
 
-button.aleft{background-position:-158px 0;}
-button.acenter{background-position:-184px 0;}
-button.aright{background-position:-210px 0;}
+.toolbar button.aleft{background-position:-158px 0;}
+.toolbar button.acenter{background-position:-184px 0;}
+.toolbar button.aright{background-position:-210px 0;}
 
-button.link{background-position:-234px 0;}
-button.unlink{background-position:-260px 0;}
-button.image{background-position:-286px 0;}
+.toolbar button.link{background-position:-234px 0;}
+.toolbar button.unlink{background-position:-260px 0;}
+.toolbar button.image{background-position:-286px 0;}
 
-button.source{
+.toolbar button.source{
 	background-position:-105px -26px;
 }
 
