@@ -81,6 +81,11 @@
 					<label>颜色2</label>
 					<input type="text" name="color2" id="color2" />
 				</div>
+				
+				<div class="cline">
+					<label>颜色3</label>
+					<span id="color3">颜色拾取</span>
+				</div>
 				<div class="cline">
 					<div class="simple_color_picker" style="display:none">
 						<div class="cp_header">选择颜色</div>
@@ -172,7 +177,22 @@
 		<div class="cline">
 			<pre>
 dk.colorpicker('color1', {});
-dk.colorpicker('color2', {simple: true});</pre>
+dk.colorpicker('color2', {simple: true});
+dk.colorpicker('color3', {
+	simple: true,
+	onshow: function(){
+		console.log('color3 show');
+	},
+	onclose: function(){
+		console.log('color3 close');
+	},
+	onnocolor: function(){
+		console.log('color3 nocolor btn select');
+	},
+	oncolorselect: function(event){
+		console.log('color select ' + event.color);
+	}
+});</pre>
 		</div>
 		
 		<div class="cline">
@@ -214,6 +234,21 @@ Copyright &copy; Dukai 2012
 <script>
 dk.colorpicker('color1', {});
 dk.colorpicker('color2', {simple: true});
+dk.colorpicker('color3', {
+	simple: true,
+	onshow: function(){
+		console.log('color3 show');
+	},
+	onclose: function(){
+		console.log('color3 close');
+	},
+	onnocolor: function(){
+		console.log('color3 nocolor btn select');
+	},
+	oncolorselect: function(event){
+		console.log('color select ' + event.color);
+	}
+});
 </script>
 </body>
 </html>
