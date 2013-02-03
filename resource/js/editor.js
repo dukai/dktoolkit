@@ -427,14 +427,20 @@ pm.regist('font_color', new SplitButtonPlugin({
 	onpulldown: function(e){
 		var self = this;
 		var position = dk.pageDom(e.currentTarget);
-		colorPicker.render(position.left - 27,position.top + 26);
-		colorPicker.callBackFuncs.push(function(){
-			e.editor.doc.execCommand('ForeColor', false, colorPicker.colorCode);
-			self.close();
+		self.cp = dk.getColorPicker({
+			simple: true,
+			onconfirm: function(event){
+				e.editor.doc.execCommand('ForeColor', false, event.color);
+			},
+			onclose: function(){
+				self.close();
+			}
 		});
+		self.cp.setTarget(self.dom.arrow);
+		self.cp.show(position.left - 26, position.top + 25);
 	},
 	onpullup: function(e){
-		colorPicker.dispose();
+		self.cp.close();
 	}
 }));
 
@@ -446,14 +452,20 @@ pm.regist('bg_color', new SplitButtonPlugin({
 	onpulldown: function(e){
 		var self = this;
 		var position = dk.pageDom(e.currentTarget);
-		colorPicker.render(position.left - 27,position.top + 26);
-		colorPicker.callBackFuncs.push(function(){
-			e.editor.doc.execCommand('BackColor', false, colorPicker.colorCode);
-			self.close();
+		self.cp = dk.getColorPicker({
+			simple: true,
+			onconfirm: function(event){
+				e.editor.doc.execCommand('BackColor', false, event.color);
+			},
+			onclose: function(){
+				self.close();
+			}
 		});
+		self.cp.setTarget(self.dom.arrow);
+		self.cp.show(position.left - 26, position.top + 25);
 	},
 	onpullup: function(e){
-		colorPicker.dispose();
+		self.cp.close();
 	}
 }));
 
