@@ -30,12 +30,14 @@ var AbstractColorPikcer = function(options){
 	 * @param target
 	 */
 	self.setTarget = function(target){
+		var self = this;
 		self.currentTarget = target;
 	}
 	/**
 	 * initialize color picker
 	 */
 	self.init = function(){
+		var self = this;
 		self.initOptions(options);
 		self.currentTarget = null;
 		self.colorCode = null;
@@ -43,6 +45,7 @@ var AbstractColorPikcer = function(options){
 		self.initEvents();
 	};
 	self.initOptions = function(options){
+		var self = this;
 		self.options.showNoColor = false;
 		self.options.onshow = function(){};
 		self.options.onclose = function(){};
@@ -71,10 +74,12 @@ var AbstractColorPikcer = function(options){
 	};
 
 	self.show = function(){
+		var self = this;
 		self.options.onshow();
 	};
 
 	self.close = function(){
+		var self = this;
 		self.options.onclose();
 	};
 };
@@ -387,6 +392,7 @@ var SimpleColorPicker = function(options){
 			if(e.target.tagName.toLowerCase() == 'li'){
 				var color = self.colorCode = e.target.cp_color;
 				self.options.oncolorselect({color: color});
+				self.options.onconfirm({color: color});
 				if(self.currentTarget.tagName.toLowerCase() == 'input' && self.currentTarget.type == 'text'){
 					self.currentTarget.value = color;
 				}
@@ -408,7 +414,7 @@ var SimpleColorPicker = function(options){
 	};
 
 	self.show = function(left, top){
-		self.parent.show();
+		self.parent.show.call(self);
 		if(self.options.showNoColor){
 			self.dom.btnNoColor.style.display = 'inline-block';
 		}else{
@@ -418,11 +424,11 @@ var SimpleColorPicker = function(options){
 	};
 
 	self.close = function(){
-		self.parent.close();
+		self.parent.close.call(self);
 		self.dom.main.style.display = 'none';
 	};
 	self.initOptions = function(options){
-		self.parent.initOptions(options);
+		self.parent.initOptions.call(self, options);
 		self.options.showNoColor = true;
 	};
 	self.init();
