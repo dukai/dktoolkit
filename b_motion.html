@@ -180,7 +180,11 @@ mo('md_1').animate({left: dk.rand(100, 500), top: dk.rand(100, 240), width: dk.r
 <footer>
 Copyright &copy; Dukai 2012
 </footer>
+<script src="resource/js/template.js"></script>
+<script src="resource/js/ajax.js"></script>
+<script src="resource/js/navbar.js" id="navbar_tmpl"></script>
 <script>
+navbar('motion');
 function runAnimate(){
 	var color = 'rgb(' + dk.rand(0,255) + ',' + dk.rand(0,255) + ',' + dk.rand(0, 255) + ')';
 	mo('md_1').animate({left: dk.rand(100, 500), top: dk.rand(100, 240), width: dk.rand(20, 50), height: dk.rand(20, 50), backgroundColor: color}, 40);
