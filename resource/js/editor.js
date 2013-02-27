@@ -1,3 +1,4 @@
+(function(window){
 /**
  *@Author Dukai
  *@Email dukai86@gmail.com
@@ -66,10 +67,8 @@ var Editor = function(textareaId, options){
 			for(var j in groupOpt){
 				var btn = groupOpt[j];
 				var btnDom;
-				var tp = pm.get(btn);
+				var tp = PluginManager.get(btn);
 				tp.setEditor(self);
-				
-				
 				groupDom.appendChild(tp.dom.main);
 			}
 			
@@ -196,26 +195,21 @@ Editor.tools = {
 	}
 }
 
-var PluginManager = function(){
-	var self = this;
-	var hashTable = {};
-	var pluginName = [];
-	self.regist = function(name, obj){
-		hashTable[name] = obj;
-		pluginName.push(name);
+var PluginManager = {
+	hashTable: {},
+	pluginName: [],
+	regist: function(name, obj){
+		this.hashTable[name] = obj;
+		this.pluginName.push(name);
 		return true;
+	},
+	get: function(name){
+		return this.hashTable[name];
+	},
+	getNames: function(){
+		return this.pluginName;
 	}
-	
-	self.get = function(name){
-		return hashTable[name];
-	}
-	
-	self.getNames = function(){
-		return pluginName;
-	}
-}
-
-var pm = new PluginManager();
+};
 
 
 var Plugin = function(options){
@@ -393,7 +387,7 @@ var SplitButtonPlugin = function(options){
 dk.extend(SplitButtonPlugin, Plugin);
 
 
-pm.regist('font_family', new ListPlugin({
+PluginManager.regist('font_family', new ListPlugin({
 	list: [
 		{value: '1', text: '微软雅黑'},
 		{value: '2', text: '宋体'}
@@ -404,7 +398,7 @@ pm.regist('font_family', new ListPlugin({
 	
 }));
 
-pm.regist('font_size', new ListPlugin({
+PluginManager.regist('font_size', new ListPlugin({
 	list: [
 		{value: '1', text: '1'},
 		{value: '2', text: '2'},
@@ -419,7 +413,7 @@ pm.regist('font_size', new ListPlugin({
 	}
 }));
 
-pm.regist('font_color', new SplitButtonPlugin({
+PluginManager.regist('font_color', new SplitButtonPlugin({
 	className: 'font_color',
 	onclick: function(e){
 		
@@ -444,7 +438,7 @@ pm.regist('font_color', new SplitButtonPlugin({
 	}
 }));
 
-pm.regist('bg_color', new SplitButtonPlugin({
+PluginManager.regist('bg_color', new SplitButtonPlugin({
 	className: 'bg_color',
 	onclick: function(e){
 		
@@ -469,56 +463,56 @@ pm.regist('bg_color', new SplitButtonPlugin({
 	}
 }));
 
-pm.regist('bold', new ButtonPlugin({
+PluginManager.regist('bold', new ButtonPlugin({
 	className: 'bold',
 	onclick: function(editor){
 		editor.doc.execCommand('bold', false, null);
 	}
 }));
 
-pm.regist('italic', new ButtonPlugin({
+PluginManager.regist('italic', new ButtonPlugin({
 	className: 'italic',
 	onclick: function(editor){
 		editor.doc.execCommand('italic', false, null);
 	}
 }));
 
-pm.regist('underline', new ButtonPlugin({
+PluginManager.regist('underline', new ButtonPlugin({
 	className: 'underline',
 	onclick: function(editor){
 		editor.doc.execCommand('underline', false, null);
 	}
 }));
 
-pm.regist('del', new ButtonPlugin({
+PluginManager.regist('del', new ButtonPlugin({
 	className: 'del',
 	onclick: function(editor){
 		editor.doc.execCommand('strikethrough', false, null);
 	}
 }));
 
-pm.regist('aleft', new ButtonPlugin({
+PluginManager.regist('aleft', new ButtonPlugin({
 	className: 'aleft',
 	onclick: function(editor){
 		editor.doc.execCommand('justifyleft', false, null);
 	}
 }));
 
-pm.regist('acenter', new ButtonPlugin({
+PluginManager.regist('acenter', new ButtonPlugin({
 	className: 'acenter',
 	onclick: function(editor){
 		editor.doc.execCommand('justifycenter', false, null);
 	}
 }));
 
-pm.regist('aright', new ButtonPlugin({
+PluginManager.regist('aright', new ButtonPlugin({
 	className: 'aright',
 	onclick: function(editor){
 		editor.doc.execCommand('justifyright', false, null);
 	}
 }));
 
-pm.regist('link', new ButtonPlugin({
+PluginManager.regist('link', new ButtonPlugin({
 	className: 'link',
 	onclick: function(eidtor){
 		
@@ -549,21 +543,21 @@ pm.regist('link', new ButtonPlugin({
 	}
 }));
 
-pm.regist('unlink', new ButtonPlugin({
+PluginManager.regist('unlink', new ButtonPlugin({
 	className: 'unlink',
 	onclick: function(editor){
 		editor.doc.execCommand('Unlink', false);
 	}
 }));
 
-pm.regist('image', new ButtonPlugin({
+PluginManager.regist('image', new ButtonPlugin({
 	className: 'image',
 	onclick: function(editor){
 		
 	}
 }));
 
-pm.regist('source', new ButtonPlugin({
+PluginManager.regist('source', new ButtonPlugin({
 	className: 'source',
 	onclick: function(editor){
 		if(this.isSelected){
@@ -575,3 +569,6 @@ pm.regist('source', new ButtonPlugin({
 		this.updateStat();
 	}
 }));
+
+window.Editor = Editor;
+})(window);
