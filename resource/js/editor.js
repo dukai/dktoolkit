@@ -211,7 +211,10 @@ var PluginManager = {
 	}
 };
 
-
+/**
+* The Plugin Base class
+*@param options optional plugin options
+*/
 var Plugin = function(options){
 	var self = this;
 	self.eidtor = null;
