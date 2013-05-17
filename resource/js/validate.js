@@ -29,7 +29,9 @@ validate = {
 			'offsetY', //nint messsage offsety
 			'length', //content length limit, + 大于等于1， {n} 长度为n， {n,m} 长度大于n小于m， {n,} 长度大于n
 			'onReset', //重置时触发事件
-			'onValid' //验证时触发事件
+			'onValid', //验证时触发事件
+			'triggerEventName', //触发事件，默认为blur
+			'resetEventName', //重置事件
 		],
 		parentContainer: document.body
 		//length: {max: 16, min:8}
@@ -187,6 +189,7 @@ var VNode = function(rule){
 		}
 		
 		if(rule.valid && !rule.valid.call(self)){
+			self.validEvent.status = false;
 			self.validEvent.message = '内容不符合规则';
 			return self.validEvent;
 		}
@@ -312,6 +315,8 @@ var VNode = function(rule){
 			}else{
 				self.hintMessage.show(validEvent.message, HintMessage.ERROR);
 			}
+		}else{
+			self.hintMessage.hide();
 		}
 	};
 	
@@ -326,13 +331,15 @@ var VNode = function(rule){
 	if(rule.trigger){
 		rule.trigger.call(self);
 	}else{
-		$(self.node).bind(validate.config.trigger, self.checkEvent);
+		var triggerEventName = rule.triggerEventName ? rule.triggerEventName : validate.config.trigger; 
+		$(self.node).bind(triggerEventName, self.checkEvent);
 	}
 	
 	if(rule.reset){
 		rule.reset.call(self);
 	}else{
-		$(self.node).bind(validate.config.reset, self.resetEvent);
+		var resetEventName = rule.resetEventName ? rule.resetEventName : validate.config.reset; 
+		$(self.node).bind(resetEventName, self.resetEvent);
 	}
 };
 

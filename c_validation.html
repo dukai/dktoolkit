@@ -164,7 +164,7 @@ validate.init([
 			message - 错误提示信息<br/>
 			url - ajax请求的url<br/>
 			nullable - 是否可为空<br/>
-			customValue - 自定义value值<br/>
+			customValue - 自定义value值, 可用于checkbox等控件<br/>
 			valid - 自定义验证函数<br/>
 			reset - 自定义重置函数<br/>
 			trigger - 自定义验证触发函数<br/>
@@ -173,6 +173,8 @@ validate.init([
 			length - 内容长度限制：+ 为长度大于等于1， {n} 长度为n， {n,m} 长度大于n小于m， {n,} 长度大于n<br/>
 			onReset - reset时触发的事件<br/>
 			onValid - 验证时触发的事件<br/>
+			triggerEventName - 触发事件名称<br/>
+			resetEventName - 重置事件名称<br/>
 			第二个可选参数为自定义配置信息：<br/>
 			trigger – (String, optional)触发验证事件方式，默认是blur<br/>
 			reset – (String, optional)重置事件方式，默认是focus<br/>
