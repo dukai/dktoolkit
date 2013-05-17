@@ -270,7 +270,7 @@ var VNode = function(rule){
 					}
 				}else{
 					self.status = data.status;
-					validEvent.status = data.status;
+					self.validEvent.status = data.status;
 					if(!self.status){
 						self.validEvent.message = data.message;
 						self.hintMessage.show(self.validEvent.message, HintMessage.ERROR);
