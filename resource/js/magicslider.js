@@ -30,8 +30,8 @@ AbstractEffect.prototype = {
 	},
 	beforeRun: function(){},
 	run: function(){},
-	callBack: function(){
-		this.mask.style.display = 'none';
+	callBack: function(absShow){
+		absShow || (this.mask.style.display = 'none');
 		this.observer.canNext();
 	}
 };
@@ -251,9 +251,65 @@ FadeEffect.prototype.run = function(){
 	this.counter = 0;
 };
 
+var RandRectEffect = function(width, height, mask, image){
+	AbstractEffect.call(this, width, height, mask);
+	this.image = image;
+	this.duration = 20;
+}
+
+RandRectEffect.prototype = new AbstractEffect();
+
+RandRectEffect.prototype.createItems = function(){
+	var fgm = document.createDocumentFragment();
+	for(var i = 0; i < 100; i++){
+		var span = dk.$c('span');
+		this.spans.push(span);
+		fgm.appendChild(span);
+		$(span).css({
+			width: dk.rand(60, 200),
+			height: dk.rand(60, 200),
+			opacity: dk.rand(2, 6) / 10,
+			left: dk.rand(0, this.width - 200),
+			top: dk.rand(0, this.height - 50),
+			position: 'absolute',
+			background:'#fff'
+		});
+	}
+	return fgm;
+};
+
+RandRectEffect.prototype.run = function(){
+	var num = 100;
+	for(var i = 0; i < 100; i++){
+		var $that = $(this.spans[i]);
+		var left = parseInt($that.css('left'));
+		var top = parseInt($that.css('top'));
+		var rLeft, rTop;
+		if(left > this.width / 2){
+			rLeft = "+=" + dk.rand(0, this.width / 2);
+		}else{
+			rLeft = "-=" + dk.rand(0, this.height / 2);
+		}
+		if(top > this.height / 2){
+			rTop = "+=" + dk.rand(10, 120);
+		}else{
+			rTop = "-=" + dk.rand(10, 120);
+		}
+		
+		$that.animate({opacity: dk.rand(1, 3) / 10, width: dk.rand(50, 200), height: dk.rand(50, 200), left: rLeft, top: rTop}, 3000);
+	}
+	var self = this;
+	//setTimeout(function(){
+		self.callBack(true);
+	//}, 3000);
+	clearInterval(this.timer);
+	this.counter = 0;
+};
+
+
 
 function getRanEffect(width, height, mask, image){
-	var pointer = dk.rand(0, 4);
+	var pointer = dk.rand(0, 6);
 	switch(pointer){
 		case 0:
 			return new VSlideEffect(width, height, mask, image);
@@ -272,6 +328,9 @@ function getRanEffect(width, height, mask, image){
 			break;
 		case 5:
 			return new FadeEffect(width, height, mask, image);
+			break;
+		case 6:
+			return new RandRectEffect(width, height, mask, image);
 			break;
 	}
 	return null;
