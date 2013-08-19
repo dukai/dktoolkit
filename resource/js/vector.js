@@ -88,6 +88,7 @@ Polygon.prototype = {
 		var canvas = document.getElementById(id);
 		var context = canvas.getContext('2d');
 		context.clearRect(0,0,1920,1080);
+		context.beginPath()
 		var coordinates = this.coordinates;
 		context.moveTo(coordinates[0][0], coordinates[0][1]);
 		for(var i = 0, len = coordinates.length; i < len; i++){
