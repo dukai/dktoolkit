@@ -1,7 +1,33 @@
 (function(window){
 var eles = {
-	span: document.createElement('span')
+		div: document.createElement('div'),
+		ul: document.createElement('ul'),
+		li: document.createElement('li'),
+		span: document.createElement('span'),
+		p: document.createElement('p'),
+		a: document.createElement('a'),
+		fragment: document.createDocumentFragment(),
+		input: document.createElement('input')
+}
+var $c = function(tagName, id, className){
+	var ele = null;
+	if(!eles[tagName]){
+		eles[tagName] = document.createElement(tagName);
+		ele = eles[tagName].cloneNode(true);
+	}else{
+		ele = eles[tagName].cloneNode(true);
+	}
+	if(id){
+		ele.id = id;
+	}
+	if(className){
+		ele.className = className;
+	}
+	return ele;
 };
+var rand = function (m, n) {
+	return Math.floor((n - m + 1) * Math.random() + m);
+}
 var AbstractEffect = function(width, height, mask){
 	this.width = width;
 	this.height = height;
@@ -15,13 +41,16 @@ var AbstractEffect = function(width, height, mask){
 
 AbstractEffect.prototype = {
 	initialize: function(observer){
+		var self = this;
 		this.observer = observer;
 		observer.cantNext();
 		this.mask.style.display = 'block';
 		this.mask.innerHTML = '';
 		this.mask.appendChild(this.createItems());
 		this.counter = 0;
-		this.timer = setInterval(dk.bind(this, this.runEffect), this.duration);
+		this.timer = setInterval(function(){
+			self.runEffect();
+		}, this.duration);
 	},
 	createItems: function(){},
 	runEffect: function(){
@@ -48,7 +77,7 @@ VSlideEffect.prototype.createItems = function(){
 	this.columnCount = Math.floor(this.width / this.itemWidth + (this.width % this.itemWidth == 0 ? 0 : 1));
 	var fgm = document.createDocumentFragment();
 	for(var i = 0; i < this.columnCount; i ++){
-		var s = dk.$c('a');
+		var s = $c('a');
 		s.href = this.observer.currentUrl;
 		this.spans.push(s);
 		fgm.appendChild(s);
@@ -60,13 +89,16 @@ VSlideEffect.prototype.createItems = function(){
 };
 
 VSlideEffect.prototype.run = function(){
+	var self = this;
 	var num = this.columnCount;
 	if(this.counter < num - 1){
 		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow');
 		this.counter ++;
 		return;
 	}else if(this.counter == num - 1){
-		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow', dk.bind(this, this.callBack));
+		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow', function(){
+			self.callBack();
+		});
 		this.counter ++;
 	}
 	clearInterval(this.timer);
@@ -85,7 +117,7 @@ VShutterEffect.prototype.createItems = function(){
 	this.columnCount = Math.floor(this.width / this.itemWidth + (this.width % this.itemWidth == 0 ? 0 : 1));
 	var fgm = document.createDocumentFragment();
 	for(var i = 0; i < this.columnCount; i ++){
-		var s = dk.$c('a');
+		var s = $c('a');
 		s.href = this.observer.currentUrl;
 		this.spans.push(s);
 		fgm.appendChild(s);
@@ -98,12 +130,15 @@ VShutterEffect.prototype.createItems = function(){
 
 VShutterEffect.prototype.run = function(){
 	var num = this.columnCount;
+	var self = this;
 	if(this.counter < num - 1){
 		$(this.spans[this.counter]).animate({width: 0, opacity: 0}, 'slow');
 		this.counter ++;
 		return;
 	}else if(this.counter == num - 1){
-		$(this.spans[this.counter]).animate({width: 0, opacity: 0}, 'slow', dk.bind(this, this.callBack));
+		$(this.spans[this.counter]).animate({width: 0, opacity: 0}, 'slow', function(){
+			self.callBack();
+		});
 		this.counter ++;
 	}
 	clearInterval(this.timer);
@@ -122,7 +157,7 @@ HShutterEffect.prototype.createItems = function(){
 	this.rowCount = Math.floor(this.height / this.itemHeight + (this.height % this.itemHeight == 0 ? 0 : 1));
 	var fgm = document.createDocumentFragment();
 	for(var i = 0; i < this.rowCount; i++){
-		var s = dk.$c('a');
+		var s = $c('a');
 		s.href = this.observer.currentUrl;
 		this.spans.push(s);
 		fgm.appendChild(s);
@@ -134,12 +169,15 @@ HShutterEffect.prototype.createItems = function(){
 }
 HShutterEffect.prototype.run = function(){
 	var num = this.rowCount;
+	var self = this;
 	if(this.counter < num - 1){
 		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow');
 		this.counter ++;
 		return;
 	}else if(this.counter == num - 1){
-		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow', dk.bind(this, this.callBack));
+		$(this.spans[this.counter]).animate({height: 0, opacity: 0}, 'slow', function(){
+			self.callBack();
+		});
 		this.counter ++;
 	}
 	clearInterval(this.timer);
@@ -162,7 +200,7 @@ ShineEffect.prototype.createItems = function(){
 	this.spans.length = 0;
 	for(var i = 0; i < columnCount; i++){
 		for(var j = 0; j < rowCount; j++){
-			var s = dk.$c('a');
+			var s = $c('a');
 			s.href = this.observer.currentUrl;
 			this.spans.push(s);
 			fgm.appendChild(s);
@@ -177,13 +215,16 @@ ShineEffect.prototype.createItems = function(){
 
 ShineEffect.prototype.run = function(){
 	var num = this.totalCount;
+	var self = this;
 	this.isRunning = true;
 	if(this.counter < num - 1){
 		$(this.spans[this.counter]).fadeOut('slow');
 		this.counter ++;
 		return;
 	}else if(this.counter == num - 1){
-		$(this.spans[this.counter]).fadeOut('slow', dk.bind(this, this.callBack));
+		$(this.spans[this.counter]).fadeOut('slow', function(){
+			self.callBack();
+		});
 		this.counter ++;
 	}
 	clearInterval(this.timer);
@@ -204,7 +245,7 @@ RanShineEffect.prototype.createItems = function(){
 	this.spans.length = 0;
 	for(var i = 0; i < columnCount; i++){
 		for(var j = 0; j < rowCount; j++){
-			var s = dk.$c('a');
+			var s = $c('a');
 			s.href = this.observer.currentUrl;
 			this.spans.push(s);
 			fgm.appendChild(s);
@@ -217,14 +258,17 @@ RanShineEffect.prototype.createItems = function(){
 	return fgm;
 };
 RanShineEffect.prototype.run = function(){
+	var self = this;
 	var num = this.totalCount;
-	var curr = dk.rand(0, this.spans.length - 1);
+	var curr = rand(0, this.spans.length - 1);
 	if(this.spans.length > 1){
 		$(this.spans[curr]).fadeOut('slow');
 		this.spans.splice(curr, 1);
 		return;
 	}else if(this.spans.length == 1){
-		$(this.spans[0]).fadeOut('slow', dk.bind(this, this.callBack));
+		$(this.spans[0]).fadeOut('slow', function(){
+			self.callBack();
+		});
 		this.spans.length == 0;
 	}
 	clearInterval(this.timer);
@@ -246,7 +290,10 @@ FadeEffect.prototype.createItems = function(){
 };
 
 FadeEffect.prototype.run = function(){
-	$(this.fadeDiv).fadeOut('slow', dk.bind(this, this.callBack));
+	var self = this;
+	$(this.fadeDiv).fadeOut('slow', function(){
+		self.callBack();
+	});
 	clearInterval(this.timer);
 	this.counter = 0;
 };
@@ -262,17 +309,20 @@ RandRectEffect.prototype = new AbstractEffect();
 RandRectEffect.prototype.createItems = function(){
 	var fgm = document.createDocumentFragment();
 	for(var i = 0; i < 100; i++){
-		var span = dk.$c('span');
+		var span = $c('span');
 		this.spans.push(span);
 		fgm.appendChild(span);
+		var left = rand(0, this.width);
+		var top = rand(0, this.height);
 		$(span).css({
-			width: dk.rand(60, 200),
-			height: dk.rand(60, 200),
-			opacity: dk.rand(2, 6) / 10,
-			left: dk.rand(0, this.width - 200),
-			top: dk.rand(0, this.height - 50),
+			width: rand(60, 200),
+			height: rand(60, 200),
+			opacity: rand(2, 6) / 10,
+			left: left,
+			top: top,
 			position: 'absolute',
-			background:'#fff'
+			backgroundImage: 'url(' + this.image + ')',
+			backgroundPosition: '-' + left + 'px -' + top + 'px'
 		});
 	}
 	return fgm;
@@ -286,22 +336,20 @@ RandRectEffect.prototype.run = function(){
 		var top = parseInt($that.css('top'));
 		var rLeft, rTop;
 		if(left > this.width / 2){
-			rLeft = "+=" + dk.rand(0, this.width / 2);
+			rLeft = "+=" + rand(0, this.width / 2);
 		}else{
-			rLeft = "-=" + dk.rand(0, this.height / 2);
+			rLeft = "-=" + rand(0, this.height / 2);
 		}
 		if(top > this.height / 2){
-			rTop = "+=" + dk.rand(10, 120);
+			rTop = "+=" + rand(10, 120);
 		}else{
-			rTop = "-=" + dk.rand(10, 120);
+			rTop = "-=" + rand(10, 120);
 		}
 		
-		$that.animate({opacity: dk.rand(1, 3) / 10, width: dk.rand(50, 200), height: dk.rand(50, 200), left: rLeft, top: rTop}, 3000);
+		$that.animate({opacity: 0, width: rand(50, 200), height: rand(50, 200), left: rLeft, top: rTop}, 3000);
 	}
 	var self = this;
-	//setTimeout(function(){
-		self.callBack(true);
-	//}, 3000);
+	self.callBack(true);
 	clearInterval(this.timer);
 	this.counter = 0;
 };
@@ -309,7 +357,7 @@ RandRectEffect.prototype.run = function(){
 
 
 function getRanEffect(width, height, mask, image){
-	var pointer = dk.rand(0, 6);
+	var pointer = rand(0, 6);
 	switch(pointer){
 		case 0:
 			return new VSlideEffect(width, height, mask, image);
