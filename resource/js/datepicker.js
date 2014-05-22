@@ -9,7 +9,7 @@
 (function(window){
 
 var $$ = dk.$$;
-/*
+/**
 * interface IState{
 *   pre();
 *   next();

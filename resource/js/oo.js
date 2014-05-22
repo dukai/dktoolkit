@@ -13,5 +13,22 @@ var extend = function(subClass, baseClass){
 };
 
 window.extend = extend;
+
+var mix = function(base, child, deep){
+    var o = new Object();
+    for(var key in base){
+        o[key] = base[key];
+    }
+    for(var key in child){
+		if(deep && isPlainObject(o[key])){
+			o[key] = mix(o[key], child[key]);
+		}else{
+			o[key] = child[key];
+		}
+    }
+    return o;
+};
+
+window.mix = mix;
 })(window);
 
