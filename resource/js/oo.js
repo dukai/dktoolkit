@@ -1,14 +1,22 @@
 (function(win, undefined){
 
 var extend = function(subClass, baseClass){
-	subClass.parentConstructor = baseClass;
-	subClass.parent = {};
-
-	baseClass.call(subClass.parent);
-
+	var parent = subClass.parent = {
+		/**
+		 * parent construct
+		 * @param obj currentObject
+		 * @param args
+		 */
+		'__construct': function(obj, args){
+			baseClass.apply(obj, args);
+		}
+	};
 
 	for(var method in baseClass.prototype){
-		subClass.prototype[method] = subClass.parent[method] = baseClass.prototype[method];
+		parent[method] = baseClass.prototype[method];
+		if(! (method in subClass.prototype)){
+			subClass.prototype[method] = baseClass.prototype[method];
+		}
 	}
 };
 
