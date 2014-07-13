@@ -1,4 +1,4 @@
-==DK's JavaScript toolkit
+== DK's JavaScript toolkit
 
 1. Ajax Tool
 2. Motion Tool
